@@ -1,0 +1,100 @@
+import { MangaDetailFull } from "@/models/manga";
+import {
+  Chip,
+  Paper,
+  Rating,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Typography,
+} from "@mui/material";
+import Link from "next/link";
+import React from "react";
+import GenreBadges from "./GenreBadges";
+
+export default function MangaDetailTable({
+  mangaDetails,
+}: {
+  mangaDetails: MangaDetailFull;
+}) {
+  const items = [
+    {
+      title: "Rating",
+      content: `${mangaDetails.rating} / 5`,
+    },
+    {
+      title: "Alternative",
+      content: mangaDetails.alternative_title,
+    },
+    {
+      title: "Author",
+      content: mangaDetails.authors,
+    },
+    {
+      title: "Artist",
+      content: mangaDetails.artists,
+    },
+    {
+      title: "Genre",
+      content: mangaDetails.genres,
+    },
+    {
+      title: "Type",
+      content: mangaDetails.type,
+    },
+    { title: "Tags", content: mangaDetails.tags },
+    {
+      title: "Release",
+      content: mangaDetails.release_date,
+    },
+    {
+      title: "Status",
+      content: mangaDetails.status,
+    },
+  ];
+
+  return (
+    <TableContainer component={Paper} elevation={3}>
+      <Table>
+        <TableBody>
+          {items.map((row) => (
+            <TableRow
+              key={row.title}
+              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {row.title}
+              </TableCell>
+              <TableCell align="right">
+                {row.title === "Rating" ? (
+                  <Stack
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="end"
+                    gap={1}
+                  >
+                    <Rating
+                      value={mangaDetails.rating}
+                      readOnly
+                      precision={0.5}
+                    />
+                    <Typography variant="caption" sx={{ fontSize: "0.875rem" }}>
+                      {mangaDetails.rating} / 5
+                    </Typography>
+                  </Stack>
+                ) : row.title === "Genre" ? (
+                  <GenreBadges genres={row.content as string[]} />
+                ) : (
+                  row.content
+                )}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+}
