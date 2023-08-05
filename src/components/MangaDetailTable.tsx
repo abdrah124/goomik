@@ -57,7 +57,7 @@ export default function MangaDetailTable({
   ];
 
   return (
-    <TableContainer component={Paper} elevation={3}>
+    <TableContainer>
       <Table>
         <TableBody>
           {items.map((row) => (
@@ -86,7 +86,19 @@ export default function MangaDetailTable({
                     </Typography>
                   </Stack>
                 ) : row.title === "Genre" ? (
-                  <GenreBadges genres={row.content as string[]} />
+                  <Stack
+                    gap={1}
+                    direction="row"
+                    justifyContent="end"
+                    flexWrap="wrap"
+                  >
+                    <GenreBadges
+                      color="info"
+                      size="small"
+                      fontSize={10}
+                      genres={mangaDetails.genres as string[]}
+                    />
+                  </Stack>
                 ) : (
                   row.content
                 )}

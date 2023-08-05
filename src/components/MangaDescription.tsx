@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Typography, Collapse, Button } from "@mui/material";
+import { Typography, Collapse, Button, Stack } from "@mui/material";
 import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
 import { ExpandMore } from "./ExpandButton";
 
@@ -8,7 +8,24 @@ export default function MangaDescription({ desc }: { desc: string }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div>
+    <div className="px-2">
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        onClick={() => setExpanded(!expanded)}
+      >
+        <Typography
+          variant="h6"
+          component="h2"
+          gutterBottom
+          sx={{ fontWeight: 700 }}
+        >
+          Summary
+        </Typography>
+        <ExpandMore expand={expanded} onClick={() => setExpanded(!expanded)}>
+          <ExpandMoreIcon />
+        </ExpandMore>
+      </Stack>
       <Typography
         variant="body1"
         paragraph
@@ -31,16 +48,14 @@ export default function MangaDescription({ desc }: { desc: string }) {
           {desc.split(".").slice(1).join(".")}
         </Collapse>
       )}
-      <ExpandMore expand={expanded} onClick={() => setExpanded(!expanded)}>
-        <ExpandMoreIcon />
-      </ExpandMore>
-      <Typography
+      {/* <Typography
         onClick={() => setExpanded(!expanded)}
         component={"button"}
-        variant="button"
+        sx={{ fontWeight: 700 }}
+        variant="caption"
       >
         {expanded ? "Show less" : "Show more"}
-      </Typography>
+      </Typography> */}
     </div>
   );
 }

@@ -14,13 +14,14 @@ import Link from "next/link";
 import NewBadge from "./NewBadge";
 import SearchCardTheme from "./theme/typographySearchCard";
 import GenreBadges from "./GenreBadges";
+import MangaDetailTab from "./MangaDetailTab";
 
 export default async function MangaDetail({ mangaId }: { mangaId: string }) {
   const { data: mangaDetails } = await getMangaDetail(mangaId, {
     revalidate: 0,
   });
 
-  const { src, width, height } = mangaDetails.cover_image;
+  const { src, width, height } = mangaDetails?.cover_image;
   return (
     <SearchCardTheme>
       <Stack
@@ -29,17 +30,17 @@ export default async function MangaDetail({ mangaId }: { mangaId: string }) {
         justifyContent="start"
         marginX="auto"
         width="100%"
-        p={1}
+        paddingY={1}
         maxWidth={768}
       >
         <Stack direction="row" gap={2}>
-          <div className="pl-2">
+          <div className="pl-3">
             <Image
               src={src}
               width={width}
               height={height}
               alt={mangaDetails.title}
-              className="rounded-md shadow-md min-w-[120px] shadow-[rgba(0,0,0,.5)]"
+              className="rounded-md shadow-md min-w-[110px] shadow-[rgba(0,0,0,.3)]"
               unoptimized
             />
           </div>
@@ -47,14 +48,26 @@ export default async function MangaDetail({ mangaId }: { mangaId: string }) {
             <Typography
               variant="h5"
               component="h1"
-              sx={{ fontSize: { xs: "1.25rem", md: "1.5rem" } }}
+              sx={{ fontSize: { xs: "1.30rem", md: "1.5rem" } }}
+              gutterBottom
             >
               {mangaDetails.title}
             </Typography>
-            <p className="text-zinc-500 qc-b text-sm">{mangaDetails.authors}</p>
+            <p className="text-zinc-500 qc-b text-sm">
+              <span className="text-black">Authors:</span>{" "}
+              {mangaDetails.authors}
+            </p>
+            <p className="text-zinc-500 qc-b text-sm">
+              <span className="text-black">Artists:</span>{" "}
+              {mangaDetails.artists}
+            </p>
+            <p className="text-zinc-500 qc-b text-sm">
+              <span className="text-black">Status:</span> {mangaDetails.status}
+            </p>
+
             <Stack direction="row" alignItems="center" gap={1}>
               <Rating value={mangaDetails.rating} readOnly precision={0.5} />
-              <p className="text-zinc-500 qc-b text-sm">
+              <p className="text-black qc-b text-sm">
                 {mangaDetails.rating} / 5
               </p>
             </Stack>
@@ -65,65 +78,19 @@ export default async function MangaDetail({ mangaId }: { mangaId: string }) {
           direction="row"
           gap={1}
           width="100%"
-          mt={4}
+          mt={2}
           paddingX={1}
           className="hide-scrollbar"
           sx={{ overflowX: "auto" }}
         >
-          <GenreBadges fontSize={12} genres={mangaDetails.genres as string[]} />
+          <GenreBadges
+            color="info"
+            fontSize={12}
+            genres={mangaDetails.genres as string[]}
+          />
         </Stack>
-        <Stack direction="column" mt={2} padding={1}>
-          <Typography
-            variant="h6"
-            component="h2"
-            gutterBottom
-            sx={{ fontWeight: 700 }}
-          >
-            Summary
-          </Typography>
-          <MangaDescription desc={mangaDetails.description ?? ""} />
-        </Stack>
-        <Stack direction="column" mt={2} width="100%">
-          <Typography
-            variant="h6"
-            component="h2"
-            gutterBottom
-            sx={{ fontWeight: 700, paddingX: 1 }}
-          >
-            Latest Chapter
-          </Typography>
-          <List>
-            {mangaDetails.chapter_list.map((e) => (
-              <ListItem disablePadding key={e.id}>
-                <Link
-                  href={`/manga/${mangaDetails.id}/${e.id}`}
-                  className="hover:brightness-75 transition-all flex w-full justify-between py-3 border-b-2 px-2 border-zinc-200 hover:bg-zinc-200 visited:text-zinc-500"
-                >
-                  <ListItemText
-                    sx={{
-                      padding: 0,
-                      margin: 0,
-                      maxWidth: "60%",
-                    }}
-                    primaryTypographyProps={{
-                      variant: "caption",
-                    }}
-                    primary={
-                      e.id[0].toUpperCase() + e.id.slice(1).split("-").join(" ")
-                    }
-                  />
-                  {e.release_date !== "new" ? (
-                    <Typography variant="caption">
-                      {e.release_date as string}
-                    </Typography>
-                  ) : (
-                    <NewBadge />
-                  )}
-                </Link>
-              </ListItem>
-            ))}
-          </List>
-        </Stack>
+
+        <MangaDetailTab mangaDetails={mangaDetails} />
       </Stack>
     </SearchCardTheme>
   );

@@ -16,7 +16,7 @@ export default function CardSlider({
         sx={{
           fontWeight: 700,
           paddingLeft: "8px",
-          fontFamily: "var(--cabin)",
+          fontFamily: "var(--cabin), var(--poppins), Arial, Helvetica",
         }}
       >
         {title}
