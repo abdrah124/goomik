@@ -53,21 +53,21 @@ export default async function MangaDetail({ mangaId }: { mangaId: string }) {
             >
               {mangaDetails.title}
             </Typography>
-            <p className="text-zinc-500 qc-b text-sm">
+            <p className="text-zinc-500 txt-cab font-bold text-sm">
               <span className="text-black">Authors:</span>{" "}
               {mangaDetails.authors}
             </p>
-            <p className="text-zinc-500 qc-b text-sm">
+            <p className="text-zinc-500 txt-cab font-bold text-sm">
               <span className="text-black">Artists:</span>{" "}
               {mangaDetails.artists}
             </p>
-            <p className="text-zinc-500 qc-b text-sm">
+            <p className="text-zinc-500 txt-cab font-bold text-sm">
               <span className="text-black">Status:</span> {mangaDetails.status}
             </p>
 
             <Stack direction="row" alignItems="center" gap={1}>
               <Rating value={mangaDetails.rating} readOnly precision={0.5} />
-              <p className="text-black qc-b text-sm">
+              <p className="text-black txt-cab font-bold text-sm">
                 {mangaDetails.rating} / 5
               </p>
             </Stack>

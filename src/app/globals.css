@@ -49,3 +49,7 @@
   font-family: var(--poppins);
   font-weight: 700;
 }
+
+.txt-cab {
+  font-family: var(--cabin);
+}
