@@ -107,9 +107,9 @@ export default function DrawerAppBar(props: Props) {
               <ListItemButton
                 sx={{
                   "& .MuiTypography-root": {
-                    textAlign: "left",
+                    textAlign: "center",
                     fontFamily: "var(--quicksand)",
-                    fontWeight: 700,
+                    fontWeight: 500,
                   },
                 }}
               >
@@ -183,7 +183,7 @@ export default function DrawerAppBar(props: Props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: "block", sm: "none" },
+            display: { xs: "block", md: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
               width: drawerWidth,

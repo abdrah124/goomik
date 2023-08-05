@@ -1,6 +1,5 @@
 import { getMangaDetail } from "@/lib/getData";
 import {
-  Paper,
   Stack,
   Typography,
   List,
@@ -13,7 +12,6 @@ import React from "react";
 import MangaDescription from "./MangaDescription";
 import Link from "next/link";
 import NewBadge from "./NewBadge";
-import MangaDetailTable from "./MangaDetailTable";
 import SearchCardTheme from "./theme/typographySearchCard";
 import GenreBadges from "./GenreBadges";
 
@@ -35,13 +33,13 @@ export default async function MangaDetail({ mangaId }: { mangaId: string }) {
         maxWidth={768}
       >
         <Stack direction="row" gap={2}>
-          <div className="w-[30%] pl-2">
+          <div className="pl-2">
             <Image
               src={src}
               width={width}
               height={height}
               alt={mangaDetails.title}
-              className="rounded-md shadow-md min-w-36 shadow-[rgba(0,0,0,.5)]"
+              className="rounded-md shadow-md min-w-[120px] shadow-[rgba(0,0,0,.5)]"
               unoptimized
             />
           </div>
@@ -49,11 +47,7 @@ export default async function MangaDetail({ mangaId }: { mangaId: string }) {
             <Typography
               variant="h5"
               component="h1"
-              sx={{
-                fontWeight: 700,
-                fontFamily: "var(--cabin)",
-                fontSize: { xs: 18, md: "auto" },
-              }}
+              sx={{ fontSize: { xs: "1.25rem", md: "1.5rem" } }}
             >
               {mangaDetails.title}
             </Typography>
@@ -89,12 +83,12 @@ export default async function MangaDetail({ mangaId }: { mangaId: string }) {
           </Typography>
           <MangaDescription desc={mangaDetails.description ?? ""} />
         </Stack>
-        <Stack padding={1} direction="column" mt={2} width="100%">
+        <Stack direction="column" mt={2} width="100%">
           <Typography
             variant="h6"
             component="h2"
             gutterBottom
-            sx={{ fontWeight: 700 }}
+            sx={{ fontWeight: 700, paddingX: 1 }}
           >
             Latest Chapter
           </Typography>
@@ -103,25 +97,28 @@ export default async function MangaDetail({ mangaId }: { mangaId: string }) {
               <ListItem disablePadding key={e.id}>
                 <Link
                   href={`/manga/${mangaDetails.id}/${e.id}`}
-                  className="hover:brightness-75 transition-all flex w-full justify-between items-center"
+                  className="hover:brightness-75 transition-all flex w-full justify-between py-3 border-b-2 px-2 border-zinc-200 hover:bg-zinc-200 visited:text-zinc-500"
                 >
                   <ListItemText
-                    sx={{ padding: 1 }}
+                    sx={{
+                      padding: 0,
+                      margin: 0,
+                      maxWidth: "60%",
+                    }}
                     primaryTypographyProps={{
                       variant: "caption",
-                      fontSize: 13,
                     }}
                     primary={
                       e.id[0].toUpperCase() + e.id.slice(1).split("-").join(" ")
                     }
                   />
                   {e.release_date !== "new" ? (
-                    <Typography variant="caption" fontSize={13}>
+                    <Typography variant="caption">
                       {e.release_date as string}
                     </Typography>
                   ) : (
                     <NewBadge />
-                  )}{" "}
+                  )}
                 </Link>
               </ListItem>
             ))}

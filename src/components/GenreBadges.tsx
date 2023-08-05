@@ -37,3 +37,4 @@ export default function GenreBadges({
     </>
   );
 }
+("Arial, var(--roboto), Helvetica");

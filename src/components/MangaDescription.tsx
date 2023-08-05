@@ -9,7 +9,13 @@ export default function MangaDescription({ desc }: { desc: string }) {
 
   return (
     <div>
-      <Typography variant="body1" paragraph mb={0} display="inline">
+      <Typography
+        variant="body1"
+        paragraph
+        mb={0}
+        display="inline"
+        sx={{ fontFamily: "Arial, var(--roboto), Helvetica" }}
+      >
         {desc.split(".").slice(0, 1).join(".")
           ? desc.split(".").slice(0, 1).join(".") + "."
           : ""}
@@ -17,6 +23,7 @@ export default function MangaDescription({ desc }: { desc: string }) {
       {desc.length > 100 && (
         <Collapse
           in={expanded}
+          sx={{ fontFamily: "Arial, var(--roboto), Helvetica" }}
           timeout="auto"
           // @ts-ignore
           variant="body1"
