@@ -40,14 +40,6 @@ export default function MangaDescription({ desc }: { desc: string }) {
           {desc.split(".").slice(1).join(".")}
         </Collapse>
       )}
-      {/* <Typography
-        onClick={() => setExpanded(!expanded)}
-        component={"button"}
-        sx={{ fontWeight: 700 }}
-        variant="caption"
-      >
-        {expanded ? "Show less" : "Show more"}
-      </Typography> */}
     </div>
   );
 }

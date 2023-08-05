@@ -16,8 +16,9 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Link from "next/link";
 import SearchIcon from "@mui/icons-material/Search";
-import { InputBase, alpha, styled } from "@mui/material";
+import { InputBase, ListItemIcon, Paper, alpha, styled } from "@mui/material";
 import { useRouter } from "next/navigation";
+import SearchSelect from "./SearchSelect";
 
 interface Props {
   /**
@@ -160,7 +161,10 @@ export default function DrawerAppBar(props: Props) {
               </Link>
             ))}
           </Box>
-          <Search onSubmit={(e) => handleSubmit(e)}>
+          <Search
+            onSubmit={(e) => handleSubmit(e)}
+            style={{ position: "relative" }}
+          >
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
@@ -170,6 +174,7 @@ export default function DrawerAppBar(props: Props) {
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
+            <SearchSelect input={input} onListClick={setInput} />
           </Search>
         </Toolbar>
       </AppBar>
