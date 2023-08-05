@@ -3,17 +3,9 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import {
-  Box,
-  CardActionArea,
-  CardActions,
-  Chip,
-  Rating,
-  Stack,
-} from "@mui/material";
+import { Box, CardActionArea, Rating } from "@mui/material";
 import Link from "next/link";
 import { MangaDetailSimplified } from "@/models/manga";
-import NewBadge from "./NewBadge";
 
 interface Props {
   data: MangaDetailSimplified;
@@ -21,10 +13,17 @@ interface Props {
 
 export default function MangaCard({ data }: Props) {
   return (
-    <Card sx={{ minWidth: { xs: 140, sm: 170 } }}>
+    <Card
+      sx={{
+        minWidth: { xs: 140, sm: 170 },
+        boxShadow: "none",
+        scrollSnapAlign: "center",
+      }}
+      className="snap-center"
+    >
       <CardActionArea LinkComponent={Link} href={`/manga/${data.id}`}>
         <CardMedia
-          className="hover:brightness-75 transition-all"
+          className="hover:brightness-75 rounded-md shadow-md shadow-[rgba(0,0,0,.2)] transition-all"
           component="img"
           height={data.cover_image.height}
           width={data.cover_image.width}
@@ -33,19 +32,17 @@ export default function MangaCard({ data }: Props) {
           alt={data.title}
         />
       </CardActionArea>
-      <CardContent
+      <Box
         sx={{
-          paddingX: { xs: 1 },
-          paddingTop: { xs: 1 },
-          paddingBottom: 0,
+          paddingTop: 1,
         }}
       >
         <Link href={`/manga/${data.id}`}>
           <Typography
-            gutterBottom
             variant="h6"
             component="h2"
-            sx={{ fontSize: { xs: 13 } }}
+            sx={{ fontSize: { xs: 12 }, fontFamily: "var(--poppins)" }}
+            gutterBottom
           >
             {data.title}
           </Typography>
@@ -63,8 +60,8 @@ export default function MangaCard({ data }: Props) {
             {data.rating}
           </Typography>
         </Box>
-      </CardContent>
-      <CardActions
+      </Box>
+      {/* <CardActions
         sx={{ paddingX: { xs: 1 }, paddingBottom: { xs: 1 }, width: "100%" }}
       >
         <Stack direction="column" spacing={1} sx={{ width: "100%" }}>
@@ -85,7 +82,7 @@ export default function MangaCard({ data }: Props) {
             </Link>
           ))}
         </Stack>
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 }

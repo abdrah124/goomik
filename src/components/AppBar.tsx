@@ -93,7 +93,10 @@ export default function DrawerAppBar(props: Props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Typography
+        variant="h5"
+        sx={{ my: 2, fontFamily: "var(--quicksand)", fontWeight: 700 }}
+      >
         Goomik
       </Typography>
       <Divider />
@@ -101,10 +104,18 @@ export default function DrawerAppBar(props: Props) {
         {navItems.map((item) => (
           <Link href={getHref(item)} key={item}>
             <ListItem disablePadding>
-              <ListItemButton sx={{ textAlign: "center" }}>
+              <ListItemButton
+                sx={{
+                  "& .MuiTypography-root": {
+                    textAlign: "left",
+                    fontFamily: "var(--quicksand)",
+                    fontWeight: 700,
+                  },
+                }}
+              >
                 <ListItemText primary={item} />
               </ListItemButton>
-            </ListItem>{" "}
+            </ListItem>
           </Link>
         ))}
       </List>
@@ -129,16 +140,23 @@ export default function DrawerAppBar(props: Props) {
             <MenuIcon />
           </IconButton>
           <Typography
-            variant="h6"
+            variant="h5"
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", sm: "block" },
+              fontFamily: "var(--quicksand)",
+              fontWeight: 700,
+            }}
           >
             Goomik
           </Typography>
           <Box sx={{ display: { xs: "none", md: "block" } }}>
             {navItems.map((item) => (
               <Link key={item} href={getHref(item)}>
-                <Button sx={{ color: "#fff" }}>{item}</Button>
+                <Button sx={{ color: "#fff", fontFamily: "var(--quicksand)" }}>
+                  {item}
+                </Button>
               </Link>
             ))}
           </Box>

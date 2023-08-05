@@ -15,3 +15,37 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+
+.hide-scrollbar {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+.qc-n {
+  font-family: var(--quicksand);
+  font-weight: 400;
+}
+.qc-md {
+  font-family: var(--quicksand);
+  font-weight: 500;
+}
+.qc-b {
+  font-family: var(--quicksand);
+  font-weight: 700;
+}
+
+.poppins-n {
+  font-family: var(--poppins);
+  font-weight: 400;
+}
+.poppins-md {
+  font-family: var(--poppins);
+  font-weight: 500;
+}
+.poppins-b {
+  font-family: var(--poppins);
+  font-weight: 700;
+}
