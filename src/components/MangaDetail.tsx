@@ -35,13 +35,13 @@ export default async function MangaDetail({ mangaId }: { mangaId: string }) {
         maxWidth={768}
       >
         <Stack direction="row" gap={2}>
-          <div className="w-[30%]">
+          <div className="w-[30%] pl-2">
             <Image
               src={src}
               width={width}
               height={height}
               alt={mangaDetails.title}
-              className="rounded-md shadow-md w-36 shadow-[rgba(0,0,0,.5)]"
+              className="rounded-md shadow-md min-w-36 shadow-[rgba(0,0,0,.5)]"
               unoptimized
             />
           </div>
