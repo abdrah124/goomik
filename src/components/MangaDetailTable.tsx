@@ -11,7 +11,6 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import Link from "next/link";
 import React from "react";
 import GenreBadges from "./GenreBadges";
 

@@ -67,7 +67,7 @@ export default function MangaDetailTab({
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
-        <Stack direction="column" padding={1}>
+        <Stack direction="column">
           <MangaDetailTable mangaDetails={mangaDetails} />{" "}
           <MangaDescription desc={mangaDetails.description ?? ""} />
         </Stack>

@@ -16,7 +16,7 @@ export default function MangaChapterList({
           <ListItem disablePadding key={chapter.id}>
             <Link
               href={`/manga/${mangaDetails.id}/${chapter.id}`}
-              className="hover:brightness-75 transition-all flex w-full justify-between py-3 border-b-[1px] px-2 border-zinc-200 hover:bg-zinc-200 visited:text-zinc-500"
+              className="hover:brightness-75 transition-all flex w-full justify-between py-3 border-b-[1px] px-4 border-zinc-200 hover:bg-zinc-200 visited:text-zinc-500"
             >
               <ListItemText
                 sx={{
@@ -25,7 +25,7 @@ export default function MangaChapterList({
                   maxWidth: "60%",
                 }}
                 primaryTypographyProps={{
-                  variant: "caption",
+                  variant: "subtitle2",
                 }}
                 primary={
                   chapter.id[0].toUpperCase() +
@@ -33,7 +33,7 @@ export default function MangaChapterList({
                 }
               />
               {chapter.release_date !== "new" ? (
-                <Typography variant="caption">
+                <Typography variant="subtitle2">
                   {chapter.release_date as string}
                 </Typography>
               ) : (

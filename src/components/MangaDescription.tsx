@@ -8,7 +8,7 @@ export default function MangaDescription({ desc }: { desc: string }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="px-2">
+    <div className="px-4">
       <Stack
         direction="row"
         justifyContent="space-between"
@@ -26,13 +26,7 @@ export default function MangaDescription({ desc }: { desc: string }) {
           <ExpandMoreIcon />
         </ExpandMore>
       </Stack>
-      <Typography
-        variant="body1"
-        paragraph
-        mb={0}
-        display="inline"
-        sx={{ fontFamily: "Arial, var(--roboto), Helvetica" }}
-      >
+      <Typography variant="body1" paragraph mb={0} display="inline">
         {desc.split(".").slice(0, 1).join(".")
           ? desc.split(".").slice(0, 1).join(".") + "."
           : ""}
@@ -40,10 +34,8 @@ export default function MangaDescription({ desc }: { desc: string }) {
       {desc.length > 100 && (
         <Collapse
           in={expanded}
-          sx={{ fontFamily: "Arial, var(--roboto), Helvetica" }}
           timeout="auto"
-          // @ts-ignore
-          variant="body1"
+          sx={{ fontFamily: "Roboto , Helvetica , Arial ,sans-serif" }}
         >
           {desc.split(".").slice(1).join(".")}
         </Collapse>
