@@ -4,8 +4,9 @@ import type { Metadata } from "next";
 import { Inter, Quicksand, Poppins, Cabin, Roboto } from "next/font/google";
 import React from "react";
 import { PageLayout } from "@/models/pageLayout";
-import RootTheme from "@/components/theme/theme";
+import RootTheme from "@/components/theme/RootTheme";
 import QueryProvider from "@/components/utils/QueryProvider";
+import { ThemePalleteMode } from "@/components/ThemeToggler";
 
 const inter = Inter({ subsets: ["latin"] });
 const quickSand = Quicksand({
@@ -51,14 +52,16 @@ interface PageLayoutProps extends PageLayout {}
 export default function RootLayout({ children }: PageLayoutProps) {
   return (
     <html lang="en">
-      <RootTheme>
-        <body className={fonts + " pt-16 sm:pt-20 pb-4 "}>
-          <QueryProvider>
-            <DrawerAppBar />
-            {children}
-          </QueryProvider>
-        </body>
-      </RootTheme>
+      <ThemePalleteMode>
+        <RootTheme>
+          <body className={fonts + " pt-16 sm:pt-20 pb-4 "}>
+            <QueryProvider>
+              <DrawerAppBar />
+              {children}
+            </QueryProvider>
+          </body>
+        </RootTheme>
+      </ThemePalleteMode>
     </html>
   );
 }

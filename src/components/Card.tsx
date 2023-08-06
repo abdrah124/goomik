@@ -41,7 +41,7 @@ export default function MangaCard({ data }: Props) {
           <Typography
             variant="h6"
             component="h2"
-            sx={{ fontSize: { xs: 12 }, fontFamily: "var(--poppins)" }}
+            sx={{ fontSize: { xs: 12 }, fontWeight: 500 }}
             gutterBottom
           >
             {data.title}

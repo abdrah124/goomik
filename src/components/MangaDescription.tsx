@@ -8,7 +8,7 @@ export default function MangaDescription({ desc }: { desc: string }) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="px-4">
+    <div className="px-4 pt-2">
       <Stack
         direction="row"
         justifyContent="space-between"

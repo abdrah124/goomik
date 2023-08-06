@@ -4,13 +4,13 @@ import { ThemeProvider, createTheme } from "@mui/material";
 const theme = createTheme({
   typography: {
     h5: {
-      fontFamily: "var(--cabin), var(--poppins), Arial, Helvetica",
+      // fontFamily: "var(--cabin), var(--poppins), Arial, Helvetica",
       fontWeight: 700,
     },
-    h6: { fontFamily: "var(--cabin), var(--poppins), Arial, Helvetica" },
+    // h6: { fontFamily: "var(--cabin), var(--poppins), Arial, Helvetica" },
     caption: {
       fontSize: 14,
-      fontFamily: "Arial, var(--roboto), Helvetica",
+      // fontFamily: "Arial, var(--roboto), Helvetica",
       fontWeight: 500,
     },
   },
@@ -18,7 +18,7 @@ const theme = createTheme({
 
 import React from "react";
 
-export default function SearchCardTheme({
+export default function MangagDetailTheme({
   children,
 }: {
   children: React.ReactNode;

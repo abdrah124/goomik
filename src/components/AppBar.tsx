@@ -19,6 +19,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { InputBase, ListItemIcon, Paper, alpha, styled } from "@mui/material";
 import { useRouter } from "next/navigation";
 import SearchSelect from "./SearchSelect";
+import ThemeToggler from "./ThemeToggler";
 
 interface Props {
   /**
@@ -109,7 +110,6 @@ export default function DrawerAppBar(props: Props) {
                 sx={{
                   "& .MuiTypography-root": {
                     textAlign: "center",
-                    fontFamily: "var(--quicksand)",
                     fontWeight: 500,
                   },
                 }}
@@ -155,9 +155,7 @@ export default function DrawerAppBar(props: Props) {
           <Box sx={{ display: { xs: "none", md: "block" } }}>
             {navItems.map((item) => (
               <Link key={item} href={getHref(item)}>
-                <Button sx={{ color: "#fff", fontFamily: "var(--quicksand)" }}>
-                  {item}
-                </Button>
+                <Button sx={{ color: "#fff" }}>{item}</Button>
               </Link>
             ))}
           </Box>
@@ -176,6 +174,7 @@ export default function DrawerAppBar(props: Props) {
             />
             <SearchSelect input={input} onListClick={setInput} />
           </Search>
+          <ThemeToggler />
         </Toolbar>
       </AppBar>
       <Box component="nav">

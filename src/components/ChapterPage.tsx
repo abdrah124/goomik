@@ -1,7 +1,6 @@
 import { getMangaChapter } from "@/lib/getData";
 import ChapterImage from "@/components/ChapterImage";
-import React, { Suspense } from "react";
-import CardSkeleton from "./CardSkeleton";
+import React from "react";
 
 interface Props {
   mangaId: string;

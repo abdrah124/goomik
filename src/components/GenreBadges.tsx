@@ -30,7 +30,7 @@ export default function GenreBadges({
             label={e}
             size={size}
             color={color}
-            sx={{ fontSize, fontFamily: "var(--poppins)", fontWeight: 700 }}
+            sx={{ fontSize, fontWeight: 700 }}
           />
         </Link>
       ))}

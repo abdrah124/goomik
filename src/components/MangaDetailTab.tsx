@@ -53,23 +53,18 @@ export default function MangaDetailTab({
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%", marginTop: 2 }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={value} onChange={handleChange} aria-label="manga tabs">
           {tabs.map((tab, i) => (
-            <Tab
-              label={tab}
-              key={tab}
-              {...a11yProps(i)}
-              sx={{ fontFamily: "var(--quicksand)" }}
-            />
+            <Tab label={tab} key={tab} {...a11yProps(i)} />
           ))}
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
         <Stack direction="column">
-          <MangaDetailTable mangaDetails={mangaDetails} />{" "}
           <MangaDescription desc={mangaDetails.description ?? ""} />
+          <MangaDetailTable mangaDetails={mangaDetails} />
         </Stack>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
