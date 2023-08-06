@@ -7,6 +7,8 @@ import { PageLayout } from "@/models/pageLayout";
 import RootTheme from "@/components/theme/RootTheme";
 import QueryProvider from "@/components/utils/QueryProvider";
 import { ThemePalleteMode } from "@/components/ThemeToggler";
+import { Button, CssBaseline } from "@mui/material";
+import { ChevronLeft } from "@mui/icons-material";
 
 const inter = Inter({ subsets: ["latin"] });
 const quickSand = Quicksand({
@@ -51,17 +53,17 @@ interface PageLayoutProps extends PageLayout {}
 
 export default function RootLayout({ children }: PageLayoutProps) {
   return (
-    <html lang="en">
+    <RootTheme>
       <ThemePalleteMode>
-        <RootTheme>
+        <html lang="en">
           <body className={fonts + " pt-16 sm:pt-20 pb-4 "}>
             <QueryProvider>
               <DrawerAppBar />
               {children}
             </QueryProvider>
           </body>
-        </RootTheme>
+        </html>
       </ThemePalleteMode>
-    </html>
+    </RootTheme>
   );
 }

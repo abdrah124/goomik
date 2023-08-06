@@ -78,6 +78,7 @@ export default function MangaDetailTable({
                     <Rating
                       value={mangaDetails.rating}
                       readOnly
+                      sx={{ fontSize: 19 }}
                       precision={0.5}
                     />
                     <Typography variant="caption" sx={{ fontSize: "0.875rem" }}>

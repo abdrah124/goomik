@@ -25,7 +25,7 @@ export default function MangaCard({ data }: Props) {
         <CardMedia
           className="hover:brightness-75 rounded-md shadow-md shadow-[rgba(0,0,0,.2)] transition-all"
           component="img"
-          height={data.cover_image.height}
+          // height={data.cover_image.height}
           width={data.cover_image.width}
           image={data.cover_image.src}
           srcSet={data.cover_image.srcset}

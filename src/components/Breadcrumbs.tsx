@@ -12,12 +12,12 @@ export default function PageBreadcrumbs({
   sx?: SxProps<Theme> | undefined;
 }) {
   return (
-    <Breadcrumbs aria-label="breadcrumb" sx={{ ...sx }}>
+    <Breadcrumbs aria-label="breadcrumb" sx={{ ...sx }} component="div">
       {items.map((item) => (
         <Link
           component={NextLink}
           underline="hover"
-          sx={{ fontSize: { xs: 14, md: 16 } }}
+          sx={{ fontSize: { xs: 12, md: 16 }, fontWeight: 500 }}
           color="inherit"
           href={item.href}
           key={item.title + item.href}

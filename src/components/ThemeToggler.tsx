@@ -60,6 +60,9 @@ export function ThemePalleteMode({ children }: { children: React.ReactNode }) {
       createTheme({
         palette: {
           mode,
+          background: {
+            default: mode === "dark" ? "rgb(39, 39, 42)" : "white",
+          },
         },
       }),
     [mode]

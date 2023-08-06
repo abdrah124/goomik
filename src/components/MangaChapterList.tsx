@@ -11,12 +11,16 @@ export default function MangaChapterList({
 }) {
   return (
     <Stack direction="column" width="100%">
-      <List>
+      <List sx={{ paddingTop: 0 }}>
         {mangaDetails.chapter_list.map((chapter) => (
-          <ListItem disablePadding key={chapter.id}>
+          <ListItem
+            disablePadding
+            key={chapter.id}
+            sx={{ borderBottom: "solid 1px rgb(228, 228, 231)" }}
+          >
             <Link
               href={`/manga/${mangaDetails.id}/${chapter.id}`}
-              className="hover:brightness-75 transition-all flex w-full justify-between py-3 border-b-[1px] px-4 border-zinc-200 hover:bg-zinc-200 visited:text-zinc-500"
+              className="hover:brightness-75 transition-all flex w-full justify-between py-3 px-4 visited:text-zinc-500"
             >
               <ListItemText
                 sx={{

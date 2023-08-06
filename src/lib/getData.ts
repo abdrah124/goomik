@@ -73,21 +73,24 @@ export const getMangaChapter: (
   mangaId: string,
   chapterId: string,
   options?: FetcherOptions
-) => Promise<ResponseObject<{ title: string; images: string[] }>> = async (
-  mangaId,
-  chapterId,
-  options = { revalidate: false }
-) => {
+) => Promise<
+  ResponseObject<{
+    title: string;
+    images: string[];
+    next: string;
+    prev: string;
+  }>
+> = async (mangaId, chapterId, options = { revalidate: false }) => {
   const data = await fetcher(mangaSingleChapter(mangaId, chapterId), options);
   return data;
 };
 
 export const getMangaChapterList: (
   mangaId: string,
-  options: FetcherOptions
+  options?: FetcherOptions
 ) => Promise<
   ResponseObject<{ chapter_list: MangaChapterFull[]; total: number }>
-> = async (mangaId, options) => {
-  const data = await fetcher(allMangaChapters(mangaId));
+> = async (mangaId, options = { revalidate: false }) => {
+  const data = await fetcher(allMangaChapters(mangaId), options);
   return data;
 };

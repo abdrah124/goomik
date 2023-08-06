@@ -26,6 +26,7 @@ export default function ChapterImage({
           width: "100%",
           height: "auto",
           maxWidth: 450,
+          minWidth: 300,
         }}
         width={400}
         height={400}

@@ -22,9 +22,11 @@ export default function MangaDescription({ desc }: { desc: string }) {
         >
           Summary
         </Typography>
-        <ExpandMore expand={expanded} onClick={() => setExpanded(!expanded)}>
-          <ExpandMoreIcon />
-        </ExpandMore>
+        {desc.split(".").slice(1)?.[1] !== undefined && (
+          <ExpandMore expand={expanded} onClick={() => setExpanded(!expanded)}>
+            <ExpandMoreIcon />
+          </ExpandMore>
+        )}
       </Stack>
       <Typography variant="body1" paragraph mb={0} display="inline">
         {desc.split(".").slice(0, 1).join(".")
