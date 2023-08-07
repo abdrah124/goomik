@@ -33,7 +33,7 @@ export default function SelectMenu({ items }: { items: MangaChapterFull[] }) {
         onClick={handleClick}
         variant="outlined"
       >
-        <Typography variant="button" noWrap sx={{ width: 100 }}>
+        <Typography variant="button" noWrap sx={{ maxWidth: 150 }}>
           {getChapterString(params.chapterId as string)}
         </Typography>
       </Button>

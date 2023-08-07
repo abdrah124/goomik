@@ -61,7 +61,7 @@ export default function ChapterSelect({
 
   return (
     <div>
-      <FormControl sx={{ width: 200 }}>
+      <FormControl sx={{ maxWidth: 300 }}>
         <InputLabel>Chapter</InputLabel>
         <Select
           multiple
