@@ -35,29 +35,35 @@ export async function GET(
 
     const datas: MangaItemFull[] = getMangaItem(contentItem, $);
 
-    return NextResponse.json({
-      status: 200,
-      ok: true,
-      success: true,
-      data: {
-        items: datas,
-        next: `${baseWebUrl}/api/genre?genre=${genre}&page=${
-          Number(page) + 1
-        }&order_by=${order_by}`,
-        prev:
-          Number(page) > 1
-            ? `${baseWebUrl}/api/genre?genre=${genre}&page=${
-                Number(page) - 1
-              }&order_by=${order_by}`
-            : null,
+    return NextResponse.json(
+      {
+        status: 200,
+        ok: true,
+        success: true,
+        data: {
+          items: datas,
+          next: `${baseWebUrl}/api/genre?genre=${genre}&page=${
+            Number(page) + 1
+          }&order_by=${order_by}`,
+          prev:
+            Number(page) > 1
+              ? `${baseWebUrl}/api/genre?genre=${genre}&page=${
+                  Number(page) - 1
+                }&order_by=${order_by}`
+              : null,
+        },
       },
-    });
+      { status: 200 }
+    );
   } catch (err: any) {
-    return NextResponse.json({
-      success: false,
-      ok: false,
-      status: err.message === "Not found" ? 404 : 401,
-      message: err.message,
-    });
+    return NextResponse.json(
+      {
+        success: false,
+        ok: false,
+        status: err.message === "Not found" ? 404 : 401,
+        message: err.message,
+      },
+      { status: err.message === "Not found" ? 404 : 401 }
+    );
   }
 }

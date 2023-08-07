@@ -22,25 +22,33 @@ export async function GET(
       { next: { revalidate: 0 } }
     );
     const json = await responseData.json();
-    return NextResponse.json({
-      ...json,
-      data: {
-        items: json.data.items,
-        next:
-          json.data.total > 12
-            ? `${baseWebUrl}/api/manga/trending?page=${page + 1}`
-            : null,
-        prev:
-          page > 1 ? `${baseWebUrl}/api/manga/trending?page=${page - 1}` : null,
-        total: json.data.total,
+    return NextResponse.json(
+      {
+        ...json,
+        data: {
+          items: json.data.items,
+          next:
+            json.data.total > 12
+              ? `${baseWebUrl}/api/manga/trending?page=${page + 1}`
+              : null,
+          prev:
+            page > 1
+              ? `${baseWebUrl}/api/manga/trending?page=${page - 1}`
+              : null,
+          total: json.data.total,
+        },
       },
-    });
+      { status: 200 }
+    );
   } catch (err: any) {
-    return NextResponse.json({
-      success: false,
-      ok: false,
-      status: 401,
-      message: err.message,
-    });
+    return NextResponse.json(
+      {
+        success: false,
+        ok: false,
+        status: 401,
+        message: err.message,
+      },
+      { status: err.message === "Not found" ? 404 : 401 }
+    );
   }
 }

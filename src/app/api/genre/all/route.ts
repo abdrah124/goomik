@@ -20,27 +20,34 @@ export async function GET(): Promise<
     const genres: string[] = [];
 
     genreItem.each((i, el) => {
-      genres.push(
-        $(el).attr("href")?.includes("%")
-          ? "villainess"
-          : getPathname($(el).attr("href") as string)[2]
-      );
+      if (($(el).attr("href") ?? []).length > 0)
+        genres.push(
+          $(el).attr("href")?.includes("%")
+            ? "villainess"
+            : (getPathname($(el).attr("href") as string) as string[])[2]
+        );
     });
 
-    return NextResponse.json({
-      status: 200,
-      ok: true,
-      success: true,
-      data: {
-        genres,
+    return NextResponse.json(
+      {
+        status: 200,
+        ok: true,
+        success: true,
+        data: {
+          genres,
+        },
       },
-    });
+      { status: 200 }
+    );
   } catch (err: any) {
-    return NextResponse.json({
-      success: false,
-      ok: false,
-      status: 401,
-      message: err.message,
-    });
+    return NextResponse.json(
+      {
+        success: false,
+        ok: false,
+        status: 401,
+        message: err.message,
+      },
+      { status: 401 }
+    );
   }
 }

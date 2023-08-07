@@ -45,10 +45,13 @@ export default function SelectMenu({ items }: { items: MangaChapterFull[] }) {
         TransitionComponent={Fade}
       >
         {items.map((chapter) => (
-          <MenuItem key={chapter.id} onClick={handleClose}>
-            <Link href={`/manga/${params.mangaId}/${chapter.id}`}>
-              {getChapterString(chapter?.id)}
-            </Link>
+          <MenuItem
+            key={chapter.id}
+            onClick={handleClose}
+            component={Link}
+            href={`/manga/${params.mangaId}/${chapter.id}`}
+          >
+            {getChapterString(chapter?.id)}
           </MenuItem>
         ))}
       </Menu>

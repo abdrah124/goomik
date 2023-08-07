@@ -30,7 +30,9 @@ export async function GET(
     const chapterItems = $(
       "div.page-content-listing.single-page > div.listing-chapters_wrap > ul.main.version-chap > li.wp-manga-chapter"
     ).each((i, el) => {
-      const chapter = getPathname($(el).find("a").attr("href") as string)[3];
+      const chapter = (
+        getPathname($(el).find("a").attr("href") as string) as string[]
+      )[3];
 
       chapter_list.push({
         chapter: Number(chapter.split("-")[1]),
@@ -40,22 +42,28 @@ export async function GET(
       });
     });
 
-    return NextResponse.json({
-      success: true,
-      ok: true,
-      status: 200,
-      data: {
-        chapter_list,
-        total: chapterItems.length,
+    return NextResponse.json(
+      {
+        success: true,
+        ok: true,
+        status: 200,
+        data: {
+          chapter_list,
+          total: chapterItems.length,
+        },
       },
-    });
+      { status: 200 }
+    );
   } catch (err: any) {
     console.log(err);
-    return NextResponse.json({
-      success: false,
-      ok: false,
-      status: 401,
-      message: err.message,
-    });
+    return NextResponse.json(
+      {
+        success: false,
+        ok: false,
+        status: 401,
+        message: err.message,
+      },
+      { status: 401 }
+    );
   }
 }

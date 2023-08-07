@@ -2,7 +2,7 @@ import { getMangaChapter, getMangaChapterList } from "@/lib/getData";
 import ChapterImage from "@/components/ChapterImage";
 import React from "react";
 import PageBreadcrumbs from "./Breadcrumbs";
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import ChapterNav from "./ChapterNav";
 
 interface Props {
@@ -18,7 +18,7 @@ export default async function ChapterPage({ mangaId, chapterId }: Props) {
   });
   console.log(data);
   return (
-    <div>
+    <div className="max-w-md">
       <PageBreadcrumbs
         sx={{ paddingBottom: 2, paddingX: 1 }}
         items={[
@@ -32,6 +32,9 @@ export default async function ChapterPage({ mangaId, chapterId }: Props) {
           },
         ]}
       />
+      <Typography variant="h4" component="h1" gutterBottom mb={4}>
+        {data?.title}
+      </Typography>
       <ChapterNav
         chapters={chapterLists?.chapter_list}
         next={`/manga/${mangaId}/${data?.next ?? ""}`}

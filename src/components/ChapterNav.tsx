@@ -26,11 +26,15 @@ export default function ChapterNav({
       <ButtonGroup variant="contained" sx={{ width: "fit-content" }}>
         {prev && (
           <Button
-            LinkComponent={Link}
+            component={Link}
             href={prev}
             disabled={!next}
             color="primary"
             variant="contained"
+            sx={{
+              color: "text.primary",
+              "&:visited": "text.primary",
+            }}
           >
             <ChevronLeft />
           </Button>
@@ -39,8 +43,12 @@ export default function ChapterNav({
         <Button
           color="primary"
           variant="contained"
-          LinkComponent={Link}
+          component={Link}
           href={next}
+          sx={{
+            color: "text.primary",
+            "&:visited": "text.primary",
+          }}
         >
           {(next?.split("/") ?? "")?.[3] !== "" ? <ChevronRight /> : <Info />}
         </Button>

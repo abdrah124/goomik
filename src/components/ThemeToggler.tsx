@@ -1,8 +1,15 @@
 "use client";
 import * as React from "react";
-import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
+import {
+  ThemeProvider,
+  createTheme,
+  styled,
+  useTheme,
+} from "@mui/material/styles";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
+
+type Mode = "dark" | "light";
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   height: 34,
@@ -53,8 +60,22 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 export const ModeSetterContext = React.createContext<() => void>(() => {});
 
 export function ThemePalleteMode({ children }: { children: React.ReactNode }) {
-  const [mode, setMode] = React.useState<"light" | "dark">("light");
-  console.log(mode);
+  const [mode, setMode] = React.useState<Mode>("light");
+
+  React.useEffect(() => {
+    if (
+      ["light", "dark"].some(
+        (e) => e === JSON.parse(localStorage.getItem("theme") as Mode)
+      )
+    ) {
+      setMode(JSON.parse(localStorage.getItem("theme") as Mode));
+    }
+  }, []);
+
+  React.useEffect(() => {
+    localStorage.setItem("theme", JSON.stringify(mode));
+  }, [mode]);
+
   const theme = React.useMemo(
     () =>
       createTheme({
@@ -80,6 +101,7 @@ export function ThemePalleteMode({ children }: { children: React.ReactNode }) {
 }
 
 export default function ThemeToggler({ label = "" }: { label?: string }) {
+  const theme = useTheme();
   const themeSetter = React.useContext(ModeSetterContext);
 
   const handleChange = () => {
@@ -92,7 +114,7 @@ export default function ThemeToggler({ label = "" }: { label?: string }) {
       control={
         <MaterialUISwitch
           sx={{ ml: 1.5 }}
-          defaultChecked
+          checked={theme.palette.mode === "dark"}
           onChange={handleChange}
         />
       }

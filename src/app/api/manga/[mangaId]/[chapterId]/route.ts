@@ -39,33 +39,39 @@ export async function GET(
 
     if (imageItems.length === 0) throw new Error("Not found");
 
-    return NextResponse.json({
-      success: true,
-      ok: true,
-      status: 200,
-      data: {
-        title,
-        images,
-        next:
-          getPathname(
-            $(
-              "div#manga-reading-nav-head div.nav-links > div.nav-next > a"
-            ).attr("href")
-          )?.[3] ?? null,
-        prev:
-          getPathname(
-            $(
-              "div#manga-reading-nav-head div.nav-links > div.nav-previous > a"
-            ).attr("href")
-          )?.[3] ?? null,
+    return NextResponse.json(
+      {
+        success: true,
+        ok: true,
+        status: 200,
+        data: {
+          title,
+          images,
+          next:
+            getPathname(
+              $(
+                "div#manga-reading-nav-head div.nav-links > div.nav-next > a"
+              ).attr("href")
+            )?.[3] ?? null,
+          prev:
+            getPathname(
+              $(
+                "div#manga-reading-nav-head div.nav-links > div.nav-previous > a"
+              ).attr("href")
+            )?.[3] ?? null,
+        },
       },
-    });
+      { status: 200 }
+    );
   } catch (err: any) {
-    return NextResponse.json({
-      success: false,
-      ok: false,
-      status: err.message === "Not found" ? 404 : 401,
-      message: err.message,
-    });
+    return NextResponse.json(
+      {
+        success: false,
+        ok: false,
+        status: err.message === "Not found" ? 404 : 401,
+        message: err.message,
+      },
+      { status: err.message === "Not found" ? 404 : 401 }
+    );
   }
 }

@@ -9,9 +9,7 @@ export default function Page({
 }) {
   return (
     <main className="flex flex-col items-center h-auto">
-      <Suspense fallback={<PageLoader />}>
-        <ChapterPage {...params} />
-      </Suspense>
+      <ChapterPage {...params} />
     </main>
   );
 }

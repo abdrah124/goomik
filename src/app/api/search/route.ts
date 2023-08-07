@@ -25,8 +25,7 @@ export async function GET(
   const order_by = searchParams.get("order_by") || "relevance";
   try {
     const html = await fetchHTML(
-      `${baseScraptUrl}/page/${page}/?s=${q}&post_type=wp-manga&m_orderby=${order_by}`,
-      { next: { revalidate: 0 } }
+      `${baseScraptUrl}/page/${page}/?s=${q}&post_type=wp-manga&m_orderby=${order_by}`
     );
 
     const $ = cheerio.load(html);
@@ -43,7 +42,7 @@ export async function GET(
       const a = $(el).find(
         "div.col-8 > div.tab-summary > div.post-title > h3.h4 > a"
       );
-      const id = getPathname(a.attr("href") as string)[2];
+      const id = (getPathname(a.attr("href") as string) as string[])[2];
       const title = a.text();
       const image = $(el).find("div.col-4 > div.tab-thumb > a > img");
       const post_content = $(el).find(
@@ -69,8 +68,8 @@ export async function GET(
       $(el)
         .find("div.col-8 > div.tab-meta")
         .each((i, element) => {
-          const chapter = getPathname(
-            $(element).find("a").attr("href") as string
+          const chapter = (
+            getPathname($(element).find("a").attr("href") as string) as string[]
           )[3];
 
           const isNew = $(el).find("div.meta-item.post-on > span.font-meta");

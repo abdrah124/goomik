@@ -21,9 +21,7 @@ export async function GET(
   | NextResponse<ResponseObjectFailed>
 > {
   try {
-    const html = await fetchHTML(`${baseScraptUrl}/manga/${params.mangaId}`, {
-      next: { revalidate: 0 },
-    });
+    const html = await fetchHTML(`${baseScraptUrl}/manga/${params.mangaId}`);
     const $ = cheerio.load(html);
 
     const container = $("div.container");
@@ -63,7 +61,9 @@ export async function GET(
     $(
       "div.page-content-listing.single-page > div.listing-chapters_wrap > ul.main.version-chap > li.wp-manga-chapter"
     ).each((i, el) => {
-      const chapter = getPathname($(el).find("a").attr("href") as string)[3];
+      const chapter = (
+        getPathname($(el).find("a").attr("href") as string) as string[]
+      )[3];
 
       const release = $(el).find("span.chapter-release-date");
 
@@ -122,18 +122,24 @@ export async function GET(
       chapter_list,
     };
 
-    return NextResponse.json({
-      success: true,
-      ok: true,
-      status: 200,
-      data,
-    });
+    return NextResponse.json(
+      {
+        success: true,
+        ok: true,
+        status: 200,
+        data,
+      },
+      { status: 200 }
+    );
   } catch (err: any) {
-    return NextResponse.json({
-      success: false,
-      ok: false,
-      status: 401,
-      message: err.message,
-    });
+    return NextResponse.json(
+      {
+        success: false,
+        ok: false,
+        status: 401,
+        message: err.message,
+      },
+      { status: 401 }
+    );
   }
 }
