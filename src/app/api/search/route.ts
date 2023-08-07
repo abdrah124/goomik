@@ -120,6 +120,14 @@ export async function GET(
 
     const total = Number($("div.c-blog__heading > h1.h4").text().split(" ")[1]);
 
+    const total_page = Number(
+      clean(
+        $(
+          "body > div.wrap > div > div.site-content > div.c-page-content > div > div > div > div > div.main-col-inner > div > div.tab-content-wrap > div.col-12.col-md-12 > div > span.pages"
+        ).text()
+      ).split(" ")[3]
+    );
+
     if (page > 1 && total <= 12) throw new Error("Not found");
     return NextResponse.json({
       success: true,
@@ -140,6 +148,7 @@ export async function GET(
               }`
             : null,
         total,
+        total_page,
       },
     });
   } catch (err: any) {

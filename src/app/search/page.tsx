@@ -2,7 +2,7 @@ import MangaPagination from "@/components/MangaPagination";
 import NavTabs from "@/components/NavTabs";
 import SearchCard from "@/components/SearchCard";
 import { getSearchResults } from "@/lib/getData";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 
 export default async function SearchPage({
@@ -12,7 +12,9 @@ export default async function SearchPage({
 }) {
   const { q, page = "1", order_by = "relevance" } = searchParams;
 
-  const { data } = await getSearchResults(q, Number(page), order_by);
+  const { data } = await getSearchResults(q, Number(page), order_by, {
+    revalidate: 0,
+  });
 
   return (
     <main className="w-full">
@@ -29,20 +31,26 @@ export default async function SearchPage({
           marginX: "auto",
         }}
       >
-        {data.items.map((e) => (
-          <SearchCard data={e} key={e.id} />
-        ))}
+        {data?.items?.length > 0 ? (
+          data?.items?.map((e) => <SearchCard data={e} key={e.id} />)
+        ) : (
+          <Typography variant="subtitle1" component="p">
+            NO RESULT
+          </Typography>
+        )}
       </Box>
-      <MangaPagination
-        path="/search"
-        query={{
-          page,
-          q,
-          order_by,
-        }}
-        total={data.total}
-        sx={{ mx: 1, display: "flex", justifyContent: "center" }}
-      />
+      {(data?.total_page ?? 0) > 1 && data?.items?.length > 0 && (
+        <MangaPagination
+          path="/search"
+          query={{
+            page,
+            q,
+            order_by,
+          }}
+          total={data?.total_page ?? 0}
+          sx={{ mx: 1, display: "flex", justifyContent: "center" }}
+        />
+      )}
     </main>
   );
 }

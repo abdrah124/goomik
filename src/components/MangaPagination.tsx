@@ -40,12 +40,12 @@ export default function MangaPagination({
       })
       .join("&")}`;
   };
-
+  // Number((total / 12).toFixed(0))
   return (
     <Box mt={2} sx={{ ...sx }}>
       <Pagination
         page={page}
-        count={Number((total / 12).toFixed(0))}
+        count={total}
         variant="outlined"
         shape="rounded"
         renderItem={(item) => (

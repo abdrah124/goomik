@@ -22,7 +22,10 @@ export type PagingObject<T> = {
   next: string | null;
 };
 
-export type PagingObjectSearch<T> = PagingObject<T> & { total: number };
+export type PagingObjectSearch<T> = PagingObject<T> & {
+  total: number;
+  total_page: number | null;
+};
 
 export interface MangaChapter {
   chapter: number;

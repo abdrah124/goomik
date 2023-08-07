@@ -1,5 +1,4 @@
 "use client";
-
 import * as React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -11,24 +10,14 @@ import { useSearchParams } from "next/navigation";
 export default function NavTabs() {
   const searchParams = useSearchParams();
   const q = searchParams.get("q");
-  const [value, setValue] = React.useState(
-    orderOptionsWithLabel.findIndex(
-      (e) => e.option === searchParams.get("order_by")
-    ) || 0
+  const selectedTabsIndex = orderOptionsWithLabel.findIndex(
+    (e) => e.option === searchParams.get("order_by")
   );
-
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
+  const index = selectedTabsIndex === -1 ? 0 : selectedTabsIndex;
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        variant="scrollable"
-        scrollButtons="auto"
-      >
+    <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
+      <Tabs value={index} variant="scrollable" scrollButtons="auto">
         {orderOptionsWithLabel.map((option) => (
           <Tab
             LinkComponent={Link}
