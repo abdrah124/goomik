@@ -12,7 +12,6 @@ import {
 } from "@mui/material";
 import React from "react";
 import GenreBadges from "./GenreBadges";
-import { DetailTableTheme } from "./theme/DetailTableTheme";
 
 export default function MangaDetailTable({
   mangaDetails,

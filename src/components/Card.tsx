@@ -15,7 +15,7 @@ export default function MangaCard({ data }: Props) {
     <div className="snap-center min-w-[140px] sm:min-w-[170px]">
       <CardActionArea LinkComponent={Link} href={`/manga/${data.id}`}>
         <CardMedia
-          className="hover:brightness-75 rounded-md shadow-md shadow-[rgba(0,0,0,.1)] transition-all"
+          className="hover:brightness-75 rounded-md shadow-md shadow-[rgba(0,0,0,.05)] transition-all"
           component="img"
           width={data.cover_image.width}
           image={data.cover_image.src}

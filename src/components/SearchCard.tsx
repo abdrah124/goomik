@@ -1,146 +1,88 @@
 import { MangaDetailSimplified } from "@/models/manga";
 import {
-  Box,
   CardActionArea,
   Paper,
   Rating,
   Stack,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
   Typography,
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import GenreBadges from "./GenreBadges";
 
 export default function SearchCard({ data }: { data: MangaDetailSimplified }) {
   const { src, width, height } = data.cover_image;
 
-  const tableContents = [
-    {
-      title: "Rating",
-      content: data.rating,
-    },
-    {
-      title: "Alternative",
-      content: data.alternative_title,
-    },
-    {
-      title: "Authors",
-      content: data.authors,
-    },
-    {
-      title: "Artists",
-      content: data.artists,
-    },
-    {
-      title: "Genres",
-      content: data.genres,
-    },
-    {
-      title: "Status",
-      content: data.status,
-    },
-    {
-      title: "Release",
-      content: data.release_date,
-    },
-  ];
-
   return (
     <Paper
-      elevation={3}
+      elevation={11}
       sx={{
         display: "flex",
         gap: 2,
-        paddingTop: 2,
-        width: { md: "70%" },
-        flexDirection: { xs: "column", md: "row" },
-        justifyContent: { md: "space-around" },
-        alignItems: { xs: "center", md: "start" },
+        padding: 1.2,
+        borderRadius: 2,
+        width: "100%",
+        maxWidth: 400,
+        flexDirection: "row",
       }}
     >
-      <Box
+      <CardActionArea
+        component={Link}
+        href={`/manga/${data.id}`}
         sx={{
+          width: "fit-content",
+          alignSelf: "center",
           display: "flex",
-          gap: 2,
-          width: { md: "25%" },
-          flexDirection: "column",
-          alignItems: "center",
         }}
       >
+        <Image
+          src={src}
+          width={width}
+          height={height}
+          alt={data.title}
+          className="shadow-md h-auto min-w-[90px] max-w-[100px] shadow-[rgba(0,0,0,.1)] rounded-md"
+        />
+      </CardActionArea>
+      <Stack direction="column" gap={1} sx={{ flex: 1, maxWidth: "60%" }}>
         <Typography
-          variant="h6"
+          variant="subtitle1"
           component={Link}
           href={`/manga/${data.id}`}
-          sx={{
-            textAlign: "center",
-            fontWeight: 700,
-            fontFamily: "var(--cabin)",
-          }}
+          sx={{ fontWeight: 700, width: "100%" }}
+          noWrap
+          title={data.title}
         >
           {data.title}
         </Typography>
-        <CardActionArea
-          component={Link}
-          href={`/manga/${data.id}`}
-          sx={{ width: "fit-content" }}
+        <Typography
+          variant="subtitle2"
+          noWrap
+          sx={{ fontWeight: 600, width: "100%", fontSize: "0.75rem" }}
         >
-          <Image
-            src={src}
-            width={width}
-            height={height}
-            alt={data.title}
-            className="rounded-sm shadow-md shadow-[rgba(0,0,0,.5)]"
+          Authors: {data.authors}
+        </Typography>
+        <Typography
+          variant="subtitle2"
+          noWrap
+          sx={{ fontWeight: 700, width: "100%", fontSize: "0.75rem" }}
+        >
+          Artists: {data.artists}
+        </Typography>
+        <Stack direction="row" alignItems="center" gap={1}>
+          <Rating
+            value={data.rating}
+            readOnly
+            sx={{ fontSize: 16 }}
+            precision={0.5}
           />
-        </CardActionArea>
-      </Box>
-
-      <TableContainer sx={{ maxWidth: 500, width: { md: "75%" } }}>
-        <TableContainer>
-          <TableBody>
-            {tableContents.map((row) => (
-              <TableRow
-                key={row.title}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.title}
-                </TableCell>
-                <TableCell align="right">
-                  {row.title === "Genres" ? (
-                    <GenreBadges genres={row.content as string[]} />
-                  ) : row.title === "Rating" ? (
-                    <Stack
-                      direction="row"
-                      alignItems="center"
-                      justifyContent="end"
-                      gap={1}
-                    >
-                      <Rating
-                        value={row.content as number}
-                        readOnly
-                        precision={0.5}
-                      />
-                      <Typography
-                        variant="caption"
-                        sx={{ fontSize: "0.875rem" }}
-                      >
-                        {row.content} / 5
-                      </Typography>
-                    </Stack>
-                  ) : (
-                    row.content
-                  )}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </TableContainer>
-      </TableContainer>
+          <Typography
+            variant="subtitle2"
+            sx={{ fontSize: "0.75rem", fontWeight: 700 }}
+          >
+            {data.rating} / 5
+          </Typography>
+        </Stack>
+      </Stack>
     </Paper>
   );
 }

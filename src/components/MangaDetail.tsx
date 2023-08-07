@@ -2,7 +2,6 @@ import { getMangaDetail } from "@/lib/getData";
 import { Stack, Typography, Rating } from "@mui/material";
 import Image from "next/image";
 import React from "react";
-import MangaDetailTheme from "./theme/MangaDetailTheme";
 import GenreBadges from "./GenreBadges";
 import MangaDetailTab from "./MangaDetailTab";
 import { redirect } from "next/navigation";
@@ -36,7 +35,7 @@ export default async function MangaDetail({ mangaId }: { mangaId: string }) {
             unoptimized
           />
         </div>
-        <Stack direction="column" gap={1} width="70%" px={1}>
+        <Stack direction="column" gap={1} width="70%" pr={1}>
           <Typography
             variant="h5"
             component="h1"
