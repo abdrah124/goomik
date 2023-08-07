@@ -6,13 +6,18 @@ import MangaDetailTheme from "./theme/MangaDetailTheme";
 import GenreBadges from "./GenreBadges";
 import MangaDetailTab from "./MangaDetailTab";
 import PageBreadcrumbs from "./Breadcrumbs";
+import { redirect } from "next/navigation";
+import { getPathname } from "@/lib/getPathname";
 
 export default async function MangaDetail({ mangaId }: { mangaId: string }) {
   const { data: mangaDetails } = await getMangaDetail(mangaId, {
     revalidate: 0,
   });
 
-  const { src, width, height } = mangaDetails?.cover_image;
+  if (!mangaDetails && mangaId.includes("online-reading"))
+    redirect(`/manga/${mangaId.split("-online-reading")[0]}`);
+
+  const { src, width, height } = mangaDetails?.cover_image || {};
   return (
     <MangaDetailTheme>
       <Stack
@@ -29,7 +34,7 @@ export default async function MangaDetail({ mangaId }: { mangaId: string }) {
               src={src}
               width={width}
               height={height}
-              alt={mangaDetails.title}
+              alt={mangaDetails?.title}
               className="rounded-md max-w-[120px] h-auto shadow-md min-w-[110px] shadow-[rgba(0,0,0,.3)]"
               unoptimized
             />
@@ -40,23 +45,24 @@ export default async function MangaDetail({ mangaId }: { mangaId: string }) {
               component="h1"
               sx={{ fontSize: { xs: "1.25rem", md: "1.5rem" } }}
             >
-              {mangaDetails.title}
+              {mangaDetails?.title}
             </Typography>
             <Typography variant="caption" component="p" sx={{ fontSize: 14 }}>
-              <span className="font-bold">Authors:</span> {mangaDetails.authors}
+              <span className="font-bold">Authors:</span>{" "}
+              {mangaDetails?.authors}
             </Typography>
             <Typography variant="caption" component="p" sx={{ fontSize: 14 }}>
               <span className="font-semibold">Artists:</span>{" "}
-              {mangaDetails.artists}
+              {mangaDetails?.artists}
             </Typography>
             <Typography variant="caption" component="p" sx={{ fontSize: 14 }}>
               <span className="font-semibold">Status:</span>
-              {mangaDetails.status}
+              {mangaDetails?.status}
             </Typography>
 
             <Stack direction="row" alignItems="center" gap={1}>
               <Rating
-                value={mangaDetails.rating}
+                value={mangaDetails?.rating}
                 sx={{ fontSize: 19 }}
                 readOnly
                 precision={0.5}
@@ -66,7 +72,7 @@ export default async function MangaDetail({ mangaId }: { mangaId: string }) {
                 component="p"
                 sx={{ fontSize: 14, fontWeight: 700 }}
               >
-                {mangaDetails.rating} / 5
+                {mangaDetails?.rating} / 5
               </Typography>
             </Stack>
           </Stack>
@@ -84,11 +90,11 @@ export default async function MangaDetail({ mangaId }: { mangaId: string }) {
           <GenreBadges
             color="info"
             fontSize={12}
-            genres={mangaDetails.genres as string[]}
+            genres={mangaDetails?.genres as string[]}
           />
         </Stack>
 
-        <MangaDetailTab mangaDetails={mangaDetails} />
+        {mangaDetails && <MangaDetailTab mangaDetails={mangaDetails} />}
       </Stack>
     </MangaDetailTheme>
   );

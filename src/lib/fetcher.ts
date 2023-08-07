@@ -26,3 +26,14 @@ export const fetchHTML: (url: string) => Promise<string> = async (url) => {
 
   return await htmlResponse.text();
 };
+
+export const fetchHTML2: (url: string) => Promise<Response> = async (url) => {
+  return await fetch(url, {
+    method: "GET",
+    headers: {
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36",
+    },
+    next: { revalidate: 0 },
+  });
+};

@@ -1,4 +1,4 @@
-import { fetchHTML } from "@/lib/fetcher";
+import { fetchHTML, fetchHTML2 } from "@/lib/fetcher";
 import { NextResponse } from "next/server";
 import { config } from "@/lib/config";
 import * as cheerio from "cheerio";
@@ -10,6 +10,7 @@ import {
 } from "@/models/manga";
 import { clean } from "@/lib/clean";
 import { getPathname } from "@/lib/getPathname";
+import { redirect } from "next/navigation";
 const { baseScraptUrl, baseWebUrl } = config;
 export const dynamic = "force-dynamic";
 
@@ -20,8 +21,19 @@ export async function GET(
   | NextResponse<ResponseObject<MangaDetailFull>>
   | NextResponse<ResponseObjectFailed>
 > {
+  let mangaId = params.mangaId;
+
   try {
-    const html = await fetchHTML(`${baseScraptUrl}/manga/${params.mangaId}`);
+    const url = await fetchHTML2(`${baseScraptUrl}/manga/${mangaId}`).then(
+      (res) => res.url
+    );
+    const newestMangaId = getPathname(url)?.[2] as string;
+    if (mangaId !== newestMangaId) {
+      mangaId = newestMangaId;
+      console.log(`/api/manga/${newestMangaId}`);
+    }
+    const html = await fetchHTML(`${baseScraptUrl}/manga/${mangaId}`);
+    console.log(mangaId);
     const $ = cheerio.load(html);
 
     const container = $("div.container");
@@ -70,7 +82,7 @@ export async function GET(
       chapter_list.push({
         chapter: Number(chapter.split("-")[1]),
         id: chapter,
-        url: `${baseWebUrl}/api/manga/${params.mangaId}/${chapter}`,
+        url: `${baseWebUrl}/api/manga/${mangaId}/${chapter}`,
         release_date:
           release.find("a").length > 0 ? "new" : release.find("i").text(),
       });
@@ -80,7 +92,7 @@ export async function GET(
       title: $(
         "body > div.wrap > div > div.site-content > div > div.profile-manga.summary-layout-1 > div > div > div > div.post-title > h1"
       ).text(),
-      id: params.mangaId,
+      id: mangaId,
       cover_image: {
         src: image.attr("src") ?? "",
         srcset: image.attr("srcset"),

@@ -16,14 +16,14 @@ export default async function ChapterPage({ mangaId, chapterId }: Props) {
   const { data: chapterLists } = await getMangaChapterList(mangaId, {
     revalidate: 0,
   });
-  console.log(data);
+
   return (
     <div className="max-w-md">
       <PageBreadcrumbs
         sx={{ paddingBottom: 2, paddingX: 1 }}
         items={[
           { href: "/", title: "Home" },
-          { title: mangaId.split("-").join(" "), href: `/manga/${mangaId}` },
+          { title: data.title.split("-")[0], href: `/manga/${mangaId}` },
           {
             title:
               chapterId[0].toUpperCase() +

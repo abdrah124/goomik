@@ -1,5 +1,5 @@
 import { config } from "@/lib/config";
-import { fetchHTML } from "@/lib/fetcher";
+import { fetchHTML, fetchHTML2 } from "@/lib/fetcher";
 import { NextResponse } from "next/server";
 import * as cheerio from "cheerio";
 import { clean } from "@/lib/clean";
@@ -21,8 +21,15 @@ export async function GET(
     >
   | NextResponse<ResponseObjectFailed>
 > {
-  const { mangaId, chapterId } = params;
+  let { mangaId, chapterId } = params;
   try {
+    const url = await fetchHTML2(
+      `${baseScraptUrl}/manga/${mangaId}/${chapterId}`
+    ).then((res) => res.url);
+    const newestMangaId = getPathname(url)?.[2] as string;
+    if (mangaId !== newestMangaId) {
+      mangaId = newestMangaId;
+    }
     const html = await fetchHTML(
       `${baseScraptUrl}/manga/${mangaId}/${chapterId}`
     );
