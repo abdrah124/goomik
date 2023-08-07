@@ -4,11 +4,11 @@ import { Stack } from "@mui/material";
 export default async function Home() {
   return (
     <main>
-      <Stack direction="column" gap={2}>
+      <div className="gap-2 flex flex-col">
         <MangaList title="Latest update" />
         <MangaList title="Popular manhwa" variant="popular" />
         <MangaList title="Top of the day" variant="trending" />
-      </Stack>
+      </div>
     </main>
   );
 }

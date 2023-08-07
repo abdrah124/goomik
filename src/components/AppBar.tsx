@@ -104,20 +104,23 @@ export default function DrawerAppBar(props: Props) {
       <Divider />
       <List>
         {navItems.map((item) => (
-          <Link href={getHref(item)} key={item}>
-            <ListItem disablePadding>
-              <ListItemButton
-                sx={{
-                  "& .MuiTypography-root": {
-                    textAlign: "center",
-                    fontWeight: 500,
-                  },
-                }}
-              >
-                <ListItemText primary={item} />
-              </ListItemButton>
-            </ListItem>
-          </Link>
+          <ListItem
+            disablePadding
+            component={Link}
+            href={getHref(item)}
+            key={item}
+          >
+            <ListItemButton
+              sx={{
+                "& .MuiTypography-root": {
+                  textAlign: "center",
+                  fontWeight: 500,
+                },
+              }}
+            >
+              <ListItemText primary={item} />
+            </ListItemButton>
+          </ListItem>
         ))}
       </List>
     </Box>

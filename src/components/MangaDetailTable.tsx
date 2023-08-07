@@ -1,6 +1,5 @@
 import { MangaDetailFull } from "@/models/manga";
 import {
-  Chip,
   Paper,
   Rating,
   Stack,
@@ -13,6 +12,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import GenreBadges from "./GenreBadges";
+import { DetailTableTheme } from "./theme/DetailTableTheme";
 
 export default function MangaDetailTable({
   mangaDetails,
@@ -56,13 +56,15 @@ export default function MangaDetailTable({
   ];
 
   return (
-    <TableContainer>
+    <TableContainer sx={{ mt: 4 }}>
       <Table>
         <TableBody>
           {items.map((row) => (
             <TableRow
               key={row.title}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              sx={{
+                "&:last-child td, &:last-child th": { border: 0 },
+              }}
             >
               <TableCell component="th" scope="row">
                 {row.title}

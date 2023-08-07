@@ -17,12 +17,10 @@ export default async function MangaList({
   });
 
   return (
-    <>
-      <CardSlider title={title}>
-        {data?.items?.map((e) => (
-          <MangaCard key={e.id} data={e} />
-        ))}
-      </CardSlider>
-    </>
+    <CardSlider title={title}>
+      {data?.items?.map((e) => (
+        <MangaCard key={e.id} data={e} />
+      ))}
+    </CardSlider>
   );
 }
