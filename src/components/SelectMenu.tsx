@@ -42,6 +42,12 @@ export default function SelectMenu({ items }: { items: MangaChapterFull[] }) {
         MenuListProps={{
           "aria-labelledby": "select-button",
         }}
+        sx={{
+          maxWidth: 280,
+          textOverflow: "ellipsis",
+          overflow: "hidden",
+          whiteSpace: "nowrap",
+        }}
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
@@ -49,12 +55,16 @@ export default function SelectMenu({ items }: { items: MangaChapterFull[] }) {
       >
         {items.map((chapter) => (
           <MenuItem
+            divider
             key={chapter.id}
             onClick={handleClose}
             component={Link}
+            className="truncate max-w-full"
             href={`/manga/${params.mangaId}/${chapter.id}`}
           >
-            {getChapterString(chapter?.id)}
+            <Typography variant="inherit" paragraph noWrap>
+              {getChapterString(chapter?.id)}
+            </Typography>
           </MenuItem>
         ))}
       </Menu>
