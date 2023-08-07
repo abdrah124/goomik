@@ -1,11 +1,7 @@
 import MangaList from "@/components/MangaList";
 import { Stack } from "@mui/material";
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: { l: string };
-}) {
+export default async function Home() {
   return (
     <main>
       <Stack direction="column" gap={2}>

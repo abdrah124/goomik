@@ -16,11 +16,12 @@ export const getMangaItem: (
       .find("div.item-summary > div.post-title > h3.h5 > a")
       .text();
 
-    const id = getPathname(
-      $(el)
-        .find("div.item-summary > div.post-title > h3.h5 > a")
-        .attr("href") as string
-    )[2];
+    const id =
+      getPathname(
+        $(el)
+          .find("div.item-summary > div.post-title > h3.h5 > a")
+          .attr("href") as string
+      )?.[2] ?? "";
 
     const chapters = $(el).find(
       "div.item-summary > div.list-chapter > div.chapter-item > span.chapter > a"
@@ -28,7 +29,7 @@ export const getMangaItem: (
 
     const latest_chapter: MangaChapter[] = [];
     chapters.each((i, el) => {
-      const chapter = getPathname($(el).attr("href") as string)[3];
+      const chapter = getPathname($(el).attr("href") as string)?.[3] ?? "";
 
       latest_chapter.push({
         chapter: Number(chapter.split("-")[1]),
