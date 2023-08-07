@@ -7,6 +7,7 @@ import Fade from "@mui/material/Fade";
 import { MangaChapterFull } from "@/models/manga";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import { Typography } from "@mui/material";
 
 const getChapterString = (id: string) =>
   id?.[0].toUpperCase() + id?.slice(1)?.split("-").join(" ");
@@ -32,7 +33,9 @@ export default function SelectMenu({ items }: { items: MangaChapterFull[] }) {
         onClick={handleClick}
         variant="outlined"
       >
-        {getChapterString(params.chapterId as string)}
+        <Typography variant="button" noWrap sx={{ width: 100 }}>
+          {getChapterString(params.chapterId as string)}
+        </Typography>
       </Button>
       <Menu
         id="select-menu"

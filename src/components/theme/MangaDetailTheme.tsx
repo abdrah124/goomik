@@ -5,7 +5,7 @@ const theme = createTheme({
   typography: {
     h5: {
       // fontFamily: "var(--cabin), var(--poppins), Arial, Helvetica",
-      fontWeight: 700,
+      fontWeight: 600,
     },
     // h6: { fontFamily: "var(--cabin), var(--poppins), Arial, Helvetica" },
     caption: {

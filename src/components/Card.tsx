@@ -1,6 +1,5 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Box, CardActionArea, Rating } from "@mui/material";
@@ -13,19 +12,11 @@ interface Props {
 
 export default function MangaCard({ data }: Props) {
   return (
-    <Card
-      sx={{
-        minWidth: { xs: 140, sm: 170 },
-        boxShadow: "none",
-        scrollSnapAlign: "center",
-      }}
-      className="snap-center"
-    >
+    <div className="snap-center min-w-[140px] sm:min-w-[170px]">
       <CardActionArea LinkComponent={Link} href={`/manga/${data.id}`}>
         <CardMedia
-          className="hover:brightness-75 rounded-md shadow-md shadow-[rgba(0,0,0,.2)] transition-all"
+          className="hover:brightness-75 rounded-md shadow-md shadow-[rgba(0,0,0,.1)] transition-all"
           component="img"
-          // height={data.cover_image.height}
           width={data.cover_image.width}
           image={data.cover_image.src}
           srcSet={data.cover_image.srcset}
@@ -61,28 +52,6 @@ export default function MangaCard({ data }: Props) {
           </Typography>
         </Box>
       </Box>
-      {/* <CardActions
-        sx={{ paddingX: { xs: 1 }, paddingBottom: { xs: 1 }, width: "100%" }}
-      >
-        <Stack direction="column" spacing={1} sx={{ width: "100%" }}>
-          {data.chapter_list.map((e) => (
-            <Link
-              key={e.id}
-              href={`/manga/${data.id}/${e.id}`}
-              className="flex gap-1 w-full items-center"
-            >
-              <Chip
-                sx={{ fontWeight: 700, fontSize: 10 }}
-                label={"Chapter " + e.chapter}
-                color="info"
-                size="small"
-              />
-
-              {e.release_date === "new" ? <NewBadge /> : e.release_date}
-            </Link>
-          ))}
-        </Stack>
-      </CardActions> */}
-    </Card>
+    </div>
   );
 }

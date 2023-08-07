@@ -1,8 +1,4 @@
-// PR
-// caching fetch chapterlist
-//styling chapternav link
-
-import { Button, ButtonGroup, Stack } from "@mui/material";
+import { Button, ButtonGroup, Stack, SxProps, Theme } from "@mui/material";
 import React from "react";
 import SelectMenu from "./SelectMenu";
 import { ChevronLeft, ChevronRight, Info } from "@mui/icons-material";
@@ -13,15 +9,17 @@ export default function ChapterNav({
   chapters,
   next,
   prev,
+  sx,
 }: {
   chapters: MangaChapterFull[];
   next: string | undefined;
   prev: string | undefined;
+  sx?: SxProps<Theme> | undefined;
 }) {
   console.log(next?.split("/"));
 
   return (
-    <Stack direction="row" gap={1}>
+    <Stack direction="row" gap={1} sx={{ ...sx }}>
       <SelectMenu items={chapters} />
       <ButtonGroup variant="contained" sx={{ width: "fit-content" }}>
         {prev && (

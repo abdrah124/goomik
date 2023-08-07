@@ -39,7 +39,7 @@ export default async function MangaDetail({ mangaId }: { mangaId: string }) {
               unoptimized
             />
           </div>
-          <Stack direction="column" gap={1} width="70%">
+          <Stack direction="column" gap={1} width="70%" px={1}>
             <Typography
               variant="h5"
               component="h1"
@@ -56,7 +56,7 @@ export default async function MangaDetail({ mangaId }: { mangaId: string }) {
               {mangaDetails?.artists}
             </Typography>
             <Typography variant="caption" component="p" sx={{ fontSize: 14 }}>
-              <span className="font-semibold">Status:</span>
+              <span className="font-semibold">Status:</span>{" "}
               {mangaDetails?.status}
             </Typography>
 
