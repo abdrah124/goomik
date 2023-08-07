@@ -80,8 +80,14 @@ export default function DrawerAppBar(props: Props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [input, setInput] = React.useState<string>("");
 
-  const getHref = (str: string) =>
-    str === "Home" ? "/" : "/" + str.toLowerCase();
+  const getHref = (str: string) => {
+    if (str === "Home") return "/";
+    if (["Latest", "Popular"].some((e) => e === str))
+      return `/search?q=&order_by=${
+        str.toLowerCase() === "popular" ? "trending" : str.toLowerCase()
+      }`;
+    return str.toLowerCase();
+  };
 
   const handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void = (e) => {
     e.preventDefault();

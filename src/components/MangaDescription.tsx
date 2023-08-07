@@ -22,7 +22,7 @@ export default function MangaDescription({ desc }: { desc: string }) {
         >
           Summary
         </Typography>
-        {desc.split(".").slice(1)?.[1] && (
+        {desc.split(".")?.length > 1 && (
           <ExpandMore expand={expanded} onClick={() => setExpanded(!expanded)}>
             <ExpandMoreIcon />
           </ExpandMore>
@@ -33,7 +33,7 @@ export default function MangaDescription({ desc }: { desc: string }) {
           ? desc.split(".").slice(0, 1).join(".") + "."
           : ""}
       </Typography>
-      {desc.length > 100 && (
+      {desc.split(".").length > 1 && (
         <Collapse
           in={expanded}
           timeout="auto"
