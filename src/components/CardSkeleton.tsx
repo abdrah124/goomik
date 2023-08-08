@@ -1,22 +1,22 @@
-import { Card, Skeleton, Stack } from "@mui/material";
+import { Box, Card, Skeleton, Stack } from "@mui/material";
 import React from "react";
 import CardGrid from "./CardGrid";
 
 export default function CardSkeleton() {
   return (
-    <Card
+    <Box
       sx={{
         minWidth: { xs: 140, sm: 170 },
         height: { xs: 278, xxs: 300, sm: 340, lg: 360, xl: 380 },
         boxShadow: "none",
       }}
     >
-      <Skeleton variant="rectangular" height={"70%"} />
+      <Skeleton variant="rectangular" animation="wave" height={"70%"} />
       <Stack direction="column" gap={1} mt={1}>
-        <Skeleton />
-        <Skeleton width={"50%"} />
+        <Skeleton animation="wave" />
+        <Skeleton animation="wave" width={"50%"} />
       </Stack>
-    </Card>
+    </Box>
   );
 }
 

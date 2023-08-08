@@ -7,14 +7,16 @@ import { getMangaItem } from "@/lib/getMangaItem";
 import {
   MangaItemFull,
   PagingObject,
+  PagingObjectSearch,
   ResponseObject,
   ResponseObjectFailed,
 } from "@/models/manga";
+import { clean } from "@/lib/clean";
 
 export async function GET(
   request: Request
 ): Promise<
-  | NextResponse<ResponseObject<PagingObject<MangaItemFull[]>>>
+  | NextResponse<ResponseObject<PagingObjectSearch<MangaItemFull[]>>>
   | NextResponse<ResponseObjectFailed>
 > {
   const url = new URL(request.url);
@@ -35,6 +37,18 @@ export async function GET(
 
     const datas: MangaItemFull[] = getMangaItem(contentItem, $);
 
+    const total_page = Number(
+      clean($("div.wp-pagenavi > span.pages").text().split(" ")[3])
+    );
+
+    const total = Number(
+      clean(
+        $("div.main-col > div.main-col-inner > div.c-page div.h4")
+          .text()
+          .replaceAll('"', "")
+      ).split(" ")[0]
+    );
+
     return NextResponse.json(
       {
         status: 200,
@@ -51,6 +65,8 @@ export async function GET(
                   Number(page) - 1
                 }&order_by=${order_by}`
               : null,
+          total_page,
+          total,
         },
       },
       { status: 200 }

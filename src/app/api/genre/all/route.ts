@@ -21,11 +21,10 @@ export async function GET(): Promise<
 
     genreItem.each((i, el) => {
       if (($(el).attr("href") ?? []).length > 0)
-        genres.push(
-          $(el).attr("href")?.includes("%")
-            ? "villainess"
-            : (getPathname($(el).attr("href") as string) as string[])[2]
-        );
+        if (!$(el).attr("href")?.includes("%"))
+          genres.push(
+            (getPathname($(el).attr("href") as string) as string[])[2]
+          );
     });
 
     return NextResponse.json(

@@ -18,7 +18,9 @@ import {
 } from "./apiEndpoint";
 import { FetcherOptions, fetcher } from "./fetcher";
 
-export const getGenreList: () => Promise<string[]> = () =>
+export const getGenreList: () => Promise<
+  ResponseObject<{ genres: string[] }>
+> = () =>
   fetch(genreList)
     .then((response) => response.json())
     .catch((err) => Promise.reject(err));
@@ -28,7 +30,7 @@ export const getMangaByGenre: (
   page?: number,
   order_by?: string,
   options?: FetcherOptions
-) => Promise<ResponseObject<PagingObject<MangaItemFull[]>>> = async (
+) => Promise<ResponseObject<PagingObjectSearch<MangaItemFull[]>>> = async (
   genre,
   page = 1,
   order_by = "",
