@@ -1,7 +1,60 @@
 import React, { Suspense } from "react";
 import MangaDetail from "@/components/MangaDetail";
+import { getMangaDetail } from "@/lib/getData";
+import { config } from "@/lib/config";
+import MangaDetailLoading from "@/components/MangaDetailLoading";
 
-export default function Page({ params }: { params: { mangaId: string } }) {
+interface Props {
+  params: { mangaId: string };
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { data: mangaDetail } = await getMangaDetail(params.mangaId);
+
+  return {
+    title: mangaDetail?.title,
+    description: mangaDetail?.description,
+    keywords: [
+      "manga",
+      "manhwa",
+      "manhua",
+      "comic",
+      "comic book",
+      "comic e-book",
+      "comics",
+      "cartoon",
+      "graphic novel",
+      "korean comic",
+      "japan comic",
+      "china comic",
+      `${mangaDetail?.title}`,
+      "raw manhwa",
+      "raw",
+      "raw comic",
+      "raw manga",
+      "raw manhua",
+      "read manga",
+      `${mangaDetail?.title} detail`,
+    ],
+    openGraph: {
+      title: mangaDetail?.title,
+      description: mangaDetail?.description,
+      url: `${config.baseWebUrl}/manga/${params.mangaId}`,
+      siteName: "Goomik",
+      images: [
+        {
+          url: mangaDetail?.cover_image?.src,
+          width: mangaDetail?.cover_image?.width,
+          height: mangaDetail?.cover_image?.height,
+        },
+      ],
+      locale: "en_US",
+      type: "website",
+    },
+  };
+}
+
+export default function Page({ params }: Props) {
   const { mangaId } = params;
   return (
     <main className="w-full">

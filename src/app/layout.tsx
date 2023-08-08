@@ -7,8 +7,6 @@ import { PageLayout } from "@/models/pageLayout";
 import RootTheme from "@/components/theme/RootTheme";
 import QueryProvider from "@/components/utils/QueryProvider";
 import { ThemePalleteMode } from "@/components/ThemeToggler";
-import { Button, CssBaseline } from "@mui/material";
-import { ChevronLeft } from "@mui/icons-material";
 
 const inter = Inter({ subsets: ["latin"] });
 const quickSand = Quicksand({
