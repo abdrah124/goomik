@@ -2,7 +2,7 @@ import MangaPagination from "@/components/MangaPagination";
 import NavTabs from "@/components/NavTabs";
 import SearchCard from "@/components/SearchCard";
 import { getSearchResults } from "@/lib/getData";
-import { Box, Typography } from "@mui/material";
+import { Box, Paper, Skeleton, Stack, Typography } from "@mui/material";
 import React from "react";
 
 export default async function SearchPage({
@@ -17,8 +17,7 @@ export default async function SearchPage({
   });
 
   return (
-    <main className="w-full">
-      <NavTabs />
+    <>
       <Box
         sx={{
           display: "flex",
@@ -51,6 +50,6 @@ export default async function SearchPage({
           sx={{ mx: 1, display: "flex", justifyContent: "center" }}
         />
       )}
-    </main>
+    </>
   );
 }

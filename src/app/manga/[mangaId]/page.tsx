@@ -1,5 +1,5 @@
+import React, { Suspense } from "react";
 import MangaDetail from "@/components/MangaDetail";
-import React from "react";
 
 export default function Page({ params }: { params: { mangaId: string } }) {
   const { mangaId } = params;

@@ -43,10 +43,8 @@ export default function SelectMenu({ items }: { items: MangaChapterFull[] }) {
           "aria-labelledby": "select-button",
         }}
         sx={{
+          zIndex: 200,
           maxWidth: 280,
-          textOverflow: "ellipsis",
-          overflow: "hidden",
-          whiteSpace: "nowrap",
         }}
         anchorEl={anchorEl}
         open={open}
@@ -62,7 +60,7 @@ export default function SelectMenu({ items }: { items: MangaChapterFull[] }) {
             className="truncate max-w-full"
             href={`/manga/${params.mangaId}/${chapter.id}`}
           >
-            <Typography variant="inherit" paragraph noWrap>
+            <Typography variant="inherit" paragraph noWrap sx={{ m: 0 }}>
               {getChapterString(chapter?.id)}
             </Typography>
           </MenuItem>

@@ -21,41 +21,41 @@ export default function MangaDetailTable({
   const items = [
     {
       title: "Rating",
-      content: `${mangaDetails.rating} / 5`,
+      content: `${mangaDetails?.rating} / 5`,
     },
     {
       title: "Alternative",
-      content: mangaDetails.alternative_title,
+      content: mangaDetails?.alternative_title,
     },
     {
       title: "Author",
-      content: mangaDetails.authors,
+      content: mangaDetails?.authors,
     },
     {
       title: "Artist",
-      content: mangaDetails.artists,
+      content: mangaDetails?.artists,
     },
     {
       title: "Genre",
-      content: mangaDetails.genres,
+      content: mangaDetails?.genres,
     },
     {
       title: "Type",
-      content: mangaDetails.type,
+      content: mangaDetails?.type,
     },
-    { title: "Tags", content: mangaDetails.tags },
+    { title: "Tags", content: mangaDetails?.tags },
     {
       title: "Release",
-      content: mangaDetails.release_date,
+      content: mangaDetails?.release_date,
     },
     {
       title: "Status",
-      content: mangaDetails.status,
+      content: mangaDetails?.status,
     },
   ];
 
   return (
-    <TableContainer sx={{ mt: 4 }}>
+    <TableContainer>
       <Table>
         <TableBody>
           {items.map((row) => (
@@ -77,13 +77,13 @@ export default function MangaDetailTable({
                     gap={1}
                   >
                     <Rating
-                      value={mangaDetails.rating}
+                      value={mangaDetails?.rating}
                       readOnly
                       sx={{ fontSize: 19 }}
                       precision={0.5}
                     />
                     <Typography variant="caption" sx={{ fontSize: "0.875rem" }}>
-                      {mangaDetails.rating} / 5
+                      {row.content}
                     </Typography>
                   </Stack>
                 ) : row.title === "Genre" ? (
@@ -97,7 +97,7 @@ export default function MangaDetailTable({
                       color="info"
                       size="small"
                       fontSize={10}
-                      genres={mangaDetails.genres as string[]}
+                      genres={mangaDetails?.genres ?? []}
                     />
                   </Stack>
                 ) : (

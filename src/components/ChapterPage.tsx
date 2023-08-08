@@ -43,13 +43,11 @@ export default async function ChapterPage({ mangaId, chapterId }: Props) {
           next={`/manga/${mangaId}/${data?.next ?? ""}`}
           prev={data?.prev ? `/manga/${mangaId}/${data.prev}` : undefined}
         />
-
         <Stack direction="column" marginY={1}>
           {data?.images?.map((e, i) => (
             <ChapterImage image={e} index={i} key={e} />
           ))}
         </Stack>
-
         <ChapterNav
           sx={{ paddingX: 1 }}
           chapters={chapterLists?.chapter_list}

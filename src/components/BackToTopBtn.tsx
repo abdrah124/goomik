@@ -19,8 +19,8 @@ export default function BackToTopBtn() {
       onClick={handleToTop}
       sx={{
         position: "fixed",
-        right: 8,
-        bottom: 8,
+        right: 14,
+        bottom: 14,
         scale: scroll > 100 ? 1 : 0,
         transition: "all .2s",
       }}

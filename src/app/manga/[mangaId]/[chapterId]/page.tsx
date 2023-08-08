@@ -1,6 +1,11 @@
-import ChapterPage from "@/components/ChapterPage";
+import React from "react";
+import dynamic from "next/dynamic";
 import PageLoader from "@/components/PageLoader";
-import React, { Suspense } from "react";
+
+const ChapterPage = dynamic(() => import("@/components/ChapterPage"), {
+  ssr: false,
+  loading: ({}) => <PageLoader />,
+});
 
 export default function Page({
   params,

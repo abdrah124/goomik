@@ -16,8 +16,6 @@ export default function ChapterNav({
   prev: string | undefined;
   sx?: SxProps<Theme> | undefined;
 }) {
-  console.log(next?.split("/"));
-
   return (
     <Stack direction="row" gap={1} sx={{ ...sx }}>
       <SelectMenu items={chapters} />

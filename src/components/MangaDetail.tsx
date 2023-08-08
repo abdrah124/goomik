@@ -14,7 +14,7 @@ export default async function MangaDetail({ mangaId }: { mangaId: string }) {
   if (!mangaDetails && mangaId.includes("online-reading"))
     redirect(`/manga/${mangaId.split("-online-reading")[0]}`);
 
-  const { src, width, height } = mangaDetails?.cover_image || {};
+  const { src, width, height } = mangaDetails.cover_image || {};
   return (
     <Stack
       direction="column"
