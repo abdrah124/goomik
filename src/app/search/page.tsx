@@ -5,7 +5,7 @@ import { Box, Typography } from "@mui/material";
 import { Metadata } from "next";
 import React from "react";
 
-export const metaData: Metadata = {
+export const metadata: Metadata = {
   title: "Search",
   description: "Search your manhwa, manga, manhua",
 };
