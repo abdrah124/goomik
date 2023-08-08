@@ -1,9 +1,14 @@
 import MangaPagination from "@/components/MangaPagination";
-import NavTabs from "@/components/NavTabs";
 import SearchCard from "@/components/SearchCard";
 import { getSearchResults } from "@/lib/getData";
-import { Box, Paper, Skeleton, Stack, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { Metadata } from "next";
 import React from "react";
+
+export const metaData: Metadata = {
+  title: "Search",
+  description: "Search your manhwa, manga, manhua",
+};
 
 export default async function SearchPage({
   searchParams,

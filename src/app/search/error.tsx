@@ -23,6 +23,9 @@ export default function ErrorPage({
       <Button LinkComponent={Link} href="/" variant="contained">
         Back To home?
       </Button>
+      <Button onClick={() => reset()} variant="contained">
+        Refresh
+      </Button>
     </Stack>
   );
 }

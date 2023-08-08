@@ -37,6 +37,7 @@ export const metadata: Metadata = {
   title: "Goomik",
   description: "read manhwa, manga, manhua, all genres, fast update here",
   viewport: "initial-scale=1, width=device-width",
+  verification: { google: "mPTi6uZ_aDDAMsAsKdO5l1CJe98B29ReLAcxtWHm3_I" },
 };
 
 const fonts = [
