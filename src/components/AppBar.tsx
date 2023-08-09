@@ -86,7 +86,7 @@ export default function DrawerAppBar(props: Props) {
       return `/search?q=&order_by=${
         str.toLowerCase() === "popular" ? "trending" : str.toLowerCase()
       }`;
-    return str.toLowerCase();
+    return `/${str.toLowerCase()}`;
   };
 
   const handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void = (e) => {

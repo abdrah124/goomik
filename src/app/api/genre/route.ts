@@ -6,7 +6,6 @@ import * as cheerio from "cheerio";
 import { getMangaItem } from "@/lib/getMangaItem";
 import {
   MangaItemFull,
-  PagingObject,
   PagingObjectSearch,
   ResponseObject,
   ResponseObjectFailed,
@@ -22,31 +21,36 @@ export async function GET(
   const url = new URL(request.url);
   const { searchParams } = url;
   const genre = searchParams.get("genre");
-  const page = searchParams.get("page") ?? 1;
-  const order_by = searchParams.get("order_by") ?? "";
+  const page = searchParams.get("page") || 1;
+  const order_by = searchParams.get("order_by") || "";
   try {
     if (!genre) throw new Error("No genre provided");
     const html = await fetchHTML(
-      `${baseScraptUrl}/manga-genre/${genre}/page/${page}/?m_orderby=${order_by}`
+      `${baseScraptUrl}/manga-genre/${genre}${
+        Number(page) > 1 ? `/page/${page}/` : ""
+      }${order_by !== "" ? `?m_orderby=${order_by}` : ""}`
     );
 
     const $ = cheerio.load(html);
 
     const content = $(".c-page__content");
-    const contentItem = content.find("div.page-item-detail.manga");
-
+    const contentItem = content.find(
+      "div.page-listing-item div.page-item-detail.manga"
+    );
+    console.log(contentItem.length, " len");
     const datas: MangaItemFull[] = getMangaItem(contentItem, $);
 
     const total_page = Number(
-      clean($("div.wp-pagenavi > span.pages").text().split(" ")[3])
+      clean($("div.wp-pagenavi > span.pages").text()?.split(" ")?.[3] ?? "") ||
+        null
     );
 
     const total = Number(
       clean(
         $("div.main-col > div.main-col-inner > div.c-page div.h4")
           .text()
-          .replaceAll('"', "")
-      ).split(" ")[0]
+          ?.replaceAll('"', "")
+      )?.split(" ")?.[0] ?? ""
     );
 
     return NextResponse.json(

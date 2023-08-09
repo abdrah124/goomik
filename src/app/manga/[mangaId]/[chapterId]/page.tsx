@@ -41,9 +41,5 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default function Page({ params }: Props) {
-  return (
-    <main className="flex flex-col items-center h-auto">
-      <ChapterPage {...params} />
-    </main>
-  );
+  return <ChapterPage {...params} />;
 }

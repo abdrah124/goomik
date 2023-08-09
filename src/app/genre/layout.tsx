@@ -6,8 +6,8 @@ import {
   Stack,
   Typography,
   Link as MuiLink,
-  Button,
-  IconButton,
+  Box,
+  Paper,
 } from "@mui/material";
 import Link from "next/link";
 import React from "react";
@@ -34,14 +34,22 @@ export default async function Layout({
         pb={2}
       >
         {Array.from(genreAlphabet).map((alp) => (
-          <IconButton
+          <Paper
+            elevation={0}
             component={Link}
             href={`#${alp}`}
             key={alp}
-            sx={{ fontSize: 16, padding: ".5em", px: "1em" }}
+            sx={{
+              fontSize: { xs: 13 },
+              padding: ".5em",
+              px: "1em",
+              width: 35,
+              textAlign: "center",
+              height: 35,
+            }}
           >
             {alp.toUpperCase()}
-          </IconButton>
+          </Paper>
         ))}
       </Stack>
 
@@ -55,17 +63,18 @@ export default async function Layout({
           pb={3}
           id={alp}
         >
-          <Typography variant="h5" component="h2">
+          <Typography variant="h6" component="h2">
             {alp.toUpperCase()}
           </Typography>
           <Divider />
-          <Stack direction="row" flexWrap="wrap" key={alp} gap={2}>
+          <Stack direction="row" flexWrap="wrap" key={alp} gap={1.2}>
             <GenreBadges
               color="warning"
+              size="small"
               genres={Array.from(genreMap)
                 .filter((genre) => genre.startsWith(alp))
                 .map((genre) => genre[0].toUpperCase() + genre.slice(1))}
-              fontSize={15}
+              fontSize={13}
             />
           </Stack>
         </Stack>

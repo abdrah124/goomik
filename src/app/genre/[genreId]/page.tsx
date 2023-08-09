@@ -4,7 +4,7 @@ import MangaPagination from "@/components/MangaPagination";
 import NavTabs from "@/components/NavTabs";
 import { getMangaByGenre } from "@/lib/getData";
 import { MangaDetailSimplified } from "@/models/manga";
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import React from "react";
 
 export default async function Page({
@@ -14,7 +14,7 @@ export default async function Page({
   params: { genreId: string };
   searchParams: { page: string; order_by: string };
 }) {
-  const { page = "1", order_by = "relevance" } = searchParams;
+  const { page, order_by } = searchParams;
   const { data: mangaByGenre } = await getMangaByGenre(
     params.genreId,
     Number(page),
@@ -32,11 +32,18 @@ export default async function Page({
         component="h1"
         gutterBottom
         align="left"
-        sx={{ alignSelf: "start" }}
+        sx={{ alignSelf: "start", fontWeight: 700 }}
       >
         {params.genreId[0].toUpperCase() + params.genreId.slice(1)}
       </Typography>
-      {/* <NavTabs /> */}
+      <Typography
+        variant="h5"
+        sx={{ alignSelf: "start", fontWeight: 500 }}
+        gutterBottom
+      >
+        {mangaByGenre?.total || "No"} Result{mangaByGenre?.total > 1 ? "s" : ""}
+      </Typography>
+
       <CardGrid>
         {mangaByGenre?.items
           ?.map((item) => ({ ...item, cover_image: item.image }))
@@ -47,11 +54,13 @@ export default async function Page({
             />
           ))}
       </CardGrid>
-      <MangaPagination
-        path={`/genre/${params.genreId}`}
-        total={mangaByGenre?.total_page ?? 0}
-        query={{ page, order_by }}
-      />
+      {(mangaByGenre?.total_page ?? 0) > 1 && (
+        <MangaPagination
+          path={`/genre/${params.genreId}`}
+          total={mangaByGenre?.total_page ?? 0}
+          query={{ page, order_by }}
+        />
+      )}
     </Box>
   );
 }
