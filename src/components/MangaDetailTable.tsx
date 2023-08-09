@@ -94,7 +94,7 @@ export default function MangaDetailTable({
                     flexWrap="wrap"
                   >
                     <GenreBadges
-                      color="info"
+                      color="warning"
                       size="small"
                       fontSize={10}
                       genres={mangaDetails?.genres ?? []}

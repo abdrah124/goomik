@@ -1,3 +1,4 @@
+"use client";
 import { config } from "@/lib/config";
 import React from "react";
 import { Comment } from "react-disqus-components";
