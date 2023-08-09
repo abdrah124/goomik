@@ -26,7 +26,7 @@ export default async function Layout({
     <main>
       {children}
       <Stack
-        gap={3}
+        gap={1}
         direction="row"
         justifyContent="center"
         flexWrap="wrap"

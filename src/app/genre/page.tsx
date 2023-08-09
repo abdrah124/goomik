@@ -8,8 +8,7 @@ export default function Page() {
         variant="h4"
         align="center"
         component="h1"
-        gutterBottom
-        sx={{ fontWeight: 700 }}
+        sx={{ fontWeight: 700, mb:5 }}
       >
         Genres
       </Typography>
