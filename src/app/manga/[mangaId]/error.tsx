@@ -1,7 +1,9 @@
 "use client";
 
+import { Refresh } from "@mui/icons-material";
 import { Button, Stack, Typography } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
 export default function ErrorPage({
@@ -11,6 +13,9 @@ export default function ErrorPage({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+
+  const router = useRouter()
+
   useEffect(() => {
     console.log(error);
   }, [error]);
@@ -23,9 +28,9 @@ export default function ErrorPage({
       <Button LinkComponent={Link} href="/" variant="contained">
         Back To home?
       </Button>
-      <Button onClick={() => reset()} variant="contained">
-        Refresh
-      </Button>
+      <Button variant="contained" onClick={() => router.refresh()} startIcon={<Refresh />}>
+      Refresh
+    </Button>
     </Stack>
   );
 }

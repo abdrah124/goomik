@@ -30,10 +30,9 @@ export async function GET(
     const newestMangaId = getPathname(url)?.[2] as string;
     if (mangaId !== newestMangaId) {
       mangaId = newestMangaId;
-      console.log(`/api/manga/${newestMangaId}`);
     }
     const html = await fetchHTML(`${baseScraptUrl}/manga/${mangaId}`);
-    console.log(mangaId);
+   
     const $ = cheerio.load(html);
 
     const container = $("div.container");

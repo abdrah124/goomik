@@ -8,7 +8,7 @@ export default async function MangaList({
   variant = "latest",
   title,
 }: {
-  page?: string;
+  page?: string | number;
   variant?: "latest" | "popular" | "trending";
   title?: string;
 }) {

@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Loading() {
   return (
-    <main>
+    <main className="min-h-screen">
       <div>
         <h1></h1>
         <PageLoader />

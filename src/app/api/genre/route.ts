@@ -37,7 +37,7 @@ export async function GET(
     const contentItem = content.find(
       "div.page-listing-item div.page-item-detail.manga"
     );
-    console.log(contentItem.length, " len");
+   
     const datas: MangaItemFull[] = getMangaItem(contentItem, $);
 
     const total_page = Number(

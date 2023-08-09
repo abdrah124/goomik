@@ -23,7 +23,8 @@ export default function ChapterNav({
         {prev && (
           <Button
             component={Link}
-            href={prev}
+            scroll={true}
+            href={prev + '#'}
             disabled={!next}
             color="primary"
             variant="contained"
@@ -39,8 +40,9 @@ export default function ChapterNav({
         <Button
           color="primary"
           variant="contained"
+          scroll={true}
           component={Link}
-          href={next}
+          href={next + '#'}
           sx={{
             color: "text.primary",
             "&:visited": "text.primary",

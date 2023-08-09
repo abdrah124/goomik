@@ -14,14 +14,14 @@ export default async function Page({
   params: { genreId: string };
   searchParams: { page: string; order_by: string };
 }) {
-  const { page, order_by } = searchParams;
+  const { page ='1', order_by } = searchParams;
   const { data: mangaByGenre } = await getMangaByGenre(
     params.genreId,
     Number(page),
     order_by,
     { revalidate: 0 }
   );
-  console.log(mangaByGenre, " mangabyge");
+ 
   return (
     <Box
       p={2}
@@ -58,7 +58,7 @@ export default async function Page({
         <MangaPagination
           path={`/genre/${params.genreId}`}
           total={mangaByGenre?.total_page ?? 0}
-          query={{ page, order_by }}
+          query={{ page }}
         />
       )}
     </Box>
