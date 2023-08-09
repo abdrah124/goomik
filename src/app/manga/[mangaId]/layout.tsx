@@ -5,7 +5,6 @@ export default function Layout({children, params}:{children:React.ReactNode, par
   return (
     <main className="w-full">
     {children}
-    <DisqusManga  mangaId={params.mangaId}/>
     </main>
   )
 }

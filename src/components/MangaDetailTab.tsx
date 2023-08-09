@@ -9,6 +9,8 @@ import { MangaDetailFull } from "@/models/manga";
 import { Stack } from "@mui/material";
 import MangaDescription from "./MangaDescription";
 import MangaDetailTable from "./MangaDetailTable";
+import { DisqusManga } from "./Disqus";
+import { useParams } from "next/navigation";
 
 const tabs = ["Details", "Chapters"];
 
@@ -46,6 +48,7 @@ export default function MangaDetailTab({
 }: {
   mangaDetails: MangaDetailFull;
 }) {
+  const params = useParams()
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -65,6 +68,7 @@ export default function MangaDetailTab({
         <Stack direction="column">
           <MangaDescription desc={mangaDetails?.description ?? ""} />
           <MangaDetailTable mangaDetails={mangaDetails} />
+          <DisqusManga  mangaId={params.mangaId as string}/>
         </Stack>
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
