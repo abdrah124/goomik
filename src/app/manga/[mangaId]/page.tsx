@@ -57,8 +57,6 @@ export async function generateMetadata({ params }: Props) {
 export default function Page({ params }: Props) {
   const { mangaId } = params;
   return (
-    <main className="w-full">
       <MangaDetail mangaId={mangaId} />
-    </main>
   );
 }
