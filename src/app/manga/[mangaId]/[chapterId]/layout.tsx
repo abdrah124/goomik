@@ -4,10 +4,10 @@ import React from "react";
 export default function Layout({
   children,
   params,
-  recommend
+  recommend,
 }: {
   children: React.ReactNode;
-  recommend:React.ReactNode
+  recommend: React.ReactNode;
   params: { mangaId: string; chapterId: string };
 }) {
   return (

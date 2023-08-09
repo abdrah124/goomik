@@ -1,7 +1,6 @@
 "use client";
 
 import { Button, Stack, Typography } from "@mui/material";
-import Link from "next/link";
 import React, { useEffect } from "react";
 
 export default function ErrorPage({

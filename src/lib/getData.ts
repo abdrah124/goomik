@@ -3,7 +3,6 @@ import {
   MangaDetailFull,
   MangaDetailSimplified,
   MangaItemFull,
-  PagingObject,
   PagingObjectSearch,
   ResponseObject,
 } from "@/models/manga";

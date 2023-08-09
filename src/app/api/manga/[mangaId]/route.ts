@@ -10,7 +10,6 @@ import {
 } from "@/models/manga";
 import { clean } from "@/lib/clean";
 import { getPathname } from "@/lib/getPathname";
-import { redirect } from "next/navigation";
 const { baseScraptUrl, baseWebUrl } = config;
 export const dynamic = "force-dynamic";
 
@@ -32,7 +31,7 @@ export async function GET(
       mangaId = newestMangaId;
     }
     const html = await fetchHTML(`${baseScraptUrl}/manga/${mangaId}`);
-   
+
     const $ = cheerio.load(html);
 
     const container = $("div.container");

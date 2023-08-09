@@ -13,8 +13,10 @@ export default async function MangaList({
   title?: string;
 }) {
   const { data } = await getMangaByCategory(variant, Number(page), {
-    revalidate: 0,
+    revalidate: 3600,
   });
+
+  if (data?.items?.length === 0) return null;
 
   return (
     <CardSlider title={title}>

@@ -15,7 +15,7 @@ export default async function ChapterPage({ mangaId, chapterId }: Props) {
   const { data } = await getMangaChapter(mangaId, chapterId, { revalidate: 0 });
 
   const { data: chapterLists } = await getMangaChapterList(mangaId, {
-    revalidate: 0,
+    revalidate: 900,
   });
 
   return (

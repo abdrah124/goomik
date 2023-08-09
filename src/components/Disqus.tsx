@@ -1,9 +1,8 @@
-"use client";
 import { config } from "@/lib/config";
 import React from "react";
 import { Comment } from "react-disqus-components";
 
- const disqusShortName = "goomik";
+const disqusShortName = "goomik";
 
 export default function DisqusChapter({
   mangaId,
@@ -28,10 +27,10 @@ export default function DisqusChapter({
   );
 }
 
-export function DisqusManga ({mangaId}:{mangaId:string}) {
+export function DisqusManga({ mangaId }: { mangaId: string }) {
   const disqusConfig = {
     url: `${config.baseWebUrl}/manga/${mangaId}`,
-    identifier: mangaId ,
+    identifier: mangaId,
     title: mangaId[0].toUpperCase() + mangaId.slice(1).split("-").join(" "),
   };
 

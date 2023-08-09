@@ -18,7 +18,7 @@ export default async function SearchPage({
   const { q, page = "1", order_by = "relevance" } = searchParams;
 
   const { data } = await getSearchResults(q, Number(page), order_by, {
-    revalidate: 0,
+    revalidate: 3600,
   });
 
   return (

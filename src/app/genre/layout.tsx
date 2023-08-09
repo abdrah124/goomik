@@ -1,14 +1,7 @@
 import BackToTopBtn from "@/components/BackToTopBtn";
 import GenreBadges from "@/components/GenreBadges";
 import { getGenreList } from "@/lib/getData";
-import {
-  Divider,
-  Stack,
-  Typography,
-  Link as MuiLink,
-  Box,
-  Paper,
-} from "@mui/material";
+import { Divider, Stack, Typography, Paper } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 

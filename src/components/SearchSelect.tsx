@@ -35,7 +35,7 @@ export default function SearchSelect({
     queryKey: ["Search Results", input],
     queryFn: () =>
       fetch(`${baseWebUrl}/api/search?q=${input.trim()}`, {
-        next: { revalidate: 0 },
+        next: { revalidate: 3600 },
       })
         .then((res) => res.json())
         .catch((err) => Promise.reject(err)),

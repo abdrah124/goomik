@@ -40,7 +40,7 @@ export default function MangaPagination({
       })
       .join("&")}`;
   };
-  // Number((total / 12).toFixed(0))
+
   return (
     <Box mt={2} sx={{ ...sx }}>
       <Pagination

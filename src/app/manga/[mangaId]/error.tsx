@@ -13,8 +13,7 @@ export default function ErrorPage({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
-
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
     console.log(error);
@@ -28,9 +27,13 @@ export default function ErrorPage({
       <Button LinkComponent={Link} href="/" variant="contained">
         Back To home?
       </Button>
-      <Button variant="contained" onClick={() => router.refresh()} startIcon={<Refresh />}>
-      Refresh
-    </Button>
+      <Button
+        variant="contained"
+        onClick={() => router.refresh()}
+        startIcon={<Refresh />}
+      >
+        Refresh
+      </Button>
     </Stack>
   );
 }

@@ -1,14 +1,9 @@
 import * as React from "react";
-import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Box, CardActionArea, Rating } from "@mui/material";
 import Link from "next/link";
-import {
-  MangaDetailFull,
-  MangaDetailSimplified,
-  MangaItemFull,
-} from "@/models/manga";
+import { MangaDetailSimplified } from "@/models/manga";
 
 interface Props {
   data: MangaDetailSimplified;

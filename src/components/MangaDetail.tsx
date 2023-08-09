@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 
 export default async function MangaDetail({ mangaId }: { mangaId: string }) {
   const { data: mangaDetails } = await getMangaDetail(mangaId, {
-    revalidate: 0,
+    revalidate: 900,
   });
 
   if (!mangaDetails && mangaId.includes("online-reading"))

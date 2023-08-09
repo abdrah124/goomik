@@ -1,10 +1,9 @@
 import MangaCard from "@/components/Card";
 import CardGrid from "@/components/CardGrid";
 import MangaPagination from "@/components/MangaPagination";
-import NavTabs from "@/components/NavTabs";
 import { getMangaByGenre } from "@/lib/getData";
 import { MangaDetailSimplified } from "@/models/manga";
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React from "react";
 
 export default async function Page({
@@ -14,14 +13,14 @@ export default async function Page({
   params: { genreId: string };
   searchParams: { page: string; order_by: string };
 }) {
-  const { page ='1', order_by } = searchParams;
+  const { page = "1", order_by } = searchParams;
   const { data: mangaByGenre } = await getMangaByGenre(
     params.genreId,
     Number(page),
     order_by,
-    { revalidate: 0 }
+    { revalidate: 3600 }
   );
- 
+
   return (
     <Box
       p={2}

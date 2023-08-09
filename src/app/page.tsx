@@ -7,7 +7,11 @@ export default async function Home() {
         <MangaList title="Latest update" />
         <MangaList title="Popular manhwa" variant="popular" />
         <MangaList title="Top of the day" variant="trending" />
-        <MangaList title="Random manhwa" variant="latest" page={Math.floor(Math.random() * 50) + 50} />
+        <MangaList
+          title="Random manhwa"
+          variant="latest"
+          page={Math.floor(Math.random() * 50) + 5}
+        />
       </div>
     </main>
   );

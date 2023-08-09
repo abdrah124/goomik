@@ -1,8 +1,7 @@
-import React, { Suspense } from "react";
+import React from "react";
 import MangaDetail from "@/components/MangaDetail";
 import { getMangaDetail } from "@/lib/getData";
 import { config } from "@/lib/config";
-import MangaDetailLoading from "@/components/MangaDetailLoading";
 
 interface Props {
   params: { mangaId: string };
@@ -56,7 +55,5 @@ export async function generateMetadata({ params }: Props) {
 
 export default function Page({ params }: Props) {
   const { mangaId } = params;
-  return (
-      <MangaDetail mangaId={mangaId} />
-  );
+  return <MangaDetail mangaId={mangaId} />;
 }

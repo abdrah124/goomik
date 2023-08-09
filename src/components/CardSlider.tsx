@@ -21,7 +21,7 @@ export default function CardSlider({
       >
         {title}
       </Typography>
-      <Divider sx={{mb:2}}/>
+      <Divider sx={{ mb: 2 }} />
       <div className=" overflow-x-auto w-full flex scroll-smooth snap-mandatory gap-2 snap-x hide-scrollbar px-2">
         {children}
       </div>
@@ -30,8 +30,11 @@ export default function CardSlider({
 }
 
 export const CardSliderSkeleton = () => {
-  return   <CardSlider title={<Skeleton width="40%" animation="wave" />}>
-      {[1,2,3,4,5,6,7,8,9,10].map(item => <CardSkeleton key={item} />)}
+  return (
+    <CardSlider title={<Skeleton width="40%" animation="wave" />}>
+      {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+        <CardSkeleton key={item} />
+      ))}
     </CardSlider>
- 
-}
+  );
+};

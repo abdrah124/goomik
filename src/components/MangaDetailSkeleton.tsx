@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Skeleton, Paper } from "@mui/material";
+import { Box, Skeleton } from "@mui/material";
 
 export default function MangaDetailSkeleton() {
   return (
