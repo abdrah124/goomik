@@ -73,7 +73,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const drawerWidth = 240;
-const navItems = ["Home", "Latest", "Popular", "Genre"];
+const navItems = ["Home", "Latest", "Popular", "Genre", "Library"];
 
 export default function DrawerAppBar(props: Props) {
   const router = useRouter();

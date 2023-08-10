@@ -9,6 +9,7 @@ import RootTheme from "@/components/theme/RootTheme";
 import QueryProvider from "@/components/utils/QueryProvider";
 import { ThemePalleteMode } from "@/components/ThemeToggler";
 import { config } from "@/lib/config";
+import { MangaLibraryContext } from "@/context/Library";
 
 const inter = Inter({ subsets: ["latin"] });
 const quickSand = Quicksand({
@@ -73,10 +74,12 @@ export default function RootLayout({ children }: PageLayoutProps) {
       <ThemePalleteMode>
         <html lang="en">
           <body className={fonts + " pt-16 sm:pt-20 pb-4 "}>
-            <QueryProvider>
-              <DrawerAppBar />
-              {children}
-            </QueryProvider>
+            <MangaLibraryContext>
+              <QueryProvider>
+                <DrawerAppBar />
+                {children}
+              </QueryProvider>
+            </MangaLibraryContext>
             <Analytics />
           </body>
         </html>

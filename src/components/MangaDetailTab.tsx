@@ -10,6 +10,7 @@ import MangaDescription from "./MangaDescription";
 import MangaDetailTable from "./MangaDetailTable";
 import { DisqusManga } from "./Disqus";
 import { useParams } from "next/navigation";
+import BookmarkBtn from "./BookmarkBtn";
 
 const tabs = ["Details", "Chapters"];
 
@@ -56,12 +57,20 @@ export default function MangaDetailTab({
 
   return (
     <Box sx={{ width: "100%", marginTop: 2 }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+      <Box
+        sx={{
+          borderBottom: 1,
+          borderColor: "divider",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
         <Tabs value={value} onChange={handleChange} aria-label="manga tabs">
           {tabs.map((tab, i) => (
             <Tab label={tab} color="warning" key={tab} {...a11yProps(i)} />
           ))}
         </Tabs>
+        <BookmarkBtn id={mangaDetails.id} />
       </Box>
       <CustomTabPanel value={value} index={0}>
         <Stack direction="column">
