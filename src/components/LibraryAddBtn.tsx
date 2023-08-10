@@ -11,7 +11,7 @@ export default function LibraryAddBtn({ id }: { id: string }) {
 
   const handleAdd = () => {
     addItem(id);
-    showSnackbar("Item removed from library!", 1500);
+    showSnackbar("Item added to library", 1500);
   };
 
   return (
