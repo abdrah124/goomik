@@ -21,7 +21,10 @@ export default function LibraryDeleteBtn({
   };
 
   return (
-    <IconButton onClick={handleDelete} sx={{ width: "fit-content", mr: 2 }}>
+    <IconButton
+      onClick={handleDelete}
+      sx={{ width: "fit-content", mr: 2, height: "fit-content" }}
+    >
       {variant === "trash" ? (
         <Delete color="error" />
       ) : (

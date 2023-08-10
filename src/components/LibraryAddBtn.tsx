@@ -15,7 +15,10 @@ export default function LibraryAddBtn({ id }: { id: string }) {
   };
 
   return (
-    <IconButton onClick={handleAdd} sx={{ width: "fit-content", mr: 2 }}>
+    <IconButton
+      onClick={handleAdd}
+      sx={{ width: "fit-content", mr: 2, height: "fit-content" }}
+    >
       <BookmarkBorder />
     </IconButton>
   );
