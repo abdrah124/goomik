@@ -63,6 +63,7 @@ export default function SnackMessage() {
 
   return (
     <Snackbar
+      key={message}
       open={open}
       message={message}
       onClose={handleClose}
