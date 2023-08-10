@@ -3,7 +3,7 @@ import { config } from "@/lib/config";
 import React from "react";
 import { Comment } from "react-disqus-components";
 
-const disqusShortName = "goomik";
+const disqusShortName = "gooscans";
 
 export default function DisqusChapter({
   mangaId,

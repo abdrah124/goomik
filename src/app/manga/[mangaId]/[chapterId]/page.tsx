@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props) {
       title: mangaChapter?.title,
       description: mangaDetails?.description,
       url: `${config.baseWebUrl}/manga/${params.mangaId}/${params.chapterId}`,
-      siteName: "Goomik",
+      siteName: "gooscans",
       images: [
         {
           url: mangaDetails?.cover_image?.src,
