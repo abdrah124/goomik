@@ -58,10 +58,10 @@ export function MangaLibraryContext({
   children: React.ReactNode;
 }) {
   const [libraryIds, setLibraryIds] = useState<string[]>([]);
-  console.log(libraryIds);
+
   useEffect(() => {
     const items: string[] = JSON.parse(localStorage.getItem("library") || "[]");
-    console.log(items, " items");
+
     if (items.length > 0) {
       setLibraryIds(items);
     }
