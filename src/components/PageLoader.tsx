@@ -4,7 +4,7 @@ import React from "react";
 export default function PageLoader() {
   return (
     <div className="w-full h-screen absolute inset-0 flex justify-center items-center">
-      <CircularProgress />
+      <CircularProgress color="secondary" />
     </div>
   );
 }

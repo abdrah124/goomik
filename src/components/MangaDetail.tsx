@@ -83,7 +83,7 @@ export default async function MangaDetail({ mangaId }: { mangaId: string }) {
         sx={{ overflowX: "auto" }}
       >
         <GenreBadges
-          color="warning"
+          color="primary"
           fontSize={12}
           genres={mangaDetails?.genres as string[]}
         />

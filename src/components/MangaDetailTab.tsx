@@ -59,7 +59,7 @@ export default function MangaDetailTab({
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs value={value} onChange={handleChange} aria-label="manga tabs">
           {tabs.map((tab, i) => (
-            <Tab label={tab} key={tab} {...a11yProps(i)} />
+            <Tab label={tab} color="warning" key={tab} {...a11yProps(i)} />
           ))}
         </Tabs>
       </Box>

@@ -62,7 +62,7 @@ export default async function Layout({
           <Divider />
           <Stack direction="row" flexWrap="wrap" key={alp} gap={1.2}>
             <GenreBadges
-              color="warning"
+              color="primary"
               size="small"
               genres={Array.from(genreMap)
                 .filter((genre) => genre.startsWith(alp))

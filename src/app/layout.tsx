@@ -7,6 +7,7 @@ import { PageLayout } from "@/models/pageLayout";
 import RootTheme from "@/components/theme/RootTheme";
 import QueryProvider from "@/components/utils/QueryProvider";
 import { ThemePalleteMode } from "@/components/ThemeToggler";
+import { config } from "@/lib/config";
 
 const inter = Inter({ subsets: ["latin"] });
 const quickSand = Quicksand({
@@ -34,10 +35,25 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Goomik",
+  title: "Gooscans",
   description: "read manhwa, manga, manhua, all genres, fast update here",
   viewport: "initial-scale=1, width=device-width",
   verification: { google: "mPTi6uZ_aDDAMsAsKdO5l1CJe98B29ReLAcxtWHm3_I" },
+  openGraph: {
+    title: "Gooscans",
+    description: "Read free latest manhwa, manhua, manga.",
+    url: `${config.baseWebUrl}`,
+    siteName: "goscans",
+    images: [
+      {
+        url: "./android-chrome-192x192.png",
+        width: 100,
+        height: 100,
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 const fonts = [

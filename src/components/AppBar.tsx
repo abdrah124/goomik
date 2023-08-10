@@ -20,6 +20,7 @@ import { InputBase, ListItemIcon, Paper, alpha, styled } from "@mui/material";
 import { useRouter } from "next/navigation";
 import SearchSelect from "./SearchSelect";
 import ThemeToggler from "./ThemeToggler";
+import GSVG from "/g.svg";
 
 interface Props {
   /**
@@ -105,7 +106,7 @@ export default function DrawerAppBar(props: Props) {
         variant="h5"
         sx={{ my: 2, fontFamily: "var(--quicksand)", fontWeight: 700 }}
       >
-        Goomik
+        Gooscans
       </Typography>
       <Divider />
       <List>
@@ -159,7 +160,7 @@ export default function DrawerAppBar(props: Props) {
               fontWeight: 700,
             }}
           >
-            Goomik
+            Gooscans
           </Typography>
           <Box sx={{ display: { xs: "none", md: "block" } }}>
             {navItems.map((item) => (

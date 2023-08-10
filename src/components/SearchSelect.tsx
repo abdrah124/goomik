@@ -53,7 +53,7 @@ export default function SearchSelect({
     >
       {isLoading ? (
         <div className="py-4 flex justify-center items-center w-full">
-          <CircularProgress />
+          <CircularProgress color="secondary" />
         </div>
       ) : (
         !isError &&
