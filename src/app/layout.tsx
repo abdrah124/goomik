@@ -1,4 +1,5 @@
 import DrawerAppBar from "@/components/AppBar";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter, Quicksand, Poppins, Cabin, Roboto } from "next/font/google";
@@ -76,6 +77,7 @@ export default function RootLayout({ children }: PageLayoutProps) {
               <DrawerAppBar />
               {children}
             </QueryProvider>
+            <Analytics />
           </body>
         </html>
       </ThemePalleteMode>
