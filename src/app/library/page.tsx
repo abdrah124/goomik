@@ -8,7 +8,7 @@ import SearchCardSkeleton from "@/components/SearchCardSkeleton";
 import { useGetLibraryItems } from "@/context/Library";
 import { config } from "@/lib/config";
 import { sortArray } from "@/lib/sortArray";
-import { Grid3x3, List } from "@mui/icons-material";
+import { Grid3x3, GridView, List } from "@mui/icons-material";
 import { Box, IconButton, Paper, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
@@ -51,7 +51,7 @@ function MangaLibraryCard ({id}:{id:string}) {
 
   return <div className="relative">
   <MangaCard data={data} />
-  <span className="absolute right-0 bottom-4">
+  <span className="absolute right-0 bottom-0">
     <LibraryDeleteBtn variant="trash" id={id} />
   </span>
 </div>
@@ -63,8 +63,8 @@ export default function Page() {
 
   return (
     <div className="w-full">
-      <Paper elevation={4} sx={{width:"100%", display:"flex", justifyContent:"end", p:2}}>
-        <IconButton onClick={() => setList(!list)}>{list ? <Grid3x3 /> : <List />}</IconButton>
+      <Paper elevation={5} sx={{width:"100%", display:"flex", justifyContent:"end", px:2, mb:3, py:1,}}>
+        <IconButton onClick={() => setList(!list)}>{list ? <GridView /> : <List />}</IconButton>
       </Paper>
       {
 list ? <Stack direction="column" gap={2}>
