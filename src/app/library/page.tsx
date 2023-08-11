@@ -42,7 +42,7 @@ function LibraryCard({ id }: { id: string }) {
   return (
     <div className="relative">
       <SearchCard data={data} />
-      {isContainNew && <span className=" absolute top-4 left-0"><NewBadge /></span>}
+      {isContainNew && <span className=" absolute top-4 left-4"><NewBadge /></span>}
       <span className="absolute right-0 bottom-4">
         <LibraryDeleteBtn variant="trash" id={id} />
       </span>
@@ -61,7 +61,7 @@ function MangaLibraryCard ({id}:{id:string}) {
   if(isSuccess)
   return <div className="relative">
   <MangaCard data={data} />
-  {isContainNew && <span className=" absolute top-0 -right-2"><NewBadge /></span>}
+  {isContainNew && <span className=" absolute top-2 right-2"><NewBadge /></span>}
   <span className="absolute -right-2 bottom-0">
     <LibraryDeleteBtn variant="trash" id={id} />
   </span>
