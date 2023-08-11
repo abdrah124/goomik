@@ -82,7 +82,10 @@ export function ThemePalleteMode({ children }: { children: React.ReactNode }) {
         palette: {
           mode,
           background: {
-            default: mode === "dark" ? "rgb(39, 39, 42)" : "white",
+            default: mode === "dark" ? "rgb(39, 39, 42)" : "#fff",
+          },
+          text: {
+            primary: mode === "dark" ? "#fff" : "#000",
           },
         },
       }),

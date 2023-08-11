@@ -73,21 +73,20 @@ export default function RootLayout({ children }: PageLayoutProps) {
   return (
     <RootTheme>
       <ThemePalleteMode>
-        <html lang="en">
-          <body className={fonts + " pt-16 sm:pt-20 pb-4 "}>
-            <SnackContext>
-              <MangaLibraryContext>
+        <SnackContext>
+          <MangaLibraryContext>
+            <html lang="en">
+              <body className={fonts + " pt-16 sm:pt-20 pb-4 "}>
                 <QueryProvider>
                   <DrawerAppBar />
                   {children}
                 </QueryProvider>
-              </MangaLibraryContext>
-              <SnackMessage />
-            </SnackContext>
-
-            <Analytics />
-          </body>
-        </html>
+                <SnackMessage />
+                <Analytics />
+              </body>
+            </html>
+          </MangaLibraryContext>
+        </SnackContext>
       </ThemePalleteMode>
     </RootTheme>
   );
