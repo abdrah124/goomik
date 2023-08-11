@@ -3,18 +3,20 @@ import MangaCard from "@/components/Card";
 import CardGrid from "@/components/CardGrid";
 import CardSkeleton from "@/components/CardSkeleton";
 import LibraryDeleteBtn from "@/components/LibraryDeleteBtn";
+import NewBadge from "@/components/NewBadge";
 import SearchCard from "@/components/SearchCard";
 import SearchCardSkeleton from "@/components/SearchCardSkeleton";
 import { useGetLibraryItems } from "@/context/Library";
 import { config } from "@/lib/config";
 import { sortArray } from "@/lib/sortArray";
+import { MangaDetailFull } from "@/models/manga";
 import { Grid3x3, GridView, List } from "@mui/icons-material";
 import { Box, IconButton, Paper, Stack, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 
-const useGetLibraryItem = (id:string) => {
-  const query = useQuery({
+const useGetLibraryItem = (id:string)  => {
+  const query = useQuery<MangaDetailFull>({
     queryKey: ["Library Items", id],
     queryFn: () =>
       fetch(`${config.baseWebUrl}/api/manga/${id}`)
@@ -29,13 +31,18 @@ const useGetLibraryItem = (id:string) => {
 }
 
 function LibraryCard({ id }: { id: string }) {
-  const { data, isLoading, isError } = useGetLibraryItem(id)
+  const { data, isLoading, isError, isSuccess } = useGetLibraryItem(id)
 
   if (isLoading) return <SearchCardSkeleton />;
   if (isError) return null;
+
+  const isContainNew = data?.chapter_list?.some?.(chapter => chapter?.release_date === "new")
+
+  if(isSuccess)
   return (
     <div className="relative">
       <SearchCard data={data} />
+      {isContainNew && <span className=" absolute top-4 left-0"><NewBadge /></span>}
       <span className="absolute right-0 bottom-4">
         <LibraryDeleteBtn variant="trash" id={id} />
       </span>
@@ -44,14 +51,18 @@ function LibraryCard({ id }: { id: string }) {
 }
 
 function MangaLibraryCard ({id}:{id:string}) {
-  const { data, isLoading, isError } = useGetLibraryItem(id)
+  const { data, isLoading, isError, isSuccess } = useGetLibraryItem(id)
 
   if (isLoading) return <CardSkeleton />;
   if (isError) return null;
 
+  const isContainNew = data?.chapter_list?.some?.(chapter => chapter?.release_date === "new")
+
+  if(isSuccess)
   return <div className="relative">
   <MangaCard data={data} />
-  <span className="absolute right-0 bottom-0">
+  {isContainNew && <span className=" absolute top-0 -right-2"><NewBadge /></span>}
+  <span className="absolute -right-2 bottom-0">
     <LibraryDeleteBtn variant="trash" id={id} />
   </span>
 </div>
