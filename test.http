@@ -1,0 +1,38 @@
+POST http://localhost:3000/api/auth/signin HTTP/1.1
+Content-Type: application/json
+
+{
+    "email":"abdmanharits@gmail.com",
+    "password":"123456789"
+}
+
+###
+
+POST http://localhost:3000/api/bookmark HTTP/1.1
+Content-Type: application/json
+
+{
+    "userId" : "64d9cfb965c43efd1c9bddb4",
+    "comicId":"mangaku-yahaha2"
+}
+
+
+###
+DELETE http://localhost:3000/api/bookmark/64d9cfb965c43efd1c9bddb4/mangaku-yahaha HTTP/1.1
+
+###
+GET http://localhost:3000/api/bookmark/64da076bec638fac274bc586
+
+### 
+GET http://localhost:3000/api/bookmark/64d9cfb965c43efd1c9bddb4/mangaku-yahaha2
+
+###
+PATCH http://localhost:3000/api/auth/account/64da076bec638fac274bc586 HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "ABEDUL HARISSUU new"
+}
+
+###
+DELETE http://localhost:3000/api/auth/account/me/delete

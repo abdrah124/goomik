@@ -1,41 +1,9 @@
-import DrawerAppBar from "@/components/AppBar";
-import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter, Quicksand, Poppins, Cabin, Roboto } from "next/font/google";
 import React from "react";
 import { PageLayout } from "@/models/pageLayout";
-import RootTheme from "@/components/theme/RootTheme";
-import QueryProvider from "@/components/utils/QueryProvider";
-import { ThemePalleteMode } from "@/components/ThemeToggler";
 import { config } from "@/lib/config";
-import { MangaLibraryContext } from "@/context/Library";
-import SnackMessage, { SnackContext } from "@/components/SnackMessage";
-
-const inter = Inter({ subsets: ["latin"] });
-const quickSand = Quicksand({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--quicksand",
-});
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--poppins",
-});
-
-const cabin = Cabin({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--cabin",
-});
-
-const roboto = Roboto({
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-  variable: "--roboto",
-});
+import RootContext from "@/context/RootContext";
 
 export const metadata: Metadata = {
   title: "Gooscans",
@@ -59,35 +27,8 @@ export const metadata: Metadata = {
   },
 };
 
-const fonts = [
-  inter.className,
-  cabin.variable,
-  poppins.variable,
-  quickSand.variable,
-  roboto.variable,
-].join(" ");
-
 interface PageLayoutProps extends PageLayout {}
 
-export default function RootLayout({ children }: PageLayoutProps) {
-  return (
-    <RootTheme>
-      <ThemePalleteMode>
-        <SnackContext>
-          <MangaLibraryContext>
-            <html lang="en">
-              <body className={fonts + " pt-16 sm:pt-20 pb-4 "}>
-                <QueryProvider>
-                  <DrawerAppBar />
-                  {children}
-                </QueryProvider>
-                <SnackMessage />
-                <Analytics />
-              </body>
-            </html>
-          </MangaLibraryContext>
-        </SnackContext>
-      </ThemePalleteMode>
-    </RootTheme>
-  );
+export default async function RootLayout({ children }: PageLayoutProps) {
+  return <RootContext>{children}</RootContext>;
 }

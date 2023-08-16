@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id  String @id @default(auto()) @map("_id") @db.ObjectId
+  email String? @unique
+  emailVerified String?
+  name String?
+  image String?
+  hashedPassword String? 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  role Role @default(user)
+
+  bookmarks Bookmark[]
+  accounts Account[]
+  resetToken ResetToken?
+  @@map("users")
+}
+
+model Account {
+  id                 String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId             String  @db.ObjectId
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.String
+  access_token       String?  @db.String
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.String
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model ResetToken {
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId @unique
+  token String @unique
+  expireAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete:Cascade)
+  @@map("tokens")
+}
+
+model Bookmark {
+  id String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId @unique
+  createdAt DateTime @default(now())
+  comicId String @unique
+  user User @relation(fields: [userId], references: [id],onDelete:Cascade)
+  @@map("bookmarks")
+}
+
+enum Role {
+  admin
+  user
+}

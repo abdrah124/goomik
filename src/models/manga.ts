@@ -80,3 +80,17 @@ export interface MangaDetailFull extends MangaDetailSimplified {
   synopsis?: string;
   description?: string;
 }
+
+export type BookmarkItemSimplified = {
+  id: string;
+};
+
+export type BookmarkItem =
+  | ({
+      userId: string;
+      createdAt: Date;
+      comicId: string;
+    } & BookmarkItemSimplified)
+  | null;
+
+export type BookmarkItems = BookmarkItem[] | [];
