@@ -4,8 +4,8 @@ import { authOptions } from "../../[...nextauth]/route";
 import prisma from "@/lib/prismadb";
 
 export async function GET(request: NextRequest) {
-  const session = await getServerSession(authOptions);
   try {
+    const session = await getServerSession(authOptions);
     if (!session?.user?.email) throw new Error("Something went wrong!");
     const myInfo = await prisma.user.findUnique({
       where: {

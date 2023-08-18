@@ -21,20 +21,6 @@ export default async function Layout({
   const isExpired =
     Date.parse(isValidToken.expireAt as unknown as string) < Date.now();
 
-  // if (isExpired) {
-  //   const token = await prisma.resetToken.findFirst({
-  //     where: { token: params.token },
-  //   });
-  //   if (token) {
-  //     await prisma.resetToken.delete({
-  //       where: {
-  //         id: token.id,
-  //       },
-  //     });
-  //   }
-  //   redirect("/");
-  // }
-
   return (
     <div className="w-full p-6 flex justify-center items-center min-h-[90vh] md:items-start md:min-h-0">
       {isExpired ? (

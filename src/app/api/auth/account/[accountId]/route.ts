@@ -1,9 +1,5 @@
-// ADMIN ROLE
-
 import prisma from "@/lib/prismadb";
-import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { authOptions } from "../../[...nextauth]/route";
 
 export async function GET(
   request: NextRequest,
@@ -35,9 +31,8 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: { accountId: string } }
 ) {
-  const { username } = await request.json();
+  const { username, image, role } = await request.json();
   const { accountId } = params;
-  const data = await getServerSession(authOptions);
 
   try {
     if (!accountId) throw new Error("No account id provided!");
@@ -54,7 +49,9 @@ export async function PATCH(
         id: accountId,
       },
       data: {
-        name: username,
+        name: username || undefined,
+        image: image || undefined,
+        role: role || undefined,
       },
     });
 

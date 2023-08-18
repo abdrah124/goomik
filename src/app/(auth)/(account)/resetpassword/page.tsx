@@ -6,26 +6,23 @@ import { useShowSnackbar } from "@/components/SnackMessage";
 import { config } from "@/lib/config";
 import {
   Button,
-  InputAdornment,
   Paper,
   Stack,
   TextField,
   Typography,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import { useMutation } from "react-query";
 import { z } from "zod";
 
 const validationSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
-  // verificationCode: z.string().max(4),
 });
 
 type ValidationSchema = z.infer<typeof validationSchema>;
 
 export default function Page() {
-  const theme = useTheme();
   const {
     register,
     handleSubmit,
@@ -33,7 +30,7 @@ export default function Page() {
   } = useForm<ValidationSchema>({
     resolver: zodResolver(validationSchema),
   });
-  const { mutate, isLoading, isError, error } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: (data: any) =>
       axios
         .post(`${config.baseWebUrl}/api/auth/resetpassword`, data)
@@ -49,7 +46,7 @@ export default function Page() {
       onError: (error: any) => {
         snackMessage(error?.toString() ?? "Something went wrong", 3000);
       },
-      onSuccess: (data) =>
+      onSuccess: () =>
         snackMessage("Verification code has been sent to your email", 3000),
     });
   };

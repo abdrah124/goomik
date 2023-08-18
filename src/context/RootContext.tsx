@@ -3,6 +3,7 @@ import NextAuthProvider from "./SessionContext";
 import RootTheme from "@/components/theme/RootTheme";
 import { ThemePalleteMode } from "@/components/ThemeToggler";
 import QueryProvider from "@/components/utils/QueryProvider";
+import ConfirmContext from "./ConfirmContext";
 
 export default function RootContext({
   children,
@@ -13,7 +14,9 @@ export default function RootContext({
     <NextAuthProvider>
       <RootTheme>
         <ThemePalleteMode>
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            <ConfirmContext>{children}</ConfirmContext>
+          </QueryProvider>
         </ThemePalleteMode>
       </RootTheme>
     </NextAuthProvider>

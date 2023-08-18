@@ -1,7 +1,20 @@
-import React from 'react'
+import SnackMessage, { SnackContext } from "@/components/SnackMessage";
+import { fonts } from "@/fonts/fonts";
+import React from "react";
 
-export default function AuthLayout({children}:{children:React.ReactNode}) {
+export default function AuthLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <main className='w-full'>{children}</main>
-  )
+    <html lang="en">
+      <body className={fonts}>
+        <SnackContext>
+          {children}
+          <SnackMessage />
+        </SnackContext>
+      </body>
+    </html>
+  );
 }

@@ -20,7 +20,7 @@ export default async function ChapterPage({ mangaId, chapterId }: Props) {
 
   return (
     <>
-      <div className="max-w-md">
+      <div>
         <Typography variant="h5" component="h1" px={1}>
           {data?.title}
         </Typography>
@@ -38,7 +38,7 @@ export default async function ChapterPage({ mangaId, chapterId }: Props) {
           ]}
         />
         <ChapterNav
-          sx={{ paddingX: 1 }}
+          sx={{ paddingX: 1, width: "100%", justifyContent: "space-between" }}
           chapters={chapterLists?.chapter_list}
           next={`/manga/${mangaId}/${data?.next ?? ""}`}
           prev={data?.prev ? `/manga/${mangaId}/${data.prev}` : undefined}
@@ -49,7 +49,7 @@ export default async function ChapterPage({ mangaId, chapterId }: Props) {
           ))}
         </Stack>
         <ChapterNav
-          sx={{ paddingX: 1 }}
+          sx={{ paddingX: 1, width: "100%", justifyContent: "space-between" }}
           chapters={chapterLists?.chapter_list}
           next={`/manga/${mangaId}/${data?.next ?? ""}`}
           prev={data?.prev ? `/manga/${mangaId}/${data.prev}` : undefined}

@@ -1,9 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
-import axios from "axios";
 import { useShowSnackbar } from "@/components/SnackMessage";
-import { config } from "@/lib/config";
 import {
   Button,
   FormControl,
@@ -23,7 +21,6 @@ import {
 } from "@mui/material";
 import LinkNext from "next/link";
 import React, { useEffect, useState } from "react";
-import { useMutation } from "react-query";
 import { z } from "zod";
 import { signIn, useSession } from "next-auth/react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";

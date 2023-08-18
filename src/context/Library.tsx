@@ -1,4 +1,8 @@
 "use client";
+import useGetMe from "@/hooks/useGetMe";
+import { config } from "@/lib/config";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 import React, {
   Dispatch,
   SetStateAction,
@@ -7,6 +11,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import { useMutation, useQuery } from "react-query";
 
 const LibraryEditContext = createContext<Dispatch<SetStateAction<string[]>>>(
   () => {}
@@ -57,8 +62,26 @@ export function MangaLibraryContext({
 }: {
   children: React.ReactNode;
 }) {
+  const session = useSession();
+  const me = useGetMe();
   const [libraryIds, setLibraryIds] = useState<string[]>([]);
-
+  const { data: savedLibIds } = useQuery<{
+    bookmarks: {
+      comicId: string;
+    }[];
+  } | null>({
+    queryKey: ["libItems", me?.id],
+    queryFn: () =>
+      axios
+        .get(`${config.baseWebUrl}/api/bookmark/${me?.id}`)
+        .then((res) => res.data)
+        .catch((err) => {
+          throw new Error(err);
+        }),
+    enabled: me?.id !== null,
+  });
+  console.log(me);
+  console.log(savedLibIds);
   useEffect(() => {
     const items: string[] = JSON.parse(localStorage.getItem("library") || "[]");
 
@@ -66,6 +89,13 @@ export function MangaLibraryContext({
       setLibraryIds(items);
     }
   }, []);
+
+  useEffect(() => {
+    const items = savedLibIds?.bookmarks?.map((bookmark) => bookmark.comicId);
+
+    if (session?.status === "authenticated" && savedLibIds && items)
+      setLibraryIds(items);
+  }, [session, savedLibIds]);
 
   useEffect(() => {
     localStorage.setItem("library", JSON.stringify(libraryIds));

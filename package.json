@@ -27,6 +27,7 @@
     "cheerio": "^1.0.0-rc.12",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.12",
+    "material-ui-confirm": "^3.0.9",
     "next": "13.4.12",
     "next-auth": "^4.22.5",
     "nodemailer": "^6.9.4",

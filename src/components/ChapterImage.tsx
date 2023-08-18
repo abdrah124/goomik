@@ -24,8 +24,8 @@ export default function ChapterImage({
         src={image}
         style={{
           width: "100%",
-          height: "auto",
-          maxWidth: 768,
+          height: "100%",
+          maxWidth: 600,
           minWidth: 300,
         }}
         width={400}

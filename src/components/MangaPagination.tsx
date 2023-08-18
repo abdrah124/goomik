@@ -38,7 +38,7 @@ export default function MangaPagination({
           return `${item.page === 0 ? "page=2" : `page=${item.page}`}`;
         return `${key}=${value}`;
       })
-      .join("&")}`;
+      .join("&")}#`;
   };
 
   return (

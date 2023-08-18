@@ -10,7 +10,6 @@ export const authOptions: AuthOptions = {
   session: { strategy: "jwt" },
   pages: {
     signIn: "/signin",
-    signOut: "/dashboard",
   },
   // @ts-ignore
   adapter: PrismaAdapter(prisma),

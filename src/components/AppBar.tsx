@@ -17,10 +17,17 @@ import Button from "@mui/material/Button";
 import Link from "next/link";
 import SearchIcon from "@mui/icons-material/Search";
 import { InputBase, ListItemIcon, Paper, alpha, styled } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import SearchSelect from "./SearchSelect";
 import ThemeToggler from "./ThemeToggler";
 import GSVG from "/g.svg";
+import {
+  Category,
+  FiberNew,
+  Home,
+  LibraryBooks,
+  NewReleases,
+} from "@mui/icons-material";
 
 interface Props {
   /**
@@ -73,17 +80,37 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const drawerWidth = 240;
-const navItems = ["Home", "Latest", "Popular", "Genre", "Library"];
+const navItems = ["Home", "Latest", "Genre", "Library"];
+
+const drawerItems = [
+  {
+    label: "Home",
+    icon: <Home />,
+  },
+  {
+    label: "Latest",
+    icon: <FiberNew />,
+  },
+  {
+    label: "Genre",
+    icon: <Category />,
+  },
+  {
+    label: "Library",
+    icon: <LibraryBooks />,
+  },
+];
 
 export default function DrawerAppBar(props: Props) {
   const router = useRouter();
+  const pathname = usePathname();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [input, setInput] = React.useState<string>("");
 
   const getHref = (str: string) => {
     if (str === "Home") return "/";
-    if (["Latest", "Popular"].some((e) => e === str))
+    if (["Latest"].some((e) => e === str))
       return `/search?q=&order_by=${
         str.toLowerCase() === "popular" ? "trending" : str.toLowerCase()
       }`;
@@ -101,31 +128,35 @@ export default function DrawerAppBar(props: Props) {
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
+    <Box onClick={handleDrawerToggle}>
       <Typography
         variant="h5"
-        sx={{ my: 2, fontFamily: "var(--quicksand)", fontWeight: 700 }}
+        sx={{ my: 2, pl: 2, fontFamily: "var(--quicksand)", fontWeight: 700 }}
       >
         Gooscans
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
+        {drawerItems.map((item) => (
           <ListItem
             disablePadding
             component={Link}
-            href={getHref(item)}
-            key={item}
+            href={getHref(item.label)}
+            key={item.label}
           >
             <ListItemButton
               sx={{
                 "& .MuiTypography-root": {
-                  textAlign: "center",
                   fontWeight: 500,
                 },
               }}
             >
-              <ListItemText primary={item} />
+              <IconButton
+                sx={{ mr: 2, "&:hover": { backgroundColor: "inherit" } }}
+              >
+                {item.icon}
+              </IconButton>
+              <ListItemText primary={item.label} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -139,7 +170,10 @@ export default function DrawerAppBar(props: Props) {
   return (
     <>
       <CssBaseline />
-      <AppBar component="nav">
+      <AppBar
+        component="nav"
+        sx={{ position: pathname.includes("chapter") ? "absolute" : "fixed" }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"

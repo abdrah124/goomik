@@ -1,4 +1,3 @@
-import prisma from "@/lib/prismadb";
 import { sendEmail } from "@/lib/sendEmail";
 import { NextRequest, NextResponse } from "next/server";
 
