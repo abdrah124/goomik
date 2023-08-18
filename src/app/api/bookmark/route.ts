@@ -19,6 +19,7 @@ export async function POST(request: NextRequest) {
     const isBookmarked = await prisma.bookmark.findFirst({
       where: {
         comicId,
+        userId,
       },
     });
 
