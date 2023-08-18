@@ -43,7 +43,7 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (isAuthenticated) router.push("/dashboard");
+    if (isAuthenticated) router.push("/");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated]);
 

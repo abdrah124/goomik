@@ -86,10 +86,10 @@ export function MangaLibraryContext({
   useEffect(() => {
     const items: string[] = JSON.parse(localStorage.getItem("library") || "[]");
 
-    if (items.length > 0) {
+    if (items.length > 0 && session?.status !== "authenticated") {
       setLibraryIds(items);
     }
-  }, []);
+  }, [session]);
 
   useEffect(() => {
     if (session?.status === "authenticated" && savedLibIds) {
