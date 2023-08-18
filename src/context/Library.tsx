@@ -11,7 +11,7 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { useMutation, useQuery } from "react-query";
+import { useQuery } from "react-query";
 
 const LibraryEditContext = createContext<Dispatch<SetStateAction<string[]>>>(
   () => {}
@@ -65,6 +65,7 @@ export function MangaLibraryContext({
   const session = useSession();
   const me = useGetMe();
   const [libraryIds, setLibraryIds] = useState<string[]>([]);
+
   const { data: savedLibIds } = useQuery<{
     bookmarks: {
       comicId: string;
@@ -91,10 +92,10 @@ export function MangaLibraryContext({
   }, []);
 
   useEffect(() => {
-    const items = savedLibIds?.bookmarks?.map((bookmark) => bookmark.comicId);
-
-    if (session?.status === "authenticated" && savedLibIds && items)
+    if (session?.status === "authenticated" && savedLibIds) {
+      const items = savedLibIds?.bookmarks?.map((bookmark) => bookmark.comicId);
       setLibraryIds(items);
+    }
   }, [session, savedLibIds]);
 
   useEffect(() => {

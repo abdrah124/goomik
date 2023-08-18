@@ -16,17 +16,16 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Link from "next/link";
 import SearchIcon from "@mui/icons-material/Search";
-import { InputBase, ListItemIcon, Paper, alpha, styled } from "@mui/material";
+import { InputBase, alpha, styled } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
 import SearchSelect from "./SearchSelect";
 import ThemeToggler from "./ThemeToggler";
-import GSVG from "/g.svg";
 import {
+  AccountCircle,
   Category,
   FiberNew,
   Home,
   LibraryBooks,
-  NewReleases,
 } from "@mui/icons-material";
 
 interface Props {
@@ -98,6 +97,10 @@ const drawerItems = [
   {
     label: "Library",
     icon: <LibraryBooks />,
+  },
+  {
+    label: "Profile",
+    icon: <AccountCircle />,
   },
 ];
 
