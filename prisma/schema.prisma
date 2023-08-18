@@ -62,7 +62,7 @@ model Bookmark {
   id String  @id @default(auto()) @map("_id") @db.ObjectId
   userId String @db.ObjectId @unique
   createdAt DateTime @default(now())
-  comicId String @unique
+  comicId String
   user User @relation(fields: [userId], references: [id],onDelete:Cascade)
   @@map("bookmarks")
 }

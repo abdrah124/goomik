@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
 
     if (!user) throw new Error("User not found!");
 
-    const isBookmarked = await prisma.bookmark.findUnique({
+    const isBookmarked = await prisma.bookmark.findFirst({
       where: {
         comicId,
       },
