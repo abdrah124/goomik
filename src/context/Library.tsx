@@ -57,7 +57,7 @@ export function useAddLibraryItem() {
   return addItem;
 }
 
-export function MangaLibraryContext({
+export function MangaLibraryProvider({
   children,
 }: {
   children: React.ReactNode;
@@ -99,8 +99,11 @@ export function MangaLibraryContext({
   }, [session, savedLibIds]);
 
   useEffect(() => {
-    localStorage.setItem("library", JSON.stringify(libraryIds));
-  }, [libraryIds]);
+    if (session?.status !== "authenticated") {
+      localStorage.setItem("library", JSON.stringify(libraryIds));
+      localStorage.setItem("libraryBackup", JSON.stringify(libraryIds));
+    }
+  }, [libraryIds, session]);
 
   return (
     <LibraryEditContext.Provider value={setLibraryIds}>

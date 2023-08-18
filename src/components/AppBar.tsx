@@ -22,8 +22,10 @@ import SearchSelect from "./SearchSelect";
 import ThemeToggler from "./ThemeToggler";
 import {
   AccountCircle,
+  Bookmark,
   Category,
   FiberNew,
+  History,
   Home,
   LibraryBooks,
 } from "@mui/icons-material";
@@ -79,7 +81,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const drawerWidth = 240;
-const navItems = ["Home", "Latest", "Genre", "Library"];
+const navItems = ["Home", "Latest", "Genre", "Library", "Profile"];
 
 const drawerItems = [
   {
@@ -95,12 +97,19 @@ const drawerItems = [
     icon: <Category />,
   },
   {
-    label: "Library",
-    icon: <LibraryBooks />,
-  },
-  {
     label: "Profile",
     icon: <AccountCircle />,
+  },
+];
+
+const subDrawerItems = [
+  {
+    label: "Bookmark",
+    icon: <Bookmark />,
+  },
+  {
+    label: "Reading History",
+    icon: <History />,
   },
 ];
 
@@ -117,7 +126,7 @@ export default function DrawerAppBar(props: Props) {
       return `/search?q=&order_by=${
         str.toLowerCase() === "popular" ? "trending" : str.toLowerCase()
       }`;
-    return `/${str.toLowerCase()}`;
+    return `/${str.toLowerCase().split(" ").join("")}`;
   };
 
   const handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void = (e) => {
@@ -141,6 +150,34 @@ export default function DrawerAppBar(props: Props) {
       <Divider />
       <List>
         {drawerItems.map((item) => (
+          <ListItem
+            disablePadding
+            component={Link}
+            href={getHref(item.label)}
+            key={item.label}
+          >
+            <ListItemButton
+              sx={{
+                "& .MuiTypography-root": {
+                  fontWeight: 500,
+                },
+              }}
+            >
+              <IconButton
+                sx={{ mr: 2, "&:hover": { backgroundColor: "inherit" } }}
+              >
+                {item.icon}
+              </IconButton>
+              <ListItemText primary={item.label} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+        <Divider />
+
+        <ListItem>
+          <ListItemText primary="Library" />
+        </ListItem>
+        {subDrawerItems.map((item) => (
           <ListItem
             disablePadding
             component={Link}

@@ -1,14 +1,20 @@
-import { useGetLibraryItems } from "@/context/Library";
 import useGetMe from "@/hooks/useGetMe";
 import { config } from "@/lib/config";
 import { Button, CircularProgress } from "@mui/material";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 
 export default function SyncItemButton() {
+  const [libraryIds, setLibraryIds] = useState([]);
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem("libraryBackup") ?? "[]");
+    if (items.length > 0) setLibraryIds(items);
+  }, []);
+
   const { mutate: saveItems, isLoading } = useMutation({
     mutationFn: (data: { comicId: string; userId: string | undefined }) =>
       axios
@@ -18,7 +24,6 @@ export default function SyncItemButton() {
           throw new Error(err);
         }),
   });
-  const libraryIds = useGetLibraryItems();
   const me = useGetMe();
   const session = useSession();
   if (session?.status !== "authenticated")
