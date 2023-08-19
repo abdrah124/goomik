@@ -19,7 +19,6 @@ export default function SelectMenu({ items }: { items: MangaChapterFull[] }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    router.push(`#${params.chapterId}`);
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -30,6 +29,8 @@ export default function SelectMenu({ items }: { items: MangaChapterFull[] }) {
     <div>
       <Button
         id="select-button"
+        LinkComponent={Link}
+        href={`#${params.chapterId}`}
         aria-controls={open ? "select-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}

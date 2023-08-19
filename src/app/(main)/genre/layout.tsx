@@ -28,7 +28,7 @@ export default async function Layout({
       >
         {Array.from(genreAlphabet).map((alp) => (
           <Paper
-            elevation={0}
+            elevation={3}
             component={Link}
             href={`#${alp}`}
             key={alp}
@@ -62,7 +62,7 @@ export default async function Layout({
           <Divider />
           <Stack direction="row" flexWrap="wrap" key={alp} gap={1.2}>
             <GenreBadges
-              color="primary"
+              color="info"
               size="small"
               genres={Array.from(genreMap)
                 .filter((genre) => genre.startsWith(alp))
