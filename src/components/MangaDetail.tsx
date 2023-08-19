@@ -22,7 +22,6 @@ export default async function MangaDetail({ mangaId }: { mangaId: string }) {
       justifyContent="start"
       marginX="auto"
       width="100%"
-      maxWidth={768}
     >
       <Stack direction="row" gap={2} paddingY={1}>
         <div className="pl-3">

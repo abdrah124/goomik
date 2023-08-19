@@ -25,6 +25,7 @@ import React, { useState } from "react";
 import { useQuery } from "react-query";
 import SearchIcon from "@mui/icons-material/Search";
 import SyncItemButton from "@/components/SyncItemButton";
+import BookmarkGridLayout from "@/components/layout/BookmarkGridLayout";
 
 const Search = styled("form")(({ theme }) => ({
   position: "relative",
@@ -157,6 +158,7 @@ export default function Page() {
           display: "flex",
           backgroundColor: "inherit",
           justifyContent: "space-between",
+          maxWidth: 500,
           px: 2,
           mb: 3,
           py: 1,
@@ -179,10 +181,10 @@ export default function Page() {
       </Paper>
       <Divider sx={{ my: 2 }} />
       {list ? (
-        <Stack direction="column" gap={2} alignItems="center">
+        <BookmarkGridLayout>
           {libraryItems.length > 0 &&
             items.map((item) => <LibraryCard key={item} id={item} />)}
-        </Stack>
+        </BookmarkGridLayout>
       ) : (
         <CardGrid>
           {libraryItems.length > 0 &&

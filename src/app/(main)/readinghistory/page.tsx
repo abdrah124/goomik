@@ -2,6 +2,7 @@
 import ReadingHistoryCard, {
   ReadingHistoryCardSkeleton,
 } from "@/components/ReadingHistoryCard";
+import HistoryGridLayout from "@/components/layout/GridLayout";
 import useGetNormalHistory from "@/hooks/useGetNormalHistory";
 import { config } from "@/lib/config";
 import { MangaDetailFull, ReadingExtended } from "@/models/manga";
@@ -39,13 +40,13 @@ export default function Page() {
   const normalHistory = useGetNormalHistory();
 
   return (
-    <Stack gap={2} direction="column">
+    <HistoryGridLayout>
       {normalHistory
         .map((item) => ({ ...item, chapters: item.chapters.slice(0, 5) }))
         .slice(0, 5)
         .map((history) => (
           <ReadingHistory key={history?.mangaId} history={history} />
         ))}
-    </Stack>
+    </HistoryGridLayout>
   );
 }

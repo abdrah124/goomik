@@ -1,5 +1,6 @@
 import MangaPagination from "@/components/MangaPagination";
 import SearchCard from "@/components/SearchCard";
+import BookmarkGridLayout from "@/components/layout/BookmarkGridLayout";
 import { getSearchResults } from "@/lib/getData";
 import { Box, Typography } from "@mui/material";
 import { Metadata } from "next";
@@ -23,18 +24,7 @@ export default async function SearchPage({
 
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 4,
-          padding: 3,
-          width: "100%",
-          maxWidth: 768,
-          marginX: "auto",
-        }}
-      >
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 my-4 gap-4 justify-items-center px-4">
         {data?.items?.length > 0 ? (
           data?.items?.map((e) => <SearchCard data={e} key={e.id} />)
         ) : (
@@ -42,7 +32,7 @@ export default async function SearchPage({
             NO RESULT
           </Typography>
         )}
-      </Box>
+      </div>
       {(data?.total_page ?? 0) > 1 && data?.items?.length > 0 && (
         <MangaPagination
           path="/search"

@@ -82,7 +82,10 @@ function HideOnScroll(props?: any) {
   const trigger = useScrollTrigger();
   const pathname = usePathname();
 
-  if (!pathname.includes("chapter") && !pathname.includes("manga")) {
+  if (
+    (!pathname.includes("chapter") && !pathname.includes("manga")) ||
+    (pathname.includes("manga") && !pathname.includes("chapter"))
+  ) {
     return <>{props.children}</>;
   }
 

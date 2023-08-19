@@ -66,6 +66,7 @@ export default function ReadingHistoryCard({
         elevation={6}
         direction="column"
         gap={2}
+        height="fit-content"
         maxWidth={768}
         p={3}
       >
@@ -117,9 +118,6 @@ export default function ReadingHistoryCard({
           timeout={200}
           easing={{ enter: "easeinout", exit: "easeinout" }}
         >
-          <Typography variant="h6" component="h3">
-            Reading history
-          </Typography>
           <List dense>
             {history.chapters.map((item) => (
               <ListItem
