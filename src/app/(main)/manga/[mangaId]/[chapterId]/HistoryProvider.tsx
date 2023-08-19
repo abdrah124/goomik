@@ -17,6 +17,7 @@ export default function HistoryProvider({
         chapter: pathname.split("/")[3],
         comicId: pathname.split("/")[3],
         mangaId: pathname.split("/")[2],
+        createdAt: Date.now(),
       });
     }
   }, [pathname, addReadingHistory]);

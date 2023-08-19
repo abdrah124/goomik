@@ -1,9 +1,29 @@
 import { MangaDetailFull } from "@/models/manga";
-import { Divider, Stack, Typography, Link } from "@mui/material";
+import { Divider, Stack, Typography, Skeleton } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import LinkNext from "next/link";
 import { config } from "@/lib/config";
+
+function SkeletonWave(props: any) {
+  return <Skeleton animation="wave" {...props} />;
+}
+
+export function ReadingHistoryCardSkeleton() {
+  return (
+    <Stack direction="column" gap={2} maxWidth={768}>
+      <SkeletonWave width="70%" />
+      <Divider />
+      <Stack direction="row" gap={2}>
+        <SkeletonWave width={100} height={150} variant="rounded" />
+        <Stack direction="column" gap={2} width="70%">
+          <SkeletonWave width="50%" />
+          <SkeletonWave width="50%" />
+        </Stack>
+      </Stack>
+    </Stack>
+  );
+}
 
 export default function ReadingHistoryCard({
   mangaDetail,

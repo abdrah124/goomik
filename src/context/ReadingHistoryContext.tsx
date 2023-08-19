@@ -1,4 +1,5 @@
 "use client";
+import removeDuplicate from "@/lib/removeDuplicate";
 import React, {
   createContext,
   useCallback,
@@ -11,6 +12,7 @@ export interface ReadingHistory {
   comicId: string;
   chapter: string;
   mangaId: string;
+  createdAt: Date | number;
 }
 
 const ReadingHistoryContext = createContext<ReadingHistory[]>([]);
@@ -66,7 +68,7 @@ export default function ReadingHistoryProvider({
       localStorage.getItem("reading_history") ?? "[]"
     );
 
-    if (items) setReadingHistory(items);
+    if (items) setReadingHistory(removeDuplicate(items, "chapter"));
   }, []);
 
   useEffect(() => {

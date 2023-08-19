@@ -144,7 +144,9 @@ export default function Page() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
 
-  const items = sortArray(libraryItems).filter((item) => item.includes(input));
+  const items = sortArray(libraryItems).filter((item) =>
+    item.toLowerCase().includes(input.toLowerCase().trim())
+  );
 
   return (
     <div className="w-full">

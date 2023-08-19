@@ -1,5 +1,7 @@
 "use client";
-import ReadingHistoryCard from "@/components/ReadingHistoryCard";
+import ReadingHistoryCard, {
+  ReadingHistoryCardSkeleton,
+} from "@/components/ReadingHistoryCard";
 import SearchCardSkeleton from "@/components/SearchCardSkeleton";
 import {
   useGetReadingHistory,
@@ -29,7 +31,7 @@ function ReadingHistory({ history }: { history: ReadingHistoryType }) {
         }),
   });
 
-  if (isLoading) return <SearchCardSkeleton />;
+  if (isLoading) return <ReadingHistoryCardSkeleton />;
 
   if (isError) return null;
 

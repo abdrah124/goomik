@@ -1,5 +1,6 @@
 import { Divider, Typography } from "@mui/material";
 import React from "react";
+import ClearHistoryBtn from "./ClearHistoryBtn";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -8,6 +9,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         Reading History
       </Typography>
       {children}
+      <Divider sx={{ my: 2 }} />
+      <ClearHistoryBtn />
     </main>
   );
 }
