@@ -1,7 +1,11 @@
 export default function removeDuplicate(arr: any[], field: string): any[] {
-  const ids = arr.map((item) => item[field]);
-  const filtered = arr.filter(
-    (item, index) => !ids.includes(item[field], index + 1)
-  );
-  return filtered;
+  const seen = new Set();
+
+  const filtererdArr = arr.filter((item) => {
+    const duplicate = seen.has(item[field]);
+    seen.add(item[field]);
+    return !duplicate;
+  });
+
+  return filtererdArr;
 }

@@ -8,15 +8,18 @@ import { MangaChapterFull } from "@/models/manga";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 const getChapterString = (id: string) =>
   id?.[0].toUpperCase() + id?.slice(1)?.split("-").join(" ");
 
 export default function SelectMenu({ items }: { items: MangaChapterFull[] }) {
   const params = useParams();
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    router.push(`#${params.chapterId}`);
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
@@ -57,6 +60,7 @@ export default function SelectMenu({ items }: { items: MangaChapterFull[] }) {
             key={chapter.id}
             onClick={handleClose}
             component={Link}
+            id={chapter?.id}
             className="truncate max-w-full"
             href={`/manga/${params.mangaId}/${chapter.id}`}
           >

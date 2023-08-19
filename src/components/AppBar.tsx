@@ -16,27 +16,25 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Link from "next/link";
 import SearchIcon from "@mui/icons-material/Search";
-import { InputBase, alpha, styled } from "@mui/material";
+import {
+  InputBase,
+  Slide,
+  alpha,
+  styled,
+  useScrollTrigger,
+} from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
 import SearchSelect from "./SearchSelect";
 import ThemeToggler from "./ThemeToggler";
 import {
   AccountCircle,
   Bookmark,
-  Category,
-  FiberNew,
   History,
   Home,
-  LibraryBooks,
+  NewReleases,
+  Window,
 } from "@mui/icons-material";
-
-interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window?: () => Window;
-}
+import Menu from "./Menu";
 
 const Search = styled("form")(({ theme }) => ({
   position: "relative",
@@ -80,6 +78,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+function HideOnScroll(props?: any) {
+  const trigger = useScrollTrigger();
+  const pathname = usePathname();
+
+  if (!pathname.includes("chapter") && !pathname.includes("manga")) {
+    return <>{props.children}</>;
+  }
+
+  return (
+    <Slide appear={false} direction="down" in={!trigger}>
+      {props.children}
+    </Slide>
+  );
+}
+
 const drawerWidth = 240;
 const navItems = ["Home", "Latest", "Genre", "Library", "Profile"];
 
@@ -90,11 +103,11 @@ const drawerItems = [
   },
   {
     label: "Latest",
-    icon: <FiberNew />,
+    icon: <NewReleases />,
   },
   {
     label: "Genre",
-    icon: <Category />,
+    icon: <Window />,
   },
   {
     label: "Profile",
@@ -113,10 +126,8 @@ const subDrawerItems = [
   },
 ];
 
-export default function DrawerAppBar(props: Props) {
+export default function DrawerAppBar() {
   const router = useRouter();
-  const pathname = usePathname();
-  const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [input, setInput] = React.useState<string>("");
 
@@ -204,66 +215,72 @@ export default function DrawerAppBar(props: Props) {
     </Box>
   );
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
-
   return (
     <>
       <CssBaseline />
-      <AppBar
-        component="nav"
-        sx={{ position: pathname.includes("chapter") ? "absolute" : "fixed" }}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { md: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h5"
-            component="div"
-            sx={{
-              flexGrow: 1,
-              display: { xs: "none", sm: "block" },
-              fontFamily: "var(--quicksand)",
-              fontWeight: 700,
-            }}
-          >
-            Gooscans
-          </Typography>
-          <Box sx={{ display: { xs: "none", md: "block" } }}>
-            {navItems.map((item) => (
-              <Link key={item} href={getHref(item)}>
-                <Button sx={{ color: "#fff" }}>{item}</Button>
-              </Link>
-            ))}
-          </Box>
-          <Search
-            onSubmit={(e) => handleSubmit(e)}
-            style={{ position: "relative" }}
-          >
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-            <SearchSelect input={input} onListClick={setInput} />
-          </Search>
-          <ThemeToggler />
-        </Toolbar>
-      </AppBar>
+      <HideOnScroll>
+        <AppBar component="nav">
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              sx={{ mr: 2, display: { md: "none" } }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant="h5"
+              component="div"
+              sx={{
+                flexGrow: 1,
+                display: { xs: "none", sm: "block" },
+                fontFamily: "var(--quicksand)",
+                fontWeight: 700,
+              }}
+            >
+              Gooscans
+            </Typography>
+            <Box sx={{ display: { xs: "none", md: "block" } }}>
+              {navItems.map((item) => {
+                if (item === "Library")
+                  return (
+                    <Menu
+                      title="Library"
+                      items={["Bookmark", "Reading History"]}
+                    />
+                  );
+
+                return (
+                  <Link key={item} href={getHref(item)}>
+                    <Button sx={{ color: "#fff" }}>{item}</Button>
+                  </Link>
+                );
+              })}
+            </Box>
+            <Search
+              onSubmit={(e) => handleSubmit(e)}
+              style={{ position: "relative" }}
+            >
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+              />
+              <SearchSelect input={input} onListClick={setInput} />
+            </Search>
+            <ThemeToggler />
+          </Toolbar>
+        </AppBar>
+      </HideOnScroll>
+
       <Box component="nav">
         <Drawer
-          container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}

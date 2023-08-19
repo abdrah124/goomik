@@ -49,12 +49,7 @@ export default function MangaPagination({
         variant="outlined"
         shape="rounded"
         renderItem={(item) => (
-          <PaginationItem
-            component={Link}
-            href={getPath(item)}
-            {...item}
-            scroll={false}
-          />
+          <PaginationItem component={Link} href={getPath(item)} {...item} />
         )}
       />
     </Box>

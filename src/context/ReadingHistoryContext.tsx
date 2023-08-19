@@ -1,5 +1,4 @@
 "use client";
-import removeDuplicate from "@/lib/removeDuplicate";
 import React, {
   createContext,
   useCallback,
@@ -68,7 +67,7 @@ export default function ReadingHistoryProvider({
       localStorage.getItem("reading_history") ?? "[]"
     );
 
-    if (items) setReadingHistory(removeDuplicate(items, "chapter"));
+    if (items) setReadingHistory(items);
   }, []);
 
   useEffect(() => {

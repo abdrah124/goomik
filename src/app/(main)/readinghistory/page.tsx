@@ -2,12 +2,12 @@
 import ReadingHistoryCard, {
   ReadingHistoryCardSkeleton,
 } from "@/components/ReadingHistoryCard";
-import SearchCardSkeleton from "@/components/SearchCardSkeleton";
 import {
   useGetReadingHistory,
   ReadingHistory as ReadingHistoryType,
 } from "@/context/ReadingHistoryContext";
 import { config } from "@/lib/config";
+import removeDuplicate from "@/lib/removeDuplicate";
 import { MangaDetailFull } from "@/models/manga";
 import { Stack } from "@mui/material";
 import axios from "axios";
@@ -36,12 +36,7 @@ function ReadingHistory({ history }: { history: ReadingHistoryType }) {
   if (isError) return null;
 
   if (isSuccess)
-    return (
-      <ReadingHistoryCard
-        mangaDetail={mangaDetail}
-        chapterHistorId={history?.comicId}
-      />
-    );
+    return <ReadingHistoryCard mangaDetail={mangaDetail} history={history} />;
 }
 
 export default function Page() {
@@ -49,9 +44,11 @@ export default function Page() {
 
   return (
     <Stack gap={2} direction="column">
-      {readingHistory.slice(0, 5).map((history) => (
-        <ReadingHistory key={history?.mangaId} history={history} />
-      ))}
+      {removeDuplicate(readingHistory, "chapter")
+        .slice(0, 5)
+        .map((history) => (
+          <ReadingHistory key={history?.mangaId} history={history} />
+        ))}
     </Stack>
   );
 }
