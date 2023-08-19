@@ -1,13 +1,27 @@
-import { MangaDetailFull } from "@/models/manga";
-import { Divider, Stack, Typography, Skeleton, Paper } from "@mui/material";
+"use client";
+import { MangaDetailFull, ReadingExtended } from "@/models/manga";
+import {
+  Divider,
+  Stack,
+  Typography,
+  Skeleton,
+  Paper,
+  Collapse,
+  ListItem,
+  ListItemText,
+  List,
+} from "@mui/material";
 import Image from "next/image";
-import React from "react";
-import LinkNext from "next/link";
+import React, { useState } from "react";
 import { config } from "@/lib/config";
-import { mangaSingleChapter } from "@/lib/apiEndpoint";
 import Link from "next/link";
 import getDate from "@/lib/getDate";
-import { ReadingHistory } from "@/context/ReadingHistoryContext";
+import { ExpandMore } from "./ExpandButton";
+import { ExpandMore as ExpandMoreIcon } from "@mui/icons-material";
+
+function getChapterString(chapterId: string = ""): string {
+  return chapterId[0].toUpperCase() + chapterId.slice(1)?.split("-").join(" ");
+}
 
 function SkeletonWave(props: any) {
   return <Skeleton animation="wave" {...props} />;
@@ -41,56 +55,88 @@ export default function ReadingHistoryCard({
   history,
 }: {
   mangaDetail: MangaDetailFull;
-  history: ReadingHistory;
+  history: ReadingExtended;
 }) {
-  const chapterHistory = mangaDetail?.chapter_list?.find(
-    (chapter) => chapter?.id === history.chapter
-  );
+  const [expanded, setExpanded] = useState(false);
 
   return (
-    <Stack
-      component={Paper}
-      elevation={6}
-      direction="column"
-      gap={2}
-      maxWidth={768}
-      p={3}
-    >
-      <Typography
-        variant="h6"
-        fontSize={16}
-        fontWeight={700}
-        noWrap
-        component="h2"
-      >
-        {mangaDetail?.title}
-      </Typography>
-      <Divider />
+    <>
       <Stack
-        direction="row"
+        component={Paper}
+        elevation={6}
+        direction="column"
         gap={2}
-        component={Link}
-        href={`${config.baseWebUrl}/manga/${mangaDetail?.id}/${history?.chapter}`}
+        maxWidth={768}
+        p={3}
       >
-        <Image
-          src={mangaDetail?.cover_image?.src}
-          width={100}
-          height={150}
-          className="rounded-md"
-          alt={mangaDetail?.title}
-        />
-        <Stack direction="column" gap={2}>
-          <Typography variant="subtitle2" sx={{ mb: 2 }}>
-            {history.chapter[0].toUpperCase() +
-              history.chapter?.slice(1)?.split("-").join(" ")}
-          </Typography>
-          <Typography variant="subtitle2">{mangaDetail?.artists}</Typography>
-          <Typography variant="subtitle2">{mangaDetail?.authors}</Typography>
-          <Typography variant="subtitle2">
-            {getDate(history.createdAt as number)}
-          </Typography>
+        <Typography
+          variant="h6"
+          fontSize={16}
+          fontWeight={700}
+          noWrap
+          component={Link}
+          href={`${config.baseWebUrl}/manga/${mangaDetail?.id}`}
+        >
+          {mangaDetail?.title}
+        </Typography>
+        <Divider />
+        <Stack direction="row" gap={2} sx={{ position: "relative" }}>
+          <Image
+            src={mangaDetail?.cover_image?.src}
+            width={100}
+            height={150}
+            className="rounded-md"
+            alt={mangaDetail?.title}
+          />
+          <Stack direction="column" gap={2}>
+            <Typography
+              variant="subtitle2"
+              sx={{ mb: 1 }}
+              component={Link}
+              href={`${config.baseWebUrl}/manga/${mangaDetail?.id}/${history?.chapters[0].chapterId}`}
+            >
+              Last read: {getChapterString(history.chapters[0].chapterId)}
+            </Typography>
+            <Typography variant="subtitle2">{mangaDetail?.artists}</Typography>
+            <Typography variant="subtitle2">{mangaDetail?.authors}</Typography>
+            <Typography variant="subtitle2">
+              {getDate(history.chapters[0].createdAt as number)}
+            </Typography>
+          </Stack>
+          <div className="absolute bottom-0 right-0">
+            <ExpandMore
+              expand={expanded}
+              onClick={() => setExpanded(!expanded)}
+            >
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </div>
         </Stack>
+        <Collapse
+          in={expanded}
+          timeout={200}
+          easing={{ enter: "easeinout", exit: "easeinout" }}
+        >
+          <Typography variant="h6" component="h3">
+            Reading history
+          </Typography>
+          <List dense>
+            {history.chapters.map((item) => (
+              <ListItem
+                disablePadding
+                key={item.chapterId}
+                component={Link}
+                href={`${config.baseWebUrl}/manga/${mangaDetail?.id}/${item?.chapterId}`}
+              >
+                <ListItemText
+                  primary={getChapterString(item.chapterId)}
+                  secondary={getDate(item.createdAt as number)}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Collapse>
       </Stack>
-    </Stack>
+    </>
   );
 }

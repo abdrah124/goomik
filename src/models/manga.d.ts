@@ -94,3 +94,8 @@ export type BookmarkItem =
   | null;
 
 export type BookmarkItems = BookmarkItem[] | [];
+
+export interface ReadingExtended {
+  chapters: { createdAt: Date | number; chapterId: string }[];
+  mangaId: string;
+}

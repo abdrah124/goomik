@@ -2,19 +2,15 @@
 import ReadingHistoryCard, {
   ReadingHistoryCardSkeleton,
 } from "@/components/ReadingHistoryCard";
-import {
-  useGetReadingHistory,
-  ReadingHistory as ReadingHistoryType,
-} from "@/context/ReadingHistoryContext";
+import useGetNormalHistory from "@/hooks/useGetNormalHistory";
 import { config } from "@/lib/config";
-import removeDuplicate from "@/lib/removeDuplicate";
-import { MangaDetailFull } from "@/models/manga";
+import { MangaDetailFull, ReadingExtended } from "@/models/manga";
 import { Stack } from "@mui/material";
 import axios from "axios";
 import React from "react";
 import { useQuery } from "react-query";
 
-function ReadingHistory({ history }: { history: ReadingHistoryType }) {
+function ReadingHistory({ history }: { history: ReadingExtended }) {
   const {
     data: mangaDetail,
     isSuccess,
@@ -40,11 +36,12 @@ function ReadingHistory({ history }: { history: ReadingHistoryType }) {
 }
 
 export default function Page() {
-  const readingHistory = useGetReadingHistory();
+  const normalHistory = useGetNormalHistory();
 
   return (
     <Stack gap={2} direction="column">
-      {removeDuplicate(readingHistory, "chapter")
+      {normalHistory
+        .map((item) => ({ ...item, chapters: item.chapters.slice(0, 5) }))
         .slice(0, 5)
         .map((history) => (
           <ReadingHistory key={history?.mangaId} history={history} />

@@ -34,10 +34,10 @@ export default async function Page() {
           alt={session?.user?.name ?? ""}
           sx={{ width: 130, height: 130 }}
         />
-        <Typography variant="h4" component="h1">
+        <Typography variant="h5" component="h2" align="center">
           {session?.user?.name}
         </Typography>
-        <Typography variant="h6" component="h3">
+        <Typography align="center" variant="h6" component="h3">
           {session?.user?.email}
         </Typography>
         <LogoutBtn />

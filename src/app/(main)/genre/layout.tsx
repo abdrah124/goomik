@@ -39,6 +39,9 @@ export default async function Layout({
               width: 35,
               textAlign: "center",
               height: 35,
+              "&:hover": {
+                filter: "brightness(75%)",
+              },
             }}
           >
             {alp.toUpperCase()}
