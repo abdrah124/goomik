@@ -1,3 +1,4 @@
+import { MangaLibraryProvider } from "@/context/Library";
 import { Typography } from "@mui/material";
 import React from "react";
 
@@ -7,7 +8,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Typography variant="h4" component="h1" fontWeight={700} sx={{ mb: 2 }}>
         Library
       </Typography>
-      {children}
+      <MangaLibraryProvider>{children}</MangaLibraryProvider>
     </main>
   );
 }

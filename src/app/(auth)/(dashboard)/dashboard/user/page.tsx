@@ -8,6 +8,7 @@ import {
   Avatar,
   Box,
   Button,
+  ButtonGroup,
   CircularProgress,
   FormControl,
   Grid,
@@ -215,7 +216,6 @@ export default function Page() {
           <Search />
         </IconButton>
       </Paper>
-      {showAddForm && <UserAddForm />}
       <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
         <Box
           sx={{
@@ -225,12 +225,7 @@ export default function Page() {
           }}
         >
           <Title>User</Title>
-          <Button
-            startIcon={showAddForm ? <Cancel /> : <Add />}
-            onClick={() => setShowAddForm(!showAddForm)}
-          >
-            {showAddForm ? "cancel" : "Add user"}
-          </Button>
+          <UserAddForm />
         </Box>
 
         <Table size="small">
@@ -327,23 +322,23 @@ export default function Page() {
                             </Button>
                           </form>
                         )}
-                        <Button
-                          size="small"
-                          startIcon={
-                            selectedEditId === row.id ? <Cancel /> : <Edit />
-                          }
-                          onClick={() => handleCancelEdit(row.id)}
-                        >
-                          {selectedEditId === row.id ? "Cancel" : "Edit"}
-                        </Button>
-                        <Button
-                          size="small"
-                          startIcon={<Delete />}
-                          onClick={() => handleDelete(row.id)}
-                          disabled={loadDelete}
-                        >
-                          Delete
-                        </Button>
+                        <ButtonGroup>
+                          <IconButton
+                            color="success"
+                            size="small"
+                            onClick={() => handleCancelEdit(row.id)}
+                          >
+                            {selectedEditId === row.id ? <Cancel /> : <Edit />}
+                          </IconButton>
+                          <IconButton
+                            color="error"
+                            size="small"
+                            onClick={() => handleDelete(row.id)}
+                            disabled={loadDelete}
+                          >
+                            <Delete />
+                          </IconButton>
+                        </ButtonGroup>
                       </TableCell>
                     </TableRow>
                   ))}

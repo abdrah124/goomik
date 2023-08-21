@@ -1,3 +1,4 @@
+import { MangaLibraryProvider } from "@/context/Library";
 import React from "react";
 
 export default function Layout({
@@ -7,5 +8,9 @@ export default function Layout({
   children: React.ReactNode;
   params: { mangaId: string };
 }) {
-  return <main className="w-full">{children}</main>;
+  return (
+    <main className="w-full">
+      <MangaLibraryProvider>{children}</MangaLibraryProvider>
+    </main>
+  );
 }

@@ -25,7 +25,7 @@ export default function GenreBadges({
   return (
     <>
       {genres.map((e) => (
-        <Link href={`/genre/${e.toLowerCase()}`} key={e}>
+        <Link href={`/genre/${e.toLowerCase().split(" ").join("-")}`} key={e}>
           <Chip
             label={e}
             size={size}
