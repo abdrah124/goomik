@@ -65,8 +65,6 @@ export default function Page() {
   const [selectedEditId, setSelectedEditId] = useState("");
   const selectedUser = users?.find((user) => user.id === selectedEditId);
 
-  const [showAddForm, setShowAddForm] = useState(false);
-
   const [selectRole, setSelectRole] = useState<"admin" | "user" | "">("");
   const [editName, setEditName] = useState("");
 
@@ -119,7 +117,7 @@ export default function Page() {
     mutate(id, {
       onSuccess: () => {
         snackMessage("Account successfully deleted", 3000);
-        queryClient.invalidateQueries(["Users"]);
+        queryClient.invalidateQueries({ queryKey: ["Users"] });
       },
       onError: (err: any) => {
         snackMessage("Something went wrong!", 3000);
@@ -181,7 +179,7 @@ export default function Page() {
       {
         onSuccess: () => {
           snackMessage("User detail successfully edited!", 3000);
-          queryClient.invalidateQueries(["Users"]);
+          queryClient.invalidateQueries({ queryKey: ["Users"] });
           setSelectedEditId("");
         },
         onError: () => {

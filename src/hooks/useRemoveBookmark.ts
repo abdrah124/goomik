@@ -15,7 +15,7 @@ export default function useRemoveBookmark(bookmarkId: string) {
           throw new Error(err);
         }),
     onSuccess: (data, ctx) => {
-      queryClient.invalidateQueries(["libItems", me?.id]);
+      queryClient.invalidateQueries({ queryKey: ["libItems", me?.id] });
     },
   });
 

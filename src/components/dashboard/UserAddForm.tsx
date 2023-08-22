@@ -63,7 +63,7 @@ export default function UserAddForm() {
     addUser(data, {
       onSuccess: () => {
         snackMessage("User successfully added", 3000);
-        queryClient.invalidateQueries(["Users"]);
+        queryClient.invalidateQueries({ queryKey: ["Users"] });
         setOpen(false);
       },
       onError: (error: any) => {

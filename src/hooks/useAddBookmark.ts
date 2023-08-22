@@ -13,7 +13,7 @@ export default function useAddBookmark() {
           throw new Error(err);
         }),
     onSuccess: (data, ctx) => {
-      queryClient.invalidateQueries(["libItems", ctx.userId]);
+      queryClient.invalidateQueries({ queryKey: ["libItems", ctx.userId] });
     },
   });
 
