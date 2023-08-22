@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props) {
   const { data: mangaDetails } = await getMangaDetail(params.mangaId);
 
   return {
-    title: mangaChapter?.title,
+    title: `Gooscans - ${mangaChapter?.title}`,
     description: mangaDetails?.description,
     keywords: [
       `${mangaChapter?.title}`,
