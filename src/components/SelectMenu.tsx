@@ -47,7 +47,8 @@ export default function SelectMenu({ items }: { items: MangaChapterFull[] }) {
         }}
         sx={{
           zIndex: 200,
-          maxWidth: 280,
+          maxWidth: 400,
+          width: "100%",
         }}
         anchorEl={anchorEl}
         open={open}
