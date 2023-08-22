@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Gooscans",
   description: "read manhwa, manga, manhua, all genres, fast update here",
   viewport: "initial-scale=1, width=device-width",
-  verification: { google: "mPTi6uZ_aDDAMsAsKdO5l1CJe98B29ReLAcxtWHm3_I" },
+  verification: { google: "z9QEFO5sgneeoND4FrViJ0h-9IQQ9fZ6xIR8SN7kI0U" },
 
   openGraph: {
     title: "Gooscans",
