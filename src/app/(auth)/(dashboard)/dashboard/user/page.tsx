@@ -1,8 +1,6 @@
 "use client";
-import { useShowSnackbar } from "@/components/SnackMessage";
 import Title from "@/components/dashboard/Title";
 import UserAddForm from "@/components/dashboard/UserAddForm";
-import { config } from "@/lib/config";
 import { Cancel, Delete, Edit, Search } from "@mui/icons-material";
 import {
   Avatar,
@@ -26,45 +24,20 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
-import { $Enums } from "@prisma/client";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useConfirm } from "material-ui-confirm";
-
-interface User {
-  id: string;
-  email: string | null;
-  emailVerified: string | null;
-  name: string | null;
-  image: string | null;
-  hashedPassword: string | null;
-  createdAt: Date;
-  updatedAt: Date;
-  role: $Enums.Role;
-}
-
-type Users = User[];
+import {
+  useMutateDeleteUserDashboard,
+  useMutateEditUserDashboard,
+} from "@/hooks/reactquery/mutation";
+import { useGetAllUsers } from "@/hooks/reactquery/query";
 
 export default function Page() {
   const confirm = useConfirm();
-  const {
-    data: users,
-    isLoading,
-    isSuccess,
-  } = useQuery<Users>({
-    queryKey: ["Users"],
-    queryFn: () =>
-      axios
-        .get(`${config.baseWebUrl}/api/auth/account/all`)
-        .then((res) => res.data)
-        .catch((err) => Promise.reject(err)),
-    refetchOnWindowFocus: false,
-  });
+  const { data: users, isLoading, isSuccess } = useGetAllUsers();
   const [searchInput, setSearchInput] = useState("");
   const [selectedEditId, setSelectedEditId] = useState("");
   const selectedUser = users?.find((user) => user.id === selectedEditId);
-
   const [selectRole, setSelectRole] = useState<"admin" | "user" | "">("");
   const [editName, setEditName] = useState("");
 
@@ -75,35 +48,10 @@ export default function Page() {
     }
   }, [selectedUser]);
 
-  const queryClient = useQueryClient();
-  const snackMessage = useShowSnackbar();
+  const { mutate: editUser, isLoading: loadEditUser } =
+    useMutateEditUserDashboard();
 
-  const { mutate: editUser, isLoading: loadEditUser } = useMutation({
-    mutationFn: (data: {
-      id: string;
-      username: string;
-      role: "admin" | "user";
-    }) =>
-      axios
-        .patch(`${config.baseWebUrl}/api/auth/account/${data.id}`, {
-          username: data.username,
-          role: data.role,
-        })
-        .then((res) => res.data)
-        .catch((err) => {
-          throw new Error(err);
-        }),
-  });
-
-  const { mutate, isLoading: loadDelete } = useMutation({
-    mutationFn: (id: string) =>
-      axios
-        .delete(`${config.baseWebUrl}/api/auth/account/${id}`)
-        .then((res) => res.data)
-        .catch((err) => {
-          throw new Error(err);
-        }),
-  });
+  const { mutate, isLoading: loadDelete } = useMutateDeleteUserDashboard();
 
   const handleDelete = async (id: string) => {
     await confirm({
@@ -114,15 +62,7 @@ export default function Page() {
       cancellationButtonProps: { variant: "outlined" },
       confirmationButtonProps: { color: "error", variant: "contained" },
     });
-    mutate(id, {
-      onSuccess: () => {
-        snackMessage("Account successfully deleted", 3000);
-        queryClient.invalidateQueries({ queryKey: ["Users"] });
-      },
-      onError: (err: any) => {
-        snackMessage("Something went wrong!", 3000);
-      },
-    });
+    mutate(id);
   };
 
   const handleEdit = (id: string) => {
@@ -178,12 +118,7 @@ export default function Page() {
       { username: editName, role: selectRole as "admin" | "user", id },
       {
         onSuccess: () => {
-          snackMessage("User detail successfully edited!", 3000);
-          queryClient.invalidateQueries({ queryKey: ["Users"] });
           setSelectedEditId("");
-        },
-        onError: () => {
-          snackMessage("Something went wrong!", 3000);
         },
       }
     );

@@ -1,9 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
-import axios from "axios";
 import { useShowSnackbar } from "@/components/SnackMessage";
-import { config } from "@/lib/config";
 import {
   Button,
   IconButton,
@@ -14,11 +12,11 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import { useMutation } from "react-query";
 import { useParams, useRouter } from "next/navigation";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { NewPasswordSchema } from "@/models/validationTypeSchema";
 import { newPasswordSchema } from "@/models/validationSchema";
+import { useEditAccountPaswordByToken } from "@/hooks/reactquery/mutation";
 
 export default function Page() {
   const [showPassword, setShowPassword] = useState(false);
@@ -32,16 +30,8 @@ export default function Page() {
   } = useForm<NewPasswordSchema>({
     resolver: zodResolver(newPasswordSchema),
   });
-  const { mutateAsync, isLoading, isError, error } = useMutation({
-    mutationFn: (data: any) =>
-      axios
-        .patch(
-          `${config.baseWebUrl}/api/auth/resetpassword/${params.token}`,
-          data
-        )
-        .then((res) => res.data)
-        .catch((err) => Promise.reject(err)),
-  });
+  const { mutateAsync, isLoading, isError, error } =
+    useEditAccountPaswordByToken(params.token as string);
   const snackMessage = useShowSnackbar();
 
   const onSubmit: SubmitHandler<NewPasswordSchema> = async (data) => {

@@ -7,25 +7,22 @@ import NewBadge from "@/components/NewBadge";
 import SearchCard from "@/components/SearchCard";
 import SearchCardSkeleton from "@/components/SearchCardSkeleton";
 import { useGetLibraryItems } from "@/context/Library";
-import { config } from "@/lib/config";
 import { sortArray } from "@/lib/sortArray";
-import { MangaDetailFull } from "@/models/manga";
 import { GridView, List } from "@mui/icons-material";
 import {
   Divider,
   IconButton,
   InputBase,
   Paper,
-  Stack,
   Typography,
   alpha,
   styled,
 } from "@mui/material";
 import React, { useState } from "react";
-import { useQuery } from "react-query";
 import SearchIcon from "@mui/icons-material/Search";
 import SyncItemButton from "@/components/SyncItemButton";
 import BookmarkGridLayout from "@/components/layout/BookmarkGridLayout";
+import { useGetMangaDetail } from "@/hooks/reactquery/query";
 
 const Search = styled("form")(({ theme }) => ({
   position: "relative",
@@ -69,23 +66,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const useGetLibraryItem = (id: string) => {
-  const query = useQuery<MangaDetailFull>({
-    queryKey: ["Library Items", id],
-    queryFn: () =>
-      fetch(`${config.baseWebUrl}/api/manga/${id}`)
-        .then((res) => res.json())
-        .then((res) => res.data),
-    refetchOnWindowFocus: false,
-    retry: 1,
-    enabled: id !== "",
-    staleTime: 3600,
-  });
-  return query;
-};
-
 function LibraryCard({ id }: { id: string }) {
-  const { data, isLoading, isError, isSuccess } = useGetLibraryItem(id);
+  const { data, isLoading, isError, isSuccess } = useGetMangaDetail(id);
 
   if (isLoading) return <SearchCardSkeleton />;
   if (isError) return null;
@@ -111,7 +93,7 @@ function LibraryCard({ id }: { id: string }) {
 }
 
 function MangaLibraryCard({ id }: { id: string }) {
-  const { data, isLoading, isError, isSuccess } = useGetLibraryItem(id);
+  const { data, isLoading, isError, isSuccess } = useGetMangaDetail(id);
 
   if (isLoading) return <CardSkeleton />;
   if (isError) return null;

@@ -1,5 +1,4 @@
 "use client";
-import { config } from "@/lib/config";
 import { Add, Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Button,
@@ -8,18 +7,15 @@ import {
   InputAdornment,
   Modal,
   Paper,
-  Stack,
   TextField,
   Typography,
 } from "@mui/material";
-import axios from "axios";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "react-query";
-import { useShowSnackbar } from "../SnackMessage";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AddUserSchema } from "@/models/validationTypeSchema";
 import { addUserSchema } from "@/models/validationSchema";
+import { useAddUser } from "@/hooks/reactquery/mutation";
 
 const style = {
   position: "fixed",
@@ -30,9 +26,7 @@ const style = {
 
 export default function UserAddForm() {
   const [open, setOpen] = useState(false);
-  const snackMessage = useShowSnackbar();
   const [showPassword, setShowPassword] = useState(false);
-  const queryClient = useQueryClient();
 
   const {
     handleSubmit,
@@ -41,15 +35,7 @@ export default function UserAddForm() {
     register,
   } = useForm<AddUserSchema>({ resolver: zodResolver(addUserSchema) });
 
-  const { mutate: addUser, isLoading: loadAddUser } = useMutation({
-    mutationFn: (data: { name: string; email: string; password: string }) =>
-      axios
-        .post(`${config.baseWebUrl}/api/auth/register`, data)
-        .then((res) => res.data)
-        .catch((err) => {
-          throw new Error(err?.response?.data?.message);
-        }),
-  });
+  const { mutate: addUser, isLoading: loadAddUser } = useAddUser();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -62,12 +48,7 @@ export default function UserAddForm() {
   const onSubmit: SubmitHandler<AddUserSchema> = (data) => {
     addUser(data, {
       onSuccess: () => {
-        snackMessage("User successfully added", 3000);
-        queryClient.invalidateQueries({ queryKey: ["Users"] });
         setOpen(false);
-      },
-      onError: (error: any) => {
-        snackMessage(error?.toString() ?? "Something went wrong", 3000);
       },
     });
     reset();

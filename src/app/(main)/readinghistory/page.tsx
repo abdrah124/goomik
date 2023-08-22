@@ -3,13 +3,10 @@ import ReadingHistoryCard, {
   ReadingHistoryCardSkeleton,
 } from "@/components/ReadingHistoryCard";
 import HistoryGridLayout from "@/components/layout/GridLayout";
+import { useGetMangaDetail } from "@/hooks/reactquery/query";
 import useGetNormalHistory from "@/hooks/useGetNormalHistory";
-import { config } from "@/lib/config";
-import { MangaDetailFull, ReadingExtended } from "@/models/manga";
-import { Stack } from "@mui/material";
-import axios from "axios";
+import { ReadingExtended } from "@/models/manga";
 import React from "react";
-import { useQuery } from "react-query";
 
 function ReadingHistory({ history }: { history: ReadingExtended }) {
   const {
@@ -17,16 +14,7 @@ function ReadingHistory({ history }: { history: ReadingExtended }) {
     isSuccess,
     isError,
     isLoading,
-  } = useQuery<MangaDetailFull>({
-    queryKey: ["history", history?.mangaId],
-    queryFn: () =>
-      axios
-        .get(`${config.baseWebUrl}/api/manga/${history.mangaId}`)
-        .then((res) => res.data.data)
-        .catch((err) => {
-          throw new Error(err);
-        }),
-  });
+  } = useGetMangaDetail(history.mangaId);
 
   if (isLoading) return <ReadingHistoryCardSkeleton />;
 

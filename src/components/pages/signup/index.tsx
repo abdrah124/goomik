@@ -1,9 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
-import axios from "axios";
 import { useShowSnackbar } from "@/components/SnackMessage";
-import { config } from "@/lib/config";
 import {
   Button,
   FormControl,
@@ -22,11 +20,10 @@ import {
 } from "@mui/material";
 import LinkNext from "next/link";
 import React, { useState } from "react";
-import { useMutation } from "react-query";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { SignUpSchema } from "@/models/validationTypeSchema";
 import { signUpSchema } from "@/models/validationSchema";
-import { Metadata } from "next";
+import { useRegisterAccount } from "@/hooks/reactquery/mutation";
 
 export default function SignUpPage() {
   const theme = useTheme();
@@ -39,24 +36,10 @@ export default function SignUpPage() {
   } = useForm<SignUpSchema>({
     resolver: zodResolver(signUpSchema),
   });
-  const { mutate, isLoading } = useMutation({
-    mutationFn: (data: any) =>
-      axios
-        .post(`${config.baseWebUrl}/api/auth/register`, data)
-        .then((res) => res.data)
-        .catch((err) => {
-          throw new Error(err?.response?.data?.message);
-        }),
-  });
-  const snackMessage = useShowSnackbar();
+  const { mutate, isLoading } = useRegisterAccount();
 
   const onSubmit: SubmitHandler<SignUpSchema> = (data) => {
-    mutate(data, {
-      onSuccess: () => snackMessage("Account successfully registered", 3000),
-      onError: (error: any) => {
-        snackMessage(error?.toString() ?? "Something went wrong", 3000);
-      },
-    });
+    mutate(data);
   };
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);

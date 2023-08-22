@@ -1,4 +1,5 @@
 "use client";
+import { useGetUserBookmarks } from "@/hooks/reactquery/query";
 import useGetMe from "@/hooks/useGetMe";
 import { config } from "@/lib/config";
 import axios from "axios";
@@ -66,21 +67,7 @@ export function MangaLibraryProvider({
   const me = useGetMe();
   const [libraryIds, setLibraryIds] = useState<string[]>([]);
 
-  const { data: savedLibIds } = useQuery<{
-    bookmarks: {
-      comicId: string;
-    }[];
-  } | null>({
-    queryKey: ["libItems", me?.id],
-    queryFn: () =>
-      axios
-        .get(`${config.baseWebUrl}/api/bookmark/${me?.id}`)
-        .then((res) => res.data)
-        .catch((err) => {
-          throw new Error(err);
-        }),
-    enabled: me?.id !== null,
-  });
+  const { data: savedLibIds } = useGetUserBookmarks(me?.id);
 
   useEffect(() => {
     const items: string[] = JSON.parse(localStorage.getItem("library") || "[]");

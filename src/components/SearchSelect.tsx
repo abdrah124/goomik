@@ -1,5 +1,4 @@
 "use client";
-import { useQuery } from "react-query";
 import {
   Box,
   CircularProgress,
@@ -11,13 +10,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import React from "react";
-import { config } from "@/lib/config";
-import {
-  MangaDetailSimplified,
-  PagingObject,
-  ResponseObject,
-} from "@/models/manga";
-const { baseWebUrl } = config;
+import { useGetSearchResult } from "@/hooks/reactquery/query";
 
 export default function SearchSelect({
   input,
@@ -31,17 +24,7 @@ export default function SearchSelect({
     isLoading,
     isSuccess,
     isError,
-  } = useQuery<ResponseObject<PagingObject<MangaDetailSimplified[]>>>({
-    queryKey: ["Search Results", input],
-    queryFn: () =>
-      fetch(`${baseWebUrl}/api/search?q=${input.trim()}`, {
-        next: { revalidate: 3600 },
-      })
-        .then((res) => res.json())
-        .catch((err) => Promise.reject(err)),
-    retry: 0,
-    enabled: input.length > 0,
-  });
+  } = useGetSearchResult(input);
 
   if (!input) return "";
 

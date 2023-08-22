@@ -1,14 +1,12 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
-import axios from "axios";
 import { useShowSnackbar } from "@/components/SnackMessage";
-import { config } from "@/lib/config";
 import { Button, Paper, Stack, TextField, Typography } from "@mui/material";
 import React from "react";
-import { useMutation } from "react-query";
 import { ResetPasswordSchema } from "@/models/validationTypeSchema";
 import { resetPasswordSchema } from "@/models/validationSchema";
+import { useSendTokenPasswordResetByEmail } from "@/hooks/reactquery/mutation";
 
 export default function ResetPasswordPage() {
   const {
@@ -18,15 +16,7 @@ export default function ResetPasswordPage() {
   } = useForm<ResetPasswordSchema>({
     resolver: zodResolver(resetPasswordSchema),
   });
-  const { mutate, isLoading } = useMutation({
-    mutationFn: (data: any) =>
-      axios
-        .post(`${config.baseWebUrl}/api/auth/resetpassword`, data)
-        .then((res) => res.data)
-        .catch((err) => {
-          throw new Error(err?.response?.data?.message);
-        }),
-  });
+  const { mutate, isLoading } = useSendTokenPasswordResetByEmail();
   const snackMessage = useShowSnackbar();
 
   const onSubmit: SubmitHandler<ResetPasswordSchema> = (data) => {
