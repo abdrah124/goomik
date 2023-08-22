@@ -11,7 +11,7 @@ import { ResetPasswordSchema } from "@/models/validationTypeSchema";
 import { resetPasswordSchema } from "@/models/validationSchema";
 import { Metadata } from "next";
 
-export const metaData: Metadata = {
+export const metadata: Metadata = {
   title: "Account - Reset Password",
   description: "Reset your password account",
 };

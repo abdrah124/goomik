@@ -6,7 +6,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
 
-export const metaData: Metadata = {
+export const metadata: Metadata = {
   title: "Gooscans - Genre",
   description:
     "Search your favorite comic , manga, manhwa, manhua by genre here",

@@ -4,7 +4,7 @@ import ClearHistoryBtn from "./ClearHistoryBtn";
 import ReadingHistoryProvider from "@/context/ReadingHistoryContext";
 import { Metadata } from "next";
 
-export const metaData: Metadata = {
+export const metadata: Metadata = {
   title: "Gooscans - Reading History",
   description: "Search your manga, manhua, manhwa, by reading history here",
 };

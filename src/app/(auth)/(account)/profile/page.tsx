@@ -6,7 +6,7 @@ import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import React from "react";
 
-export const metaData: Metadata = {
+export const metadata: Metadata = {
   title: "Account - Profile",
   description: "Account profile information",
 };

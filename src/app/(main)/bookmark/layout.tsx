@@ -3,7 +3,7 @@ import { Typography } from "@mui/material";
 import { Metadata } from "next";
 import React from "react";
 
-export const metaData: Metadata = {
+export const metadata: Metadata = {
   title: "Gooscans - Bookmark",
   description: "Your saved or bookmarked comic, manhwa, manga",
 };
