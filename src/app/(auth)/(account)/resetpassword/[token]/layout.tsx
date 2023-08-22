@@ -3,6 +3,12 @@ import { Alert, AlertTitle } from "@mui/material";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import React from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Account - Reset Password",
+  description: "Reset your password account",
+};
 
 export default async function Layout({
   children,
