@@ -6,6 +6,17 @@ import { MangaDetailSimplified } from "@/models/manga";
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { genreId: string };
+}) {
+  return {
+    title: `Genre - ${params.genreId}`,
+    description: `Comic, manhwa, manhua, manga, genre ${params.genreId}`,
+  };
+}
+
 export default async function Page({
   params,
   searchParams,

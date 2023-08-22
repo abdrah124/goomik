@@ -81,8 +81,7 @@ export function MangaLibraryProvider({
         }),
     enabled: me?.id !== null,
   });
-  console.log(me);
-  console.log(savedLibIds);
+
   useEffect(() => {
     const items: string[] = JSON.parse(localStorage.getItem("library") || "[]");
 

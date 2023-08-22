@@ -16,23 +16,10 @@ import axios from "axios";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
-import { z } from "zod";
 import { useShowSnackbar } from "../SnackMessage";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-const validationSchema = z.object({
-  name: z
-    .string()
-    .min(4, { message: "Name must be at least 4 words or higher" })
-    .max(30, { message: "Name must be lower than 30 words" }),
-  email: z.string().email({ message: "Please enter a valid email address" }),
-  password: z
-    .string()
-    .min(8, { message: "Name must be at least 4 characters or higher" })
-    .max(30, { message: "Password must be lower than 30 characters" }),
-});
-
-type ValidationSchema = z.infer<typeof validationSchema>;
+import { AddUserSchema } from "@/models/validationTypeSchema";
+import { addUserSchema } from "@/models/validationSchema";
 
 const style = {
   position: "fixed",
@@ -52,7 +39,7 @@ export default function UserAddForm() {
     reset,
     formState: { errors },
     register,
-  } = useForm<ValidationSchema>({ resolver: zodResolver(validationSchema) });
+  } = useForm<AddUserSchema>({ resolver: zodResolver(addUserSchema) });
 
   const { mutate: addUser, isLoading: loadAddUser } = useMutation({
     mutationFn: (data: { name: string; email: string; password: string }) =>
@@ -72,7 +59,7 @@ export default function UserAddForm() {
     event.preventDefault();
   };
 
-  const onSubmit: SubmitHandler<ValidationSchema> = (data) => {
+  const onSubmit: SubmitHandler<AddUserSchema> = (data) => {
     addUser(data, {
       onSuccess: () => {
         snackMessage("User successfully added", 3000);

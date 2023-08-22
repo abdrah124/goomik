@@ -3,7 +3,7 @@ import { useShowSnackbar } from "@/components/SnackMessage";
 import Title from "@/components/dashboard/Title";
 import UserAddForm from "@/components/dashboard/UserAddForm";
 import { config } from "@/lib/config";
-import { Add, Cancel, Delete, Edit, Search } from "@mui/icons-material";
+import { Cancel, Delete, Edit, Search } from "@mui/icons-material";
 import {
   Avatar,
   Box,

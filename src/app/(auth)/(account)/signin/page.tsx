@@ -21,18 +21,18 @@ import {
 } from "@mui/material";
 import LinkNext from "next/link";
 import React, { useEffect, useState } from "react";
-import { z } from "zod";
 import { signIn, useSession } from "next-auth/react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { SignInSchema } from "@/models/validationTypeSchema";
+import { signInSchema } from "@/models/validationSchema";
+import { Metadata } from "next";
 
-const validationSchema = z.object({
-  email: z.string().email({ message: "Please enter a valid email address" }),
-  password: z.string(),
-});
-
-type ValidationSchema = z.infer<typeof validationSchema>;
+export const metaData: Metadata = {
+  title: "Account - Sign In",
+  description: "Sign in to your account",
+};
 
 export default function Page() {
   const theme = useTheme();
@@ -51,13 +51,13 @@ export default function Page() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ValidationSchema>({
-    resolver: zodResolver(validationSchema),
+  } = useForm<SignInSchema>({
+    resolver: zodResolver(signInSchema),
   });
 
   const snackMessage = useShowSnackbar();
 
-  const onSubmit: SubmitHandler<ValidationSchema> = async (data) => {
+  const onSubmit: SubmitHandler<SignInSchema> = async (data) => {
     try {
       setIsLoading(true);
       const response = await signIn("credentials", {

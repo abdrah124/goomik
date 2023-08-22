@@ -1,9 +1,15 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import LogoutBtn from "@/components/LogoutBtn";
 import { Avatar, Grid, Stack, Typography } from "@mui/material";
+import { Metadata } from "next";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import React from "react";
+
+export const metaData: Metadata = {
+  title: "Account - Profile",
+  description: "Account profile information",
+};
 
 export default async function Page() {
   const session = await getServerSession(authOptions);

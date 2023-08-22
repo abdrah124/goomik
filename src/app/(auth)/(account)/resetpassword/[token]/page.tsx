@@ -15,24 +15,10 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
-import { z } from "zod";
 import { useParams, useRouter } from "next/navigation";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-
-const validationSchema = z
-  .object({
-    newPassword: z
-      .string()
-      .min(8, { message: "Name must be at least 4 characters or higher" })
-      .max(30, { message: "Password must be lower than 30 characters" }),
-    confirmNewPassword: z.string(),
-  })
-  .refine((val) => val.confirmNewPassword === val.newPassword, {
-    message: "Password don't match",
-    path: ["confirmNewPassword"],
-  });
-
-type ValidationSchema = z.infer<typeof validationSchema>;
+import { NewPasswordSchema } from "@/models/validationTypeSchema";
+import { newPasswordSchema } from "@/models/validationSchema";
 
 export default function Page() {
   const [showPassword, setShowPassword] = useState(false);
@@ -43,8 +29,8 @@ export default function Page() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ValidationSchema>({
-    resolver: zodResolver(validationSchema),
+  } = useForm<NewPasswordSchema>({
+    resolver: zodResolver(newPasswordSchema),
   });
   const { mutateAsync, isLoading, isError, error } = useMutation({
     mutationFn: (data: any) =>
@@ -58,7 +44,7 @@ export default function Page() {
   });
   const snackMessage = useShowSnackbar();
 
-  const onSubmit: SubmitHandler<ValidationSchema> = async (data) => {
+  const onSubmit: SubmitHandler<NewPasswordSchema> = async (data) => {
     try {
       await mutateAsync(data);
       if (isError) throw new Error("");

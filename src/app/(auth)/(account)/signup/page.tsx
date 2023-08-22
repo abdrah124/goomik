@@ -23,28 +23,15 @@ import {
 import LinkNext from "next/link";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
-import { z } from "zod";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { SignUpSchema } from "@/models/validationTypeSchema";
+import { signUpSchema } from "@/models/validationSchema";
+import { Metadata } from "next";
 
-const validationSchema = z
-  .object({
-    name: z
-      .string()
-      .min(4, { message: "Name must be at least 4 words or higher" })
-      .max(30, { message: "Name must be lower than 30 words" }),
-    email: z.string().email({ message: "Please enter a valid email address" }),
-    password: z
-      .string()
-      .min(8, { message: "Name must be at least 4 characters or higher" })
-      .max(30, { message: "Password must be lower than 30 characters" }),
-    confirm: z.string(),
-  })
-  .refine((data) => data.password === data.confirm, {
-    message: "Password don't match",
-    path: ["confirm"],
-  });
-
-type ValidationSchema = z.infer<typeof validationSchema>;
+export const metaData: Metadata = {
+  title: "Account - SIgn Up",
+  description: "Create or register your account",
+};
 
 export default function Page() {
   const theme = useTheme();
@@ -54,8 +41,8 @@ export default function Page() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ValidationSchema>({
-    resolver: zodResolver(validationSchema),
+  } = useForm<SignUpSchema>({
+    resolver: zodResolver(signUpSchema),
   });
   const { mutate, isLoading } = useMutation({
     mutationFn: (data: any) =>
@@ -68,7 +55,7 @@ export default function Page() {
   });
   const snackMessage = useShowSnackbar();
 
-  const onSubmit: SubmitHandler<ValidationSchema> = (data) => {
+  const onSubmit: SubmitHandler<SignUpSchema> = (data) => {
     mutate(data, {
       onSuccess: () => snackMessage("Account successfully registered", 3000),
       onError: (error: any) => {

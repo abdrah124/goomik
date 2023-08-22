@@ -4,31 +4,25 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { useShowSnackbar } from "@/components/SnackMessage";
 import { config } from "@/lib/config";
-import {
-  Button,
-  Paper,
-  Stack,
-  TextField,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Button, Paper, Stack, TextField, Typography } from "@mui/material";
 import React from "react";
 import { useMutation } from "react-query";
-import { z } from "zod";
+import { ResetPasswordSchema } from "@/models/validationTypeSchema";
+import { resetPasswordSchema } from "@/models/validationSchema";
+import { Metadata } from "next";
 
-const validationSchema = z.object({
-  email: z.string().email({ message: "Please enter a valid email address" }),
-});
-
-type ValidationSchema = z.infer<typeof validationSchema>;
+export const metaData: Metadata = {
+  title: "Account - Reset Password",
+  description: "Reset your password account",
+};
 
 export default function Page() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ValidationSchema>({
-    resolver: zodResolver(validationSchema),
+  } = useForm<ResetPasswordSchema>({
+    resolver: zodResolver(resetPasswordSchema),
   });
   const { mutate, isLoading } = useMutation({
     mutationFn: (data: any) =>
@@ -41,7 +35,7 @@ export default function Page() {
   });
   const snackMessage = useShowSnackbar();
 
-  const onSubmit: SubmitHandler<ValidationSchema> = (data) => {
+  const onSubmit: SubmitHandler<ResetPasswordSchema> = (data) => {
     mutate(data, {
       onError: (error: any) => {
         snackMessage(error?.toString() ?? "Something went wrong", 3000);

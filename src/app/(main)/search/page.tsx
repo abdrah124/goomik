@@ -1,13 +1,12 @@
 import MangaPagination from "@/components/MangaPagination";
 import SearchCard from "@/components/SearchCard";
-import BookmarkGridLayout from "@/components/layout/BookmarkGridLayout";
 import { getSearchResults } from "@/lib/getData";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: "Search",
+  title: "Gooscans - Search",
   description: "Search your manhwa, manga, manhua",
 };
 

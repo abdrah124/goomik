@@ -2,6 +2,7 @@ import React from "react";
 import { getMangaChapter, getMangaDetail } from "@/lib/getData";
 import { config } from "@/lib/config";
 import ChapterPage from "@/components/ChapterPage";
+import HistoryProvider from "./HistoryProvider";
 
 interface Props {
   params: { mangaId: string; chapterId: string };
@@ -41,5 +42,9 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default function Page({ params }: Props) {
-  return <ChapterPage {...params} />;
+  return (
+    <HistoryProvider>
+      <ChapterPage {...params} />
+    </HistoryProvider>
+  );
 }

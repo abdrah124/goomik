@@ -2,8 +2,15 @@ import BackToTopBtn from "@/components/BackToTopBtn";
 import GenreBadges from "@/components/GenreBadges";
 import { getGenreList } from "@/lib/getData";
 import { Divider, Stack, Typography, Paper } from "@mui/material";
+import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
+
+export const metaData: Metadata = {
+  title: "Gooscans - Genre",
+  description:
+    "Search your favorite comic , manga, manhwa, manhua by genre here",
+};
 
 export default async function Layout({
   children,

@@ -15,8 +15,6 @@ export default async function Page() {
     },
   });
 
-  console.log(usersLibrary);
-
   return (
     <Grid item xs={12}>
       <BookmarkPage usersLibrary={usersLibrary} />
