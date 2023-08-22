@@ -27,7 +27,7 @@ export default function SelectMenu({ items }: { items: MangaChapterFull[] }) {
   };
 
   return (
-    <div>
+    <>
       <Button
         id="select-button"
         aria-controls={open ? "select-menu" : undefined}
@@ -41,6 +41,9 @@ export default function SelectMenu({ items }: { items: MangaChapterFull[] }) {
         </Typography>
       </Button>
       <Menu
+        PaperProps={{
+          sx: { width: "100%" },
+        }}
         id="select-menu"
         MenuListProps={{
           "aria-labelledby": "select-button",
@@ -62,7 +65,7 @@ export default function SelectMenu({ items }: { items: MangaChapterFull[] }) {
             onClick={handleClose}
             component={Link}
             id={chapter?.id}
-            className="truncate max-w-full"
+            className="truncate"
             href={`/manga/${params.mangaId}/${chapter.id}`}
           >
             <Typography variant="inherit" paragraph noWrap sx={{ m: 0 }}>
@@ -71,6 +74,6 @@ export default function SelectMenu({ items }: { items: MangaChapterFull[] }) {
           </MenuItem>
         ))}
       </Menu>
-    </div>
+    </>
   );
 }
