@@ -11,7 +11,7 @@ import {
 import { clean } from "@/lib/clean";
 import { getPathname } from "@/lib/getPathname";
 const { baseScraptUrl, baseWebUrl } = config;
-export const dynamic = "force-dynamic";
+export const revalidate = 100;
 
 export async function GET(
   request: Request,
