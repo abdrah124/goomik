@@ -13,7 +13,7 @@ export default async function MangaList({
   title?: string;
 }) {
   const { data } = await getMangaByCategory(variant, Number(page), {
-    revalidate: 3600,
+    revalidate: 200,
   });
 
   if (data?.items?.length === 0) return null;
