@@ -11,6 +11,7 @@ import {
 } from "@/models/manga";
 import { getPathname } from "@/lib/getPathname";
 import { clean } from "@/lib/clean";
+import { puppeteerLaunch } from "@/lib/puppeteer";
 const { baseScraptUrl, baseWebUrl } = config;
 
 export async function GET(
@@ -29,7 +30,24 @@ export async function GET(
     );
 
     const $ = cheerio.load(html);
+    await puppeteerLaunch(async (pg, browser) => {
+      await pg.goto(
+        `${baseScraptUrl}/page/${page}/?s=${q}&post_type=wp-manga&m_orderby=${order_by}`
+      );
 
+      await pg.waitForSelector("div.search-wrap div.c-tabs-item");
+
+      const element = await pg.$$eval(
+        "div.col-4 > div.tab-thumb > a > img",
+        (images) => {
+          return images.map(
+            (image) =>
+              image.getAttribute("data-src") || image.getAttribute("src")
+          );
+        }
+      );
+      await browser.close();
+    });
     const container = $(
       "div.search-wrap > div.tab-content-wrap div.c-tabs-item"
     );
@@ -44,10 +62,7 @@ export async function GET(
       );
       const id = (getPathname(a.attr("href") as string) as string[])[2];
       const title = a.text();
-      const image =
-        $(el).find(
-          "div.col-4 > div.tab-thumb > a > img.img-responsive.wp-tangtoc-lazy.entered.gtloader"
-        ) || $(el).find("div.col-4 > div.tab-thumb > a > img.img-responsive");
+      const image = $(el).find("div.col-4 > div.tab-thumb > a > img");
 
       const post_content = $(el).find(
         "div.col-8 > div.tab-summary > div.post-content"
