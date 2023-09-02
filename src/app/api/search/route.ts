@@ -44,7 +44,9 @@ export async function GET(
       );
       const id = (getPathname(a.attr("href") as string) as string[])[2];
       const title = a.text();
-      const image = $(el).find("div.col-4 > div.tab-thumb > a > img");
+      const image = $(el).find(
+        "div.col-4 > div.tab-thumb > a > img.img-responsive"
+      );
       const post_content = $(el).find(
         "div.col-8 > div.tab-summary > div.post-content"
       );
