@@ -90,7 +90,7 @@ export async function GET(
         id,
         title,
         cover_image: {
-          src: image.attr("src") ?? "",
+          src: image.attr("data-src") ?? "",
           srcset: image.attr("srcset"),
           width: Number(image.attr("width")),
           height: Number(image.attr("height")),
